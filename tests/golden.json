@@ -1,0 +1,162 @@
+{
+ "default": {
+  "changes": {},
+  "result": {
+   "c_nozzle": 0.9345947546441467,
+   "supersaturation": 0.9876000314027796,
+   "half_life_nozzle": 449.3583701163304,
+   "strip_mean": 2.5426479077669954e-09,
+   "strip_min": 2.0620802231153278e-09,
+   "strip_max": 4.559209369259898e-09,
+   "nonuniformity": 0.49104894517967285,
+   "exhaust_ppm": 6.916222345213465,
+   "resist": 4.5008563017465555e-06,
+   "gas_exchange": -8.571319193806835e-06,
+   "edge": 1.028606465993364e-05,
+   "decomposed": 6.6287106166373125e-09,
+   "h_mid": 8.840928441021176e-05
+  }
+ },
+ "hot_process_gas": {
+  "changes": {
+   "T": 343.15,
+   "rpm": 1200.0,
+   "flow_lpm": 0.5,
+   "ambient": "process gas"
+  },
+  "result": {
+   "c_nozzle": 0.3097114108290623,
+   "supersaturation": 1.121424234142659,
+   "half_life_nozzle": 24.941436903344766,
+   "strip_mean": 2.4982434315183355e-09,
+   "strip_min": 2.1075449354780063e-09,
+   "strip_max": 4.050163540943313e-09,
+   "nonuniformity": 0.38879690044549786,
+   "exhaust_ppm": 0.0,
+   "resist": 4.430358579458526e-06,
+   "gas_exchange": 3.2956012417931964e-06,
+   "edge": 1.438062635121411e-06,
+   "decomposed": 8.108450788774251e-09,
+   "h_mid": 2.6465699314589043e-05
+  }
+ },
+ "cold_slow_200mm": {
+  "changes": {
+   "T": 288.15,
+   "rpm": 150.0,
+   "flow_lpm": 2.0,
+   "diameter": 0.2,
+   "pH": 4.0
+  },
+  "result": {
+   "c_nozzle": 0.9456895580297584,
+   "supersaturation": 0.7213784822089709,
+   "half_life_nozzle": 5639.434741855544,
+   "strip_mean": 1.44222308897476e-09,
+   "strip_min": 1.2710862744750688e-09,
+   "strip_max": 2.2874242897655144e-09,
+   "nonuniformity": 0.35235118029241047,
+   "exhaust_ppm": 2.6112592678885456,
+   "resist": 1.1344065819016835e-06,
+   "gas_exchange": -3.236150540814961e-06,
+   "edge": 2.715127507541014e-05,
+   "decomposed": 1.1530695318271768e-09,
+   "h_mid": 0.0003086422619374044
+  }
+ },
+ "pressurised_megasonic": {
+  "changes": {
+   "enhancement": 1.65,
+   "supply": {
+    "pressure": 250000.0,
+    "gas_g_per_Nm3": 300.0
+   }
+  },
+  "result": {
+   "c_nozzle": 3.349973601120555,
+   "supersaturation": 2.3599776032874282,
+   "half_life_nozzle": 129.42643556035313,
+   "strip_mean": 1.2068726598727056e-08,
+   "strip_min": 8.097694516458252e-09,
+   "strip_max": 2.2804528564665614e-08,
+   "nonuniformity": 0.6092951865260814,
+   "exhaust_ppm": 30.83741442700758,
+   "resist": 2.1348038840492657e-05,
+   "gas_exchange": -3.821700763401757e-05,
+   "edge": 2.411538186116163e-05,
+   "decomposed": 6.891169234206426e-08,
+   "h_mid": 8.840928441021176e-05
+  }
+ },
+ "fixed_nozzle": {
+  "changes": {
+   "nozzle_ppm": 80.0,
+   "T": 293.15,
+   "rpm": 110.0,
+   "flow_lpm": 1.4,
+   "diameter": 0.2
+  },
+  "result": {
+   "c_nozzle": 1.6667361140047503,
+   "supersaturation": 1.5005832926091929,
+   "half_life_nozzle": 430.28963538402456,
+   "strip_mean": 2.351347948847299e-09,
+   "strip_min": 2.0686303161779445e-09,
+   "strip_max": 3.7408595844200475e-09,
+   "nonuniformity": 0.3555894968802639,
+   "exhaust_ppm": 3.98159096745223,
+   "resist": 1.8494996100322771e-06,
+   "gas_exchange": -4.934411500640947e-06,
+   "edge": 3.207733368034943e-05,
+   "decomposed": 2.926453575484906e-08,
+   "h_mid": 0.00032304372166032
+  }
+ },
+ "bare_wafer": {
+  "changes": {
+   "resist": {
+    "k_wall_ref": 0.0
+   },
+   "rpm": 1000.0,
+   "ambient": "process gas"
+  },
+  "result": {
+   "c_nozzle": 0.9345947546441467,
+   "supersaturation": 0.9876000314027796,
+   "half_life_nozzle": 449.3583701163304,
+   "strip_mean": 0.0,
+   "strip_min": 0.0,
+   "strip_max": 0.0,
+   "exhaust_ppm": 0.0,
+   "resist": 0.0,
+   "gas_exchange": 1.3779520956129876e-07,
+   "edge": 2.3495082599721314e-05,
+   "decomposed": 7.581475943673917e-09,
+   "h_mid": 5.569435921728423e-05
+  }
+ },
+ "surface_rate": {
+  "changes": {
+   "resist": {
+    "k_wall_ref": 2e-05,
+    "Ea_wall": 30000.0
+   },
+   "T": 318.15
+  },
+  "result": {
+   "c_nozzle": 0.872371469575101,
+   "supersaturation": 1.6636113508976522,
+   "half_life_nozzle": 71.86289934818011,
+   "strip_mean": 1.1588657202831806e-09,
+   "strip_min": 9.459316933393312e-10,
+   "strip_max": 1.436171904774803e-09,
+   "nonuniformity": 0.21151726332696974,
+   "exhaust_ppm": 8.314434313752093,
+   "resist": 2.0499591194485682e-06,
+   "gas_exchange": -1.0304132351735418e-05,
+   "edge": 9.417121008270276e-06,
+   "decomposed": 3.807425992326503e-08,
+   "h_mid": 7.752875190625375e-05
+  }
+ }
+}
