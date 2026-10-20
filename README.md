@@ -1,4 +1,4 @@
-# Ozone water cleaning
+# Ozone wafer cleaning
 
 A process model of ozonated water (DIO3) for photoresist removal on a spinning wafer. It follows
 the ozone from the generator gas into the water, through the supply line and across the liquid
@@ -6,7 +6,7 @@ film into the resist, and gives the strip rate across the wafer, the uniformity,
 clear and where the ozone goes. It comes as a Python package (`dio3`) with tests, and as a
 single-page browser program with no server and no libraries that uses the same equations.
 
-**Open the program:** https://hashimishaque.com/ozone-water-cleaning/
+**Open the program:** https://hashimishaque.com/ozone-wafer-cleaning/
 
 ![Strip rate across a 300 mm wafer, the fate of the dissolved ozone, and the settings](screenshot.png)
 

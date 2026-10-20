@@ -17,8 +17,8 @@ figures = ["matplotlib"]
 test = ["pytest"]
 
 [project.urls]
-Homepage = "https://hashimishaque.com/ozone-water-cleaning/"
-Source = "https://github.com/hashimishaque-platform/ozone-water-cleaning"
+Homepage = "https://hashimishaque.com/ozone-wafer-cleaning/"
+Source = "https://github.com/hashimishaque-platform/ozone-wafer-cleaning"
 
 [tool.setuptools]
 packages = ["dio3"]

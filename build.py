@@ -16,8 +16,8 @@ here = Path(__file__).resolve().parent
 
 # ---- search engines and link previews (full page only) ----
 META = {
-    'repo': 'ozone-water-cleaning',
-    'name': 'Ozone water cleaning',
+    'repo': 'ozone-wafer-cleaning',
+    'name': 'Ozone wafer cleaning',
     'title': 'Ozonated water resist strip calculator | Hashim Ishaque',
     'headline': 'Ozonated water for photoresist removal: a process model',
     'description': ('Ozonated water (DIO3) for photoresist removal on a spinning wafer: ozone solubility and decay, '
