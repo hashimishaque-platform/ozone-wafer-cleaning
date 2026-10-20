@@ -1,0 +1,187 @@
+# Ozone water cleaning
+
+A process model of ozonated water (DIO3) for photoresist removal on a spinning wafer. It follows
+the ozone from the generator gas into the water, through the supply line and across the liquid
+film into the resist, and gives the strip rate across the wafer, the uniformity, the time to
+clear and where the ozone goes. It comes as a Python package (`dio3`) with tests, and as a
+single-page browser program with no server and no libraries that uses the same equations.
+
+**Open the program:** https://hashimishaque.com/ozone-water-cleaning/
+
+![Strip rate across a 300 mm wafer, the fate of the dissolved ozone, and the settings](screenshot.png)
+
+## About the data
+
+This is a theoretical model built from published equations and data, each cited below. The
+checks compare it with published values and with exact solutions. How much resist a given amount
+of ozone removes depends on the resist, so that one number is calibrated against published strip
+rates and can be calibrated to your own measurements. No measured data, and no data from any
+research centre or company process, were used.
+
+## What it covers
+
+**Chemistry**
+- Ozone solubility from Henry's law: 1.0 × 10⁻⁴ mol m⁻³ Pa⁻¹ at 25 °C with d ln H / d(1/T) = 2800 K
+  (Burkholder et al. 2019, listed by Sander 2023).
+- Self-decomposition: −d[O₃]/dt = k₁[O₃] + k₂[O₃]², with the slow first-order decay in acid from
+  De Smedt et al. (2002) and the hydroxide-driven decay near neutral pH from Ershov and Morozov
+  (2009), with their activation energies.
+- The Staehelin-Hoigné-Bühler radical mechanism (rate constants compiled by Lesko 2004, two from
+  Buxton et al. 1988), to show why pH, carbonate and hydrogen peroxide change the life of ozone.
+- The pH of ultrapure water holding CO₂.
+
+**Engineering**
+- Generator gas and contactor (any fraction of equilibrium, any pressure), decay in the supply
+  line, and supersaturation when the water is warmer at the nozzle than in the contactor.
+- The film on the spinning wafer, h = (3νQ / 2πω²r²)^(1/3) (Emslie, Bonner and Peck 1958).
+- Ozone transport across the film, marched outward from the nozzle in 48 stream tubes, with decay
+  in the water, uptake at the resist and exchange with the gas above (fresh air, or a chamber
+  filled with process gas). The ozone balance closes to rounding error.
+- A mass-transfer factor for megasonic agitation.
+
+**Process**
+- Strip-rate profile, mean, range and non-uniformity; time to clear the slowest point.
+- Ozone used per wafer and the share that reaches the resist; ozone released into the chamber
+  and its concentration in the exhaust, next to the OSHA and NIOSH limits for workplace air.
+- The process window over temperature and spin speed, and the temperature at which the strip
+  rate peaks when ozone is dissolved cold and heated on the way.
+
+**Test rig**
+- The piping and instruments of a bench that measures every number the model uses or predicts,
+  with its parts, materials and safety interlocks.
+- Sizing for the current settings: the ozone made, dissolved and sent to the destruct; the ozone
+  in the exhaust and in the drain, with and without resist; the UV absorbance at the nozzle; the
+  resistivity that goes with the pH; the decay time; when to stop a partial strip.
+- A test plan in four stages, and a two-level design of 16 runs plus 4 centre points for the strip
+  tests, with the model's prediction for each run.
+
+![Piping and instruments of the test rig](rig.svg)
+
+## Python
+
+Needs Python 3.9 or newer with NumPy and SciPy (Matplotlib for the example, pytest for the tests).
+
+```
+python3 -m dio3                                         # the default room-temperature process
+python3 -m dio3 --t 70 --rpm 1200 --flow 0.5 --ambient "process gas"
+python3 -m dio3 --help
+python3 -m pytest -q                                    # 19 checks
+python3 examples/process_window.py                      # process_window.png
+```
+
+```python
+from dio3 import Process, simulate
+
+r = simulate(Process(T=298.15, rpm=500, flow_lpm=1.5))
+print(r['strip_mean'] * 6e10, 'nm/min')     # m/s to nm/min
+print(r['budget'])                          # where the dissolved ozone goes, mol/s
+
+from dio3.carbonate import resistivity_co2, co2_pressure_for_ph
+print(resistivity_co2(4.9), 'MOhm cm')      # resistivity meter reading for pH 4.9 set with CO2
+print(co2_pressure_for_ph(4.9), 'Pa')       # CO2 partial pressure that gives that pH
+```
+
+## Checks
+
+`python3 -m pytest -q` runs these, and the page shows them with their numbers:
+
+| Check | Expected | This model |
+|---|---|---|
+| Ozone water from 9 wt % ozone gas at 1 atm and 25 °C (mg/L) | 10 to 30 typical (Abe et al. 2003) | 30.1 |
+| Ozone solubility at 5 °C divided by that at 25 °C | 1.85 (NEC patent US 6,559,064) | 1.96 |
+| pH of ultrapure water in contact with air | about 5.6 (De Smedt et al. 2002) | 5.60 |
+| Resistivity of ultrapure water at 25 °C (MΩ cm) | 18.19 (Light et al. 2005) | 18.23 |
+| Ozone half-life at pH 2.5, room temperature, 10 mg/L (h) | 3 to 4 (De Smedt et al. 2002) | 3.1 |
+| Half-life at pH 7, 20 °C: rate law and radical mechanism (min) | 11.6 (rate law) | 7.4 (mechanism, air-level carbonate) |
+| Film thickness at 75 mm, 1.5 L/min, 500 rpm, 25 °C (µm) | 88.5 (Lepehin and Riabchuk) | 88.4 |
+| Well-mixed film with first-order decay: ozone left at the edge | 0.995337 (exact) | 0.995335 |
+| Mean ozone flux to the resist, normal grid against 4 times finer grid | same | −0.1 % |
+| Ozone balance on the wafer | 0 | 5 × 10⁻¹⁶ |
+| Strip rate at 100, 500 and 1000 rpm (nm/min) | rises with spin speed | 51, 102, 133 |
+| Strip rate at 10, 25 and 60 °C with the same 30 ppm (nm/min) | rises with temperature | 76, 102, 159 |
+| Strip rate at 60 ppm divided by that at 30 ppm | about 2 (transport-limited) | 2.000 |
+
+Water density and viscosity are checked against the CRC Handbook, the ozone diffusivity against
+the Stokes-Einstein relation, and the browser version against the Python package
+(`python3 -m tests.golden && node crosscheck.js`; they agree to about 10⁻¹⁵).
+
+## Calibration
+
+The strip rate is the ozone flux into the resist multiplied by the resist volume removed per mole
+of ozone. Three published room-temperature results give that yield once the settings they do not
+report are assumed (`dio3/calibration.py`):
+
+| Source | Published | Implied g of ozone per g of resist |
+|---|---|---|
+| Abe et al. (2003) | about 100 nm/min with 10 to 30 ppm | 0.76 |
+| NEC patent US 6,559,064 | about 300 nm/min with 100 ppm on a rotating wafer | 1.05 to 1.62 |
+| Dussault, Fittkau and Gottschalk | 279 nm/min at 80 ppm, 20 °C, 110 rpm, 1.4 L/min with megasonics (over 65 % faster than without) | 0.83 |
+
+The default is 1.0 g/g. `calibration.fit_yield()` and the Resist box on the page calibrate it to
+your own measurements.
+
+## Files
+
+| File | Contents |
+|---|---|
+| `dio3/` | The Python package: `properties.py` (water and ozone), `decomposition.py` (rate law), `mechanism.py` (radical chain), `carbonate.py` (pH with CO₂), `supply.py`, `film.py` (film flow and transport), `resist.py`, `process.py`, `calibration.py`, and the command line in `__main__.py` |
+| `tests/` | The checks (`test_model.py`) and the cases for the browser cross-check (`golden.py`, `golden.json`, `golden_functions.json`) |
+| `examples/process_window.py` | The process window with Matplotlib |
+| `model.js` | The browser version of the model |
+| `template.html` | The page around it: text, figures and form |
+| `rig.py`, `rig.svg` | Draws Figure 7, the test rig; the page includes `rig.svg` |
+| `make_data.py` | Writes `checks.json` and `mechanism.json`, which the page shows |
+| `build.py` | Puts the page together: `python3 build.py` writes `index.html` |
+| `crosscheck.js` | Compares `model.js` with the Python package |
+| `screenshot.png`, `social.png` | Screenshot for this README, and the preview image shown when the page is shared |
+
+## Limitations
+
+- The film is a steady, smooth, laminar film; inertia near the centre and waves are left out, and
+  the zone under the nozzle (r < 10 mm) is not modelled.
+- Water and wafer are at one temperature; a heated wafer under cooler water is not modelled.
+- The nozzle is fixed at the centre; swinging nozzles, sprays and immersion are not modelled.
+- The decay law covers pH 2 to 8 and about 10 to 70 °C; organic acids from the resist, which can
+  scavenge radicals, are ignored.
+- One calibrated yield describes the resist; implanted or hard-baked resists strip differently.
+- Bubbles in supersaturated water are flagged but not modelled. UV-assisted chemistry is not
+  included.
+
+See `ROADMAP.md` for what comes next.
+
+## References
+
+- Abe, H., Iwamoto, H., Toshima, T., Iino, T. and Gale, G. W. (2003). Novel photoresist stripping using ozone/vaporized water mixture. IEEE Trans. Semicond. Manuf. 16, 401-408.
+- Bader, H. and Hoigné, J. (1981). Determination of ozone in water by the indigo method. Water Res. 15, 449-456.
+- Bergman, E. J. and Hess, M. P. US Patent 6,267,125 B1 (priority 1997): processing the surface of a workpiece with ozone.
+- Bhatelia, T. J., Utikar, R. P., Pareek, V. K. and Tade, M. O. (2009). Characterizing liquid film thickness in spinning disc reactors. 7th Int. Conf. on CFD in the Minerals and Process Industries, Melbourne.
+- Bühler, R. E., Staehelin, J. and Hoigné, J. (1984). Ozone decomposition in water studied by pulse radiolysis. J. Phys. Chem. 88, 2560-2564.
+- Burkholder, J. B. et al. (2019). Chemical kinetics and photochemical data for use in atmospheric studies, Evaluation No. 19. JPL Publication 19-5.
+- Buxton, G. V., Greenstock, C. L., Helman, W. P. and Ross, A. B. (1988). J. Phys. Chem. Ref. Data 17, 513-886.
+- Chen, J.-W. (2002). The study of photoresist removal mechanism by ozone. MSc thesis, National Chiao Tung University.
+- De Smedt, F., De Gendt, S., Claes, M., Heyns, M. M., Vankerckhoven, H. and Vinckier, C. (2002). The increasing importance of the use of ozone in the microelectronics industry. Ozone Sci. Eng. 24, 379-390.
+- Dussault, D., Fittkau, J. and Gottschalk, C. Megasonic enhanced photoresist strip with DiO₃. ProSys Inc. and ASTeX GmbH.
+- Emslie, A. G., Bonner, F. T. and Peck, L. G. (1958). Flow of a viscous liquid on a rotating disk. J. Appl. Phys. 29, 858-862.
+- Ershov, B. G. and Morozov, P. A. (2009). The kinetics of ozone decomposition in water, the influence of pH and temperature. Russ. J. Phys. Chem. A 83, 1295-1299.
+- Gottschalk, C. and Schweckendiek, J. (2004). Using dissolved ozone in semiconductor cleaning applications. MICRO, March 2004.
+- Gurol, M. D. and Singer, P. C. (1982). Kinetics of ozone decomposition: a dynamic approach. Environ. Sci. Technol. 16, 377-383.
+- Haynes, W. M. (ed.) (2016). CRC Handbook of Chemistry and Physics, 97th ed. CRC Press.
+- ISA (2009). ANSI/ISA-5.1-2009, Instrumentation symbols and identification. International Society of Automation.
+- Johnson, P. N. and Davis, R. A. (1996). Diffusivity of ozone in water. J. Chem. Eng. Data 41, 1485-1487.
+- Kell, G. S. (1975). J. Chem. Eng. Data 20, 97-105.
+- Kestin, J., Sokolov, M. and Wakeham, W. A. (1978). J. Phys. Chem. Ref. Data 7, 941-948.
+- Lesko, T. M. (2004). Chemical effects of acoustic cavitation. PhD thesis, California Institute of Technology.
+- Levanov, A. V., Isaikina, O. Ya., Tyutyunnik, A. N., Antipenko, E. E. and Lunin, V. V. (2016). Molar absorption coefficient of ozone in aqueous solutions. J. Anal. Chem. 71, 549-553.
+- Light, T. S., Licht, S., Bevilacqua, A. C. and Morash, K. R. (2005). The fundamental conductivity and resistivity of water. Electrochem. Solid-State Lett. 8, E16-E19.
+- NIOSH Pocket Guide to Chemical Hazards: Ozone. https://www.cdc.gov/niosh/npg/npgd0476.html
+- Proc. SPIE 6283, 62830B (2006). Sulfate-free photomask cleaning technology.
+- Sander, R. (2023). Compilation of Henry's law constants (version 5.0.0) for water as solvent. Atmos. Chem. Phys. 23, 10901-12440.
+- SEMI S2. Environmental, health, and safety guideline for semiconductor manufacturing equipment. SEMI.
+- Shimizu, Y. (NEC). US Patent 6,559,064 B1 (priority 1999): removing photoresist on a semiconductor wafer.
+- Staehelin, J. and Hoigné, J. (1982). Decomposition of ozone in water: rate of initiation by hydroxide ions and hydrogen peroxide. Environ. Sci. Technol. 16, 676-681.
+- Stumm, W. and Morgan, J. J. (1996). Aquatic Chemistry, 3rd ed. Wiley.
+
+## License
+
+The code is MIT licensed, see `LICENSE`. The literature values are taken from the sources above;
+please cite them if you use them.
