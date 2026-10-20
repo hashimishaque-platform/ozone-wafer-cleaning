@@ -1,0 +1,202 @@
+<svg id="fig7" class="plot wide" viewBox="0 0 1080 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piping and instruments of the test rig" font-family="'Times New Roman', Times, 'Liberation Serif', serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000000"/></marker></defs>
+<rect x="0" y="0" width="1080" height="620" fill="#ffffff"/>
+<rect x="14" y="40" width="30" height="62" rx="11" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="29.0" y="75.0" font-size="12" text-anchor="middle">O₂</text>
+<text x="29" y="118" font-size="11" text-anchor="middle">oxygen</text>
+<path d="M44,70 L72,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="72" y="60" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="90.0" y="74.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M90,45 L90,60" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="90" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="90" y="29" font-size="10" text-anchor="middle">FIC</text>
+<text x="90" y="40" font-size="10" text-anchor="middle">101</text>
+<path d="M108,70 L138,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="138" y="44" width="112" height="52" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="194.0" y="66.5" font-size="13" text-anchor="middle">Ozone</text>
+<text x="194.0" y="81.5" font-size="13" text-anchor="middle">generator</text>
+<path d="M166,116 L166,97" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M222,96 L222,115" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<text x="194" y="130" font-size="11" text-anchor="middle">cooling water</text>
+<polygon points="262,37 271,46 262,55 253,46" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="262" y="50" font-size="11" text-anchor="middle">I</text>
+<path d="M250,70 L322,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<path d="M292,45 L292,70" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="292" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="292" y="29" font-size="10" text-anchor="middle">AIT</text>
+<text x="292" y="40" font-size="10" text-anchor="middle">102</text>
+<polygon points="322,62 322,78 332,70" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="342,62 342,78 332,70" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="322,62 322,78 332,70" fill="#000000"/>
+<text x="332" y="92" font-size="10.5" text-anchor="middle">check valve</text>
+<path d="M342,70 L440,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<path d="M390,70 L390,62" stroke="#000000" stroke-width="1" fill="none"/>
+<polygon points="382,42 398,42 390,52" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="382,62 398,62 390,52" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<text x="390" y="34" font-size="10.5" text-anchor="middle">PSV</text>
+<circle cx="440" cy="70" r="2.6" fill="#000000"/>
+<path d="M440,70 L440,199" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M440,70 L602,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="602" y="60" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="620.0" y="74.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M620,45 L620,60" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="620" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="620" y="29" font-size="10" text-anchor="middle">FIC</text>
+<text x="620" y="40" font-size="10" text-anchor="middle">104</text>
+<path d="M638,70 L1010,70 L1010,299" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="820" y="62" font-size="11" text-anchor="middle" font-style="italic">ozone gas to the chamber (option)</text>
+<rect x="405" y="200" width="70" height="220" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<line x1="429" y1="212" x2="429" y2="408" stroke="#888888" stroke-width="0.8"/>
+<line x1="440" y1="212" x2="440" y2="408" stroke="#888888" stroke-width="0.8"/>
+<line x1="451" y1="212" x2="451" y2="408" stroke="#888888" stroke-width="0.8"/>
+<path d="M417,396 L417,222" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M463,222 L463,396" stroke="#000000" stroke-width="1" stroke-dasharray="4 3" fill="none" marker-end="url(#ar)"/>
+<text x="440" y="438" font-size="12" text-anchor="middle">membrane</text>
+<text x="440" y="452" font-size="12" text-anchor="middle">contactor</text>
+<path d="M475,400 L490,400" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<polygon points="490,392 490,408 500,400" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="510,392 510,408 500,400" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<path d="M500,425 L500,408" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="500" cy="440" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="500" y="439" font-size="10" text-anchor="middle">PIC</text>
+<text x="500" y="450" font-size="10" text-anchor="middle">103</text>
+<path d="M510,400 L620,400 L620,559" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="16" y="410" font-size="11" text-anchor="start">ultrapure</text>
+<text x="16" y="423" font-size="11" text-anchor="start">water</text>
+<path d="M16,390 L70,390" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="70" y="372" width="50" height="36" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="394.0" font-size="12" text-anchor="middle">CO₂</text>
+<text x="95" y="424" font-size="11" text-anchor="middle">CO₂ contactor</text>
+<rect x="80" y="228" width="30" height="56" rx="11" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="260.0" font-size="12" text-anchor="middle">CO₂</text>
+<path d="M95,284 L95,304" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="77" y="304" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="318.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M127,314 L113,314" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="142" cy="314" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="142" y="313" font-size="10" text-anchor="middle">FIC</text>
+<text x="142" y="324" font-size="10" text-anchor="middle">201</text>
+<path d="M95,324 L95,371" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M120,390 L200,390" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M165,367 L165,390" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="165" cy="352" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="165" y="351" font-size="10" text-anchor="middle">AIT</text>
+<text x="165" y="362" font-size="10" text-anchor="middle">202</text>
+<rect x="200" y="374" width="54" height="32" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<polyline points="206.0,390.0 209.5,381.0 216.5,399.0 223.5,381.0 230.5,399.0 237.5,381.0 244.5,399.0 248.0,390.0" stroke="#000000" stroke-width="1" fill="none"/>
+<path d="M227,355 L227,374" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="227" cy="340" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="227" y="339" font-size="10" text-anchor="middle">TIC</text>
+<text x="227" y="350" font-size="10" text-anchor="middle">203</text>
+<text x="227" y="422" font-size="11" text-anchor="middle">chiller</text>
+<path d="M254,390 L404,390" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<path d="M475,230 L522,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M500,207 L500,230" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="500" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="500" y="191" font-size="10" text-anchor="middle">AIT</text>
+<text x="500" y="202" font-size="10" text-anchor="middle">204</text>
+<rect x="522" y="220" width="38" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="541.0" y="234.0" font-size="10" text-anchor="middle">LFC</text>
+<path d="M541,171 L541,220" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="541" cy="156" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="541" y="155" font-size="10" text-anchor="middle">FIC</text>
+<text x="541" y="166" font-size="10" text-anchor="middle">205</text>
+<path d="M560,230 L582,230" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="582" y="214" width="52" height="32" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<polyline points="588.0,230.0 591.3,221.0 598.0,239.0 604.7,221.0 611.3,239.0 618.0,221.0 624.7,239.0 628.0,230.0" stroke="#000000" stroke-width="1" fill="none"/>
+<path d="M608,207 L608,214" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="608" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="608" y="191" font-size="10" text-anchor="middle">TIC</text>
+<text x="608" y="202" font-size="10" text-anchor="middle">206</text>
+<text x="608" y="262" font-size="11" text-anchor="middle">heater</text>
+<path d="M634,230 L652,230" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="652" y="212" width="18" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<path d="M661,212 L661,190" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="667" y="184" font-size="10.5" text-anchor="start">vent to destruct</text>
+<text x="661" y="268" font-size="11" text-anchor="middle">bubble trap</text>
+<path d="M670,230 L688,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M688,230 c6,-14 12,-14 12,0 c6,14 12,14 12,0 c6,-14 12,-14 12,0 c6,14 12,14 12,0" stroke="#000000" stroke-width="2" fill="none"/>
+<text x="712" y="254" font-size="11" text-anchor="middle">supply line</text>
+<path d="M736,230 L790,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M752,230 L752,244" stroke="#000000" stroke-width="1" fill="none"/>
+<polygon points="744,244 760,244 752,254" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="744,264 760,264 752,254" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<text x="752" y="280" font-size="10.5" text-anchor="middle">SP</text>
+<path d="M768,207 L768,230" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="768" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="768" y="191" font-size="10" text-anchor="middle">AIT</text>
+<text x="768" y="202" font-size="10" text-anchor="middle">207</text>
+<polygon points="790,222 790,238 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="810,222 810,238 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="792,246 808,246 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<path d="M810,230 L930,230 L930,350" stroke="#000000" stroke-width="2" fill="none"/>
+<polygon points="923,349 937,349 930,362" fill="#000000"/>
+<path d="M800,246 L800,519" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<rect x="820" y="300" width="240" height="180" fill="none" stroke="#000000" stroke-width="1.2"/>
+<polyline points="848,338 834,348 834,466 1046,466 1046,348 1032,338" fill="none" stroke="#000000" stroke-width="1.2"/>
+<rect x="850" y="381" width="160" height="4" fill="#9ab0d8"/>
+<rect x="850" y="385" width="160" height="4" fill="#000000"/>
+<rect x="918" y="389" width="24" height="28" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<line x1="930" y1="417" x2="930" y2="500" stroke="#000000" stroke-width="3"/>
+<rect x="906" y="500" width="48" height="30" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="930.0" y="519.0" font-size="13" text-anchor="middle">M</text>
+<path d="M971,515 L954,515" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="986" cy="515" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="986" y="514" font-size="10" text-anchor="middle">SIC</text>
+<text x="986" y="525" font-size="10" text-anchor="middle">301</text>
+<path d="M948,375 L994,375" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M912,375 L866,375" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<text x="1028" y="380" font-size="11" text-anchor="middle">film</text>
+<text x="1028" y="395" font-size="11" text-anchor="middle">wafer</text>
+<path d="M873,300 L873,338" stroke="#000000" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<rect x="858" y="338" width="30" height="14" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="878" y="318" font-size="10.5" text-anchor="start">megasonic</text>
+<text x="878" y="330" font-size="10.5" text-anchor="start">(option)</text>
+<text x="1050" y="318" font-size="11" text-anchor="end">spin</text>
+<text x="1050" y="330" font-size="11" text-anchor="end">chamber</text>
+<circle cx="1046" cy="258" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1046" y="257" font-size="10" text-anchor="middle">AIT</text>
+<text x="1046" y="268" font-size="10" text-anchor="middle">401</text>
+<polygon points="1069,227 1078,236 1069,245 1060,236" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1069" y="240" font-size="11" text-anchor="middle">I</text>
+<text x="1046" y="290" font-size="10.5" text-anchor="middle">ambient</text>
+<path d="M842,466 L842,519" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<path d="M857,500 L842,500" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="872" cy="500" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="872" y="499" font-size="10" text-anchor="middle">AIT</text>
+<text x="872" y="510" font-size="10" text-anchor="middle">302</text>
+<rect x="760" y="520" width="90" height="36" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="805.0" y="542.0" font-size="11" text-anchor="middle">drain tank</text>
+<path d="M760,545 L732,545" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<text x="728" y="549" font-size="11" text-anchor="end">to drain</text>
+<path d="M1032,466 L1032,580 L701,580" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M1047,505 L1032,505" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="1062" cy="505" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1062" y="504" font-size="10" text-anchor="middle">FT</text>
+<text x="1062" y="515" font-size="10" text-anchor="middle">303</text>
+<path d="M1047,545 L1032,545" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="1062" cy="545" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1062" y="544" font-size="10" text-anchor="middle">AIT</text>
+<text x="1062" y="555" font-size="10" text-anchor="middle">304</text>
+<rect x="580" y="560" width="120" height="40" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="640.0" y="577.5" font-size="11" text-anchor="middle">Ozone destruct</text>
+<text x="640.0" y="590.5" font-size="11" text-anchor="middle">heated catalyst</text>
+<path d="M580,580 L548,580" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="544" y="584" font-size="11" text-anchor="end">to house exhaust</text>
+<rect x="14" y="470" width="400" height="140" fill="#ffffff" stroke="#808080" stroke-width="1"/>
+<path d="M26,490 L60,490" stroke="#000000" stroke-width="2" fill="none"/>
+<text x="66" y="494" font-size="11" text-anchor="start">water</text>
+<path d="M110,490 L144,490" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<text x="150" y="494" font-size="11" text-anchor="start">gas</text>
+<rect x="186" y="483" width="30" height="14" fill="#ffffff" stroke="#000000" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="222" y="494" font-size="11" text-anchor="start">option</text>
+<text x="282" y="494" font-size="11" text-anchor="start">SP sample port</text>
+<text x="26" y="514.0" font-size="11" text-anchor="start">Tags after ISA-5.1. First letter: A analysis (ozone, resistivity),</text>
+<text x="26" y="529.5" font-size="11" text-anchor="start">F flow, P pressure, S speed, T temperature. Then I indicate,</text>
+<text x="26" y="545.0" font-size="11" text-anchor="start">T transmit, C control. 1xx gas, 2xx water, 3xx chamber, 4xx safety.</text>
+<text x="44" y="560.5" font-size="11" text-anchor="start">Interlock: the generator stops and the ozone water valve shuts on</text>
+<text x="44" y="576.0" font-size="11" text-anchor="start">0.1 ppm ambient ozone (AIT-401), low exhaust flow (FT-303), open</text>
+<text x="44" y="591.5" font-size="11" text-anchor="start">lid, a leak in the drip tray, or low cooling water.</text>
+<polygon points="32,548 41,557 32,566 23,557" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="32" y="561" font-size="11" text-anchor="middle">I</text>
+</svg>

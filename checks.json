@@ -1,0 +1,156 @@
+[
+ {
+  "group": "Properties of water and ozone",
+  "label": "Density of water at 25 °C and 80 °C (kg/m³)",
+  "expected": "997.05 and 971.79",
+  "model": "997.04 and 971.80",
+  "source": "CRC Handbook; model: Kell (1975)"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "Viscosity of water at 25 °C and 80 °C (mPa s)",
+  "expected": "0.890 and 0.354",
+  "model": "0.890 and 0.355",
+  "source": "CRC Handbook; model: Kestin, Sokolov and Wakeham (1978)"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "Ozone water from 9 wt % ozone gas at 1 atm and 25 °C (mg/L)",
+  "expected": "10 to 30 typical",
+  "model": "30.1",
+  "source": "Abe et al. (2003); model: Henry's law, Burkholder et al. (2019)"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "Ozone solubility at 5 °C divided by that at 25 °C",
+  "expected": "1.85 (120 and 65 ppm)",
+  "model": "1.96",
+  "source": "NEC patent US 6,559,064, Fig. 6"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "Ozone diffusivity at 60 °C (10⁻⁹ m²/s)",
+  "expected": "4.05 by Stokes-Einstein from 25 °C",
+  "model": "3.71",
+  "source": "Johnson and Davis (1996) correlation"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "pH of ultrapure water in contact with air (420 ppm CO₂)",
+  "expected": "about 5.6",
+  "model": "5.60",
+  "source": "De Smedt et al. (2002)"
+ },
+ {
+  "group": "Properties of water and ozone",
+  "label": "Resistivity of ultrapure water at 25 °C (MΩ cm)",
+  "expected": "18.19",
+  "model": "18.23",
+  "source": "Light et al. (2005); model: limiting ionic conductivities"
+ },
+ {
+  "group": "Ozone decomposition",
+  "label": "Half-life at pH 2.5, room temperature, 10 mg/L (h)",
+  "expected": "3 to 4",
+  "model": "3.1",
+  "source": "De Smedt et al. (2002), pH 1.8 to 3"
+ },
+ {
+  "group": "Ozone decomposition",
+  "label": "Half-life at pH 6, 20 °C, 10 mg/L (min): rate law and radical mechanism with air-level carbonate",
+  "expected": "32.3 (rate law, Ershov and Morozov 2009)",
+  "model": "37.6 (mechanism)",
+  "source": "Mechanism: Staehelin, Hoigné and Bühler; constants as compiled by Lesko (2004)"
+ },
+ {
+  "group": "Ozone decomposition",
+  "label": "Half-life at pH 7, 20 °C, 10 mg/L (min): rate law and radical mechanism with air-level carbonate",
+  "expected": "11.6 (rate law, Ershov and Morozov 2009)",
+  "model": "7.4 (mechanism)",
+  "source": "Mechanism: Staehelin, Hoigné and Bühler; constants as compiled by Lesko (2004)"
+ },
+ {
+  "group": "Film on the spinning wafer",
+  "label": "Film thickness at r = 75 mm, 1.5 L/min, 500 rpm, 25 °C (µm)",
+  "expected": "88.5",
+  "model": "88.4",
+  "source": "Lepehin and Riabchuk (1975) correlation, in Bhatelia et al. (2009)"
+ },
+ {
+  "group": "Film on the spinning wafer",
+  "label": "Well-mixed film with first-order decay (k = 0.02 s⁻¹): ozone left at the edge",
+  "expected": "0.995337 (exact)",
+  "model": "0.995335",
+  "source": "Exact solution c = c₀ exp(−k τ)"
+ },
+ {
+  "group": "Film on the spinning wafer",
+  "label": "Mean ozone flux to the resist, normal grid against 4 times finer grid",
+  "expected": "same",
+  "model": "−0.1 %",
+  "source": "Grid convergence"
+ },
+ {
+  "group": "Film on the spinning wafer",
+  "label": "Ozone balance on the wafer (in = to resist + to gas + decomposed + off the edge)",
+  "expected": "0",
+  "model": "5e-16",
+  "source": "Conservation"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Mean strip rate at 100, 500 and 1000 rpm, 30 ppm, 25 °C (nm/min)",
+  "expected": "rises with spin speed",
+  "model": "51, 102, 133",
+  "source": "Dussault, Fittkau and Gottschalk: rpm is a large factor"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Mean strip rate at 10, 25 and 60 °C with the same 30 ppm (nm/min)",
+  "expected": "rises with temperature",
+  "model": "76, 102, 159",
+  "source": "Gottschalk and Schweckendiek (2004)"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Strip rate at 60 ppm divided by that at 30 ppm",
+  "expected": "about 2 (transport-limited)",
+  "model": "2.000",
+  "source": "Chen (2002); Gottschalk and Schweckendiek (2004)"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Ozone per gram of resist implied by Abe et al. 2003",
+  "expected": "1.0 (default)",
+  "model": "0.76",
+  "source": "Calibration: see the text"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Ozone per gram of resist implied by NEC US 6,559,064 (500 rpm, 1.5 L/min assumed)",
+  "expected": "1.0 (default)",
+  "model": "1.27",
+  "source": "Calibration: see the text"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Ozone per gram of resist implied by NEC US 6,559,064 (1000 rpm, 1.0 L/min assumed)",
+  "expected": "1.0 (default)",
+  "model": "1.62",
+  "source": "Calibration: see the text"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Ozone per gram of resist implied by NEC US 6,559,064 (300 rpm, 2.0 L/min assumed)",
+  "expected": "1.0 (default)",
+  "model": "1.05",
+  "source": "Calibration: see the text"
+ },
+ {
+  "group": "Strip rate",
+  "label": "Ozone per gram of resist implied by Dussault et al. (without megasonics)",
+  "expected": "1.0 (default)",
+  "model": "0.83",
+  "source": "Calibration: see the text"
+ }
+]

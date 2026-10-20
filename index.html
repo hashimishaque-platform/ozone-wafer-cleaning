@@ -1,0 +1,1734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ozonated water resist strip calculator | Hashim Ishaque</title>
+<meta name="description" content="Ozonated water (DIO3) for photoresist removal on a spinning wafer: ozone solubility and decay, film transport, strip rate, uniformity and ozone budget, from published data.">
+<meta name="author" content="Hashim Ishaque">
+<link rel="canonical" href="https://hashimishaque.com/ozone-water-cleaning/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hashim Ishaque">
+<meta property="og:title" content="Ozonated water for photoresist removal: a process model">
+<meta property="og:description" content="Ozonated water (DIO3) for photoresist removal on a spinning wafer: ozone solubility and decay, film transport, strip rate, uniformity and ozone budget, from published data.">
+<meta property="og:url" content="https://hashimishaque.com/ozone-water-cleaning/">
+<meta property="og:image" content="https://hashimishaque.com/ozone-water-cleaning/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Strip rate across a 300 mm wafer and the fate of the dissolved ozone in a single-wafer process">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://hashimishaque.com/ozone-water-cleaning/",
+   "url": "https://hashimishaque.com/ozone-water-cleaning/",
+   "name": "Ozonated water for photoresist removal: a process model",
+   "description": "Ozonated water (DIO3) for photoresist removal on a spinning wafer: ozone solubility and decay, film transport, strip rate, uniformity and ozone budget, from published data.",
+   "inLanguage": "en",
+   "isPartOf": {
+    "@id": "https://hashimishaque.com/#website"
+   },
+   "author": {
+    "@id": "https://hashimishaque.com/#person"
+   },
+   "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://hashimishaque.com/ozone-water-cleaning/social.png",
+    "width": 1200,
+    "height": 630
+   },
+   "about": [
+    {
+     "@type": "Thing",
+     "name": "Ozone",
+     "sameAs": "https://en.wikipedia.org/wiki/Ozone"
+    },
+    {
+     "@type": "Thing",
+     "name": "Photoresist",
+     "sameAs": "https://en.wikipedia.org/wiki/Photoresist"
+    },
+    {
+     "@type": "Thing",
+     "name": "Wafer cleaning",
+     "sameAs": "https://en.wikipedia.org/wiki/Wafer_cleaning"
+    },
+    {
+     "@type": "Thing",
+     "name": "Mass transfer",
+     "sameAs": "https://en.wikipedia.org/wiki/Mass_transfer"
+    }
+   ],
+   "keywords": "ozonated water, DIO3, photoresist strip, ozone solubility, ozone decomposition, wet cleaning, single-wafer, spin processor, mass transfer, semiconductor cleaning, test rig, design of experiments",
+   "breadcrumb": {
+    "@id": "https://hashimishaque.com/ozone-water-cleaning/#breadcrumb"
+   }
+  },
+  {
+   "@type": "SoftwareSourceCode",
+   "@id": "https://hashimishaque.com/ozone-water-cleaning/#code",
+   "name": "Ozone water cleaning",
+   "description": "Ozonated water (DIO3) for photoresist removal on a spinning wafer: ozone solubility and decay, film transport, strip rate, uniformity and ozone budget, from published data.",
+   "url": "https://hashimishaque.com/ozone-water-cleaning/",
+   "codeRepository": "https://github.com/hashimishaque-platform/ozone-water-cleaning",
+   "programmingLanguage": [
+    "Python",
+    "JavaScript"
+   ],
+   "runtimePlatform": "Web browser",
+   "license": "https://opensource.org/licenses/MIT",
+   "author": {
+    "@id": "https://hashimishaque.com/#person"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://hashimishaque.com/ozone-water-cleaning/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Hashim Ishaque",
+     "item": "https://hashimishaque.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Ozone water cleaning",
+     "item": "https://hashimishaque.com/ozone-water-cleaning/"
+    }
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://hashimishaque.com/#website",
+   "url": "https://hashimishaque.com/",
+   "name": "Hashim Ishaque"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://hashimishaque.com/#person",
+   "name": "Hashim Ishaque",
+   "url": "https://hashimishaque.com/",
+   "sameAs": [
+    "https://www.linkedin.com/in/hashimishaque/",
+    "https://github.com/hashimishaque-platform"
+   ]
+  }
+ ]
+}
+</script>
+<style>
+/* Plain academic page, same look as the other programs on hashimishaque.com: white paper, black text, blue links. */
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-soft: #333333;
+  --rule: #808080;
+  --link: #0000ee;
+  --link-visited: #551a8b;
+  --warn: #9a0000;
+  --serif: "Times New Roman", Times, "Liberation Serif", serif;
+}
+html { background: var(--paper); }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 0;
+  padding-block: 16px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 64em; }
+.text { max-width: 44em; }
+h1 { font-size: 1.6em; margin: 4px 0 8px 0; text-wrap: balance; }
+h2 { font-size: 1.25em; margin: 1.6em 0 0.5em 0; }
+h3 { font-size: 1.05em; margin: 1.1em 0 0.4em 0; }
+p { margin: 0 0 10px 0; }
+ul, ol { margin: 0 0 10px 0; padding-left: 1.4em; }
+li { margin-bottom: 6px; }
+a:link { color: var(--link); }
+a:visited { color: var(--link-visited); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5em 0 0.8em 0; }
+.small { font-size: 15px; color: var(--ink-soft); }
+.tool { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+.fig { flex: 1 1 480px; max-width: 680px; min-width: 0; }
+.side { flex: 1 1 280px; max-width: 26em; min-width: 0; }
+svg.plot { display: block; width: 100%; height: auto; max-width: 100%; border: 1px solid var(--rule); background: var(--paper); }
+.caption { font-size: 15px; margin: 6px 0 16px 0; }
+fieldset { margin: 0 0 12px 0; padding: 6px 10px 10px 10px; min-width: 0; border: 1px solid var(--rule); }
+legend { font-weight: bold; padding: 0 4px; }
+table.form { border-collapse: collapse; }
+table.form td { padding: 2px 8px 2px 0; vertical-align: middle; }
+input[type="number"] { width: 6em; font-size: 15px; font-family: var(--serif); }
+select { max-width: 100%; font-size: 15px; font-family: var(--serif); }
+select.wide { width: 100%; margin-top: 2px; }
+#ex { width: 100%; }
+button { font-size: 15px; font-family: var(--serif); }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
+table.data { border-collapse: collapse; margin: 6px 0 10px 0; font-size: 15px; font-variant-numeric: tabular-nums; }
+table.data th, table.data td { border: 1px solid var(--rule); padding: 2px 6px; text-align: right; vertical-align: top; }
+table.data th { font-weight: bold; }
+table.data th:first-child, table.data td:first-child { text-align: left; }
+table.data td.l, table.data th.l { text-align: left; }
+table.data.l th, table.data.l td { text-align: left; }
+svg.plot.wide { min-width: 900px; }
+.scroll { overflow-x: auto; max-width: 100%; }
+#notes p { margin: 0 0 6px 0; }
+.warn { color: var(--warn); }
+.eq { margin: 6px 0 10px 1.4em; }
+#status { font-size: 15px; color: var(--ink-soft); min-height: 1.2em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<p class="small"><a href="/">Hashim Ishaque</a> &gt; Ozone water cleaning</p>
+
+<h1>Ozonated water for photoresist removal: a process model</h1>
+<p class="text">
+This program models a single-wafer process in which ozonated water (DIO<sub>3</sub>) strips
+photoresist from a spinning wafer. It follows the ozone from the generator gas into the water,
+through the supply line and across the liquid film on the wafer into the resist. It shows how
+fast the resist strips across the wafer, where the ozone goes, and how temperature, spin speed,
+flow, pH and the gas above the film change the result. Choose an example or enter your own
+values and press Compute. The last part designs a test rig and a test plan to check the model on
+real wafers.
+</p>
+<p class="text">
+<b>About the data.</b> This is a theoretical model built from published equations and data,
+each cited below. The checks compare it with published values and with exact solutions. How
+much resist a given amount of ozone removes depends on the resist, so that one number is
+calibrated against published strip rates; with your own measurements you can calibrate it in
+the Resist box. No measured data, and no data from any research centre or company process, were
+used.
+</p>
+
+<hr>
+
+<div class="tool">
+  <div class="fig">
+    <svg id="fig1" class="plot" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Strip rate and film thickness across the wafer"></svg>
+    <p class="caption" id="cap1"></p>
+    <svg id="fig2" class="plot" viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Where the ozone goes"></svg>
+    <p class="caption" id="cap2"></p>
+    <svg id="fig3" class="plot" viewBox="0 0 640 352" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ozone across the liquid film"></svg>
+    <p class="caption" id="cap3"></p>
+  </div>
+
+  <div class="side">
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>Example</legend>
+        <select id="ex" aria-label="Example"></select>
+      </fieldset>
+      <fieldset>
+        <legend>Ozone supply</legend>
+        <table class="form">
+          <tr><td><label for="gas">Ozone in generator gas</label></td><td><input id="gas" type="number" step="10"></td><td>g/Nm³</td></tr>
+          <tr><td><label for="pres">Contactor pressure</label></td><td><input id="pres" type="number" step="0.1"></td><td>bar abs.</td></tr>
+          <tr><td><label for="tc">Contactor temperature</label></td><td><input id="tc" type="number" step="1"></td><td>°C</td></tr>
+          <tr><td><label for="appr">Approach to equilibrium</label></td><td><input id="appr" type="number" step="5"></td><td>%</td></tr>
+          <tr><td><label for="gf">Generator gas flow</label></td><td><input id="gf" type="number" step="0.5"></td><td>NL/min</td></tr>
+          <tr><td><label for="ll">Supply line length</label></td><td><input id="ll" type="number" step="1"></td><td>m</td></tr>
+          <tr><td><label for="ld">Line inner diameter</label></td><td><input id="ld" type="number" step="1"></td><td>mm</td></tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Water</legend>
+        <table class="form">
+          <tr><td><label for="tp">Process temperature</label></td><td><input id="tp" type="number" step="5"></td><td>°C</td></tr>
+          <tr><td><label for="ph">pH</label></td><td><input id="ph" type="number" step="0.1"></td><td></td></tr>
+        </table>
+        <p class="small" style="margin:4px 0 0 0">pH 5.6 is ultrapure water in contact with air; about 4.9 with 1 % CO₂ in the gas it meets. Range 2 to 8.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Spin process</legend>
+        <table class="form">
+          <tr><td colspan="3"><label for="sub">Substrate</label><br><select id="sub" class="wide">
+            <option value="300">300 mm wafer</option>
+            <option value="200">200 mm wafer</option>
+            <option value="150">150 mm wafer</option>
+            <option value="152">6-inch photomask (as a 152 mm disc)</option>
+          </select></td></tr>
+          <tr><td><label for="q">Flow</label></td><td><input id="q" type="number" step="0.1"></td><td>L/min</td></tr>
+          <tr><td><label for="rpm">Spin speed</label></td><td><input id="rpm" type="number" step="50"></td><td>rpm</td></tr>
+          <tr><td colspan="3"><label for="amb">Gas above the film</label><br><select id="amb" class="wide">
+            <option value="air">fresh air, no ozone</option>
+            <option value="process gas">chamber filled with the process gas</option>
+            <option value="custom">ozone in the chamber, set below</option>
+          </select></td></tr>
+          <tr><td><label for="ambppm">Ozone in the chamber</label></td><td><input id="ambppm" type="number" step="100"></td><td>ppmv</td></tr>
+          <tr><td><label for="enh">Mass-transfer factor</label></td><td><input id="enh" type="number" step="0.1"></td><td>× (megasonics)</td></tr>
+          <tr><td><label for="exh">Chamber exhaust</label></td><td><input id="exh" type="number" step="10"></td><td>m³/h</td></tr>
+        </table>
+      </fieldset>
+      <fieldset>
+        <legend>Resist</legend>
+        <table class="form">
+          <tr><td><label for="thk">Thickness</label></td><td><input id="thk" type="number" step="0.1"></td><td>µm</td></tr>
+          <tr><td><label for="dem">Ozone demand</label></td><td><input id="dem" type="number" step="0.1"></td><td>g O₃ per g</td></tr>
+          <tr><td><label for="meas">Your measured mean rate</label></td><td><input id="meas" type="number" step="10"></td><td>nm/min</td></tr>
+          <tr><td></td><td colspan="2"><button type="button" id="fit">Calibrate to this rate</button></td></tr>
+        </table>
+        <p class="small" style="margin:4px 0 0 0" id="fitnote">The default of 1.0 g of ozone per gram of resist fits published room-temperature strip rates (see Calibration below).</p>
+      </fieldset>
+      <p><button type="submit" id="go">Compute</button> <button type="button" id="reset">Reset</button></p>
+      <p id="status" aria-live="polite"></p>
+    </form>
+    <div class="scroll"><table class="data" id="results" aria-label="Results"></table></div>
+    <div id="notes"></div>
+  </div>
+</div>
+
+<h2>Process window</h2>
+<div class="tool">
+  <div class="fig">
+    <svg id="fig4" class="plot" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mean strip rate against temperature and spin speed"></svg>
+    <p class="caption" id="cap4"></p>
+  </div>
+  <div class="fig">
+    <svg id="fig5" class="plot" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ozone and strip rate against process temperature"></svg>
+    <p class="caption" id="cap5"></p>
+  </div>
+</div>
+
+<h2>How to read the results</h2>
+<div class="text">
+<p>
+<b>Figure 1</b> shows the strip rate across the wafer. It is highest near the centre, where fresh
+ozonated water meets the resist, and falls towards the edge because the film loses ozone on its
+way out, to the resist below and to the gas above. The region under the nozzle is not modelled.
+<b>Figure 2</b> follows the ozone: how much of the generator output dissolves, how much decays in
+the line, and how the dissolved ozone splits between the resist, the gas, decay in the film and
+the water that runs off the edge. <b>Figure 3</b> shows the ozone across the film at three radii:
+it is used up next to the wafer and lost at the free surface, so two thin boundary layers form
+and the middle of the film carries most of it outward.
+</p>
+<p>
+<b>Figure 4</b> maps the mean strip rate over process temperature and spin speed with all other
+settings fixed. Right of the dashed line the water at the nozzle is supersaturated. <b>Figure 5</b>
+shows the temperature trade-off for the current settings: warmer water carries ozone to the resist
+faster, but holds and keeps less of it.
+</p>
+</div>
+
+<h2>Chemistry</h2>
+<div class="text">
+<h3>Solubility</h3>
+<p>
+Ozone dissolves in water in proportion to its partial pressure (Henry's law). At 25 °C water holds
+1.0 × 10⁻⁴ mol/m³ for every pascal of ozone partial pressure, and about twice as much at 5 °C
+(Burkholder et al. 2019, as listed by Sander 2023):
+</p>
+<p class="eq">c = H(T) · y · p, &nbsp; H(298 K) = 1.0 × 10⁻⁴ mol m⁻³ Pa⁻¹, &nbsp; d ln H / d(1/T) = 2800 K</p>
+<p>
+where y is the ozone mole fraction in the gas and p the total pressure. Individual measurements
+scatter by about 20 % around this value. Gas with 200 g/Nm³ of ozone in oxygen (13 wt %) at 1 atm
+gives about 53 mg/L at 20 °C. A higher contactor pressure raises this in proportion; warmer water
+holds less.
+</p>
+<h3>Decay</h3>
+<p>
+Dissolved ozone decomposes on its own. In acidic water the decay is slow and first order:
+De Smedt et al. (2002) measured a half-life of 3 to 4 h at pH 1.8 to 3 and room temperature, with an
+activation energy of 39.6 kJ/mol. Near neutral pH hydroxide ions start a radical chain, and the
+decay becomes faster and of higher order in ozone (De Smedt et al. 2002; Gurol and Singer 1982).
+The program uses
+</p>
+<p class="eq">−d[O₃]/dt = k₁[O₃] + k₂[O₃]², &nbsp; k₂ = 10<sup>−2.66 + 0.49 pH</sup> L mol⁻¹ s⁻¹ at 19 °C</p>
+<p>
+with k₁ from De Smedt et al. and k₂ and its activation energy of 76 kJ/mol from Ershov and Morozov
+(2009). The two sources together cover pH 2 to 8.
+</p>
+<h3>The radical chain</h3>
+<p>
+Figure 6 compares this rate law with the Staehelin-Hoigné-Bühler mechanism (Staehelin and Hoigné
+1982; Bühler et al. 1984), using the rate constants compiled by Lesko (2004) and two from Buxton et
+al. (1988). Hydroxide ions start the chain (O₃ + OH⁻ → HO₂⁻ + O₂). Hydroperoxide reacts with ozone
+to give an OH radical and superoxide. Superoxide turns ozone into the ozonide radical, which takes
+up a proton and falls apart into another OH radical, and OH radicals destroy more ozone. Three
+consequences can be read from Figure 6:
+</p>
+<ul>
+<li>A lower pH slows the chain, which is one reason CO₂ is added to ultrapure water.</li>
+<li>Carbonate from dissolved CO₂ captures OH radicals and makes ozone last longer.</li>
+<li>Traces of hydrogen peroxide start the chain much faster, so ozone disappears within seconds to
+minutes.</li>
+</ul>
+<p>
+The mechanism agrees with the rate law only when the water holds about as much carbonate as water
+in contact with air. In perfectly degassed water it predicts a much shorter life.
+</p>
+<svg id="fig6" class="plot" viewBox="0 0 640 452" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Half-life of dissolved ozone against pH"></svg>
+<p class="caption" id="cap6"></p>
+<h3>Resist and silicon</h3>
+<p>
+Ozone breaks the resist into small organic acids: De Smedt et al. (2002) found acetate, formate,
+pyruvate, glyoxylate, oxalate and ketomalonate from an i-line resist. i-line resists strip faster
+than KrF resists, and ArF resists, which contain no phenol, slowest (Abe et al. 2003). On bare
+silicon, ozonated water grows a chemical oxide of 0.5 to 1.2 nm within 5 to 10 min even at a few
+mg/L; above about 20 mg/L more ozone does not make it thicker, and temperature between 20 and 50 °C
+changes it little (De Smedt et al. 2002). So the resist can be stripped without consuming silicon.
+Oxidation does not lift particles; they need a separate step.
+</p>
+</div>
+
+<h2>Engineering</h2>
+<div class="text">
+<h3>Supply</h3>
+<p>
+An ozone generator makes ozone from oxygen; generators reach about 300 g/m³, almost 15 % by volume
+(De Smedt et al. 2002). A contactor dissolves it into ultrapure water. The program assumes that the
+contactor reaches a chosen fraction of Henry's-law equilibrium. On the way to the nozzle the water
+is at the process temperature and ozone decays. If the water is warmer at the nozzle than in the
+contactor, it holds more ozone than it can keep at 1 atm. It is then supersaturated and loses
+ozone as bubbles or through its surface; the results table gives the ratio.
+</p>
+<h3>The film on the spinning wafer</h3>
+<p>
+A nozzle at the centre feeds the water onto the spinning wafer. Away from the centre the film is
+thin, and the centrifugal force balances viscous shear (Emslie, Bonner and Peck 1958):
+</p>
+<p class="eq">h(r) = (3νQ / 2πω²r²)<sup>1/3</sup>, &nbsp; u(r, z) = (ω²r / ν)(hz − z²/2)</p>
+<p>
+At 500 rpm and 1.5 L/min the film is about 90 µm thick at mid-radius of a 300 mm wafer. Near the
+centre inertia matters and real films are thicker; waves can make films up to about 40 % thicker
+than this (Bhatelia et al. 2009). The results table gives the ratio of inertial to viscous forces at
+mid-radius; it should be well below 1.
+</p>
+<h3>Ozone transport through the film</h3>
+<p>
+To react, ozone has to diffuse across the film to the resist. The program solves the convection
+and diffusion of ozone in the film, with decay in the water, consumption at the resist and
+exchange with the gas above. Because the velocity profile has the same shape at every radius, the
+streamlines lie at fixed fractions of the film thickness. The film is split into 48 stream tubes,
+and the equations are marched outward from the nozzle; the ozone balance closes to rounding error.
+The ozone diffusivity is 1.1 × 10⁻⁶ exp(−1896 K/T) m²/s (Johnson and Davis 1996), about
+1.9 × 10⁻⁹ m²/s at 25 °C.
+</p>
+<p>
+At the resist the default assumes every ozone molecule that arrives reacts: published work finds
+the strip rate limited by ozone transport, rising with concentration, spin speed and agitation
+(Gottschalk and Schweckendiek 2004; Chen 2002). At the free surface the water is in equilibrium
+with the gas above it. Faster spinning thins the film and both boundary layers, so more ozone
+reaches the resist, but more also escapes.
+</p>
+<h3>The gas above the film</h3>
+<p>
+With fresh air above the film a large part of the ozone escapes before it can react. Filling the
+chamber with ozone-containing gas keeps the surface of the film near saturation, so ozone diffuses
+through a thin, hot film to the resist instead of escaping. This is the idea behind processes that
+combine a thin water film with ozone gas (Bergman and Hess, US 6,267,125). Choose "process gas"
+above to see the effect.
+</p>
+<h3>Megasonics</h3>
+<p>
+Agitation thins the diffusion layer at the resist (Chen 2002). Dussault, Fittkau and Gottschalk
+measured strip rates over 65 % higher with megasonics than without. The program represents this
+with a single enhancement factor on the ozone diffusivity in the film.
+</p>
+</div>
+
+<h2>Process</h2>
+<div class="text">
+<p>
+<b>Temperature</b> has two opposite effects. Warmer water carries ozone to the resist faster, but
+it holds less ozone and loses it faster (Gottschalk and Schweckendiek 2004). At a fixed nozzle
+concentration the strip rate rises with temperature. When the ozone is dissolved cold and the water
+is heated on the way, the concentration at the nozzle falls as the temperature rises, so there is a
+best temperature (Figure 5).
+</p>
+<p>
+<b>Uniformity.</b> With a fixed nozzle at the centre, the centre strips faster than the edge. A
+nozzle that swings across the wafer evens this out; that is not modelled yet. The time to clear
+the resist is set by the slowest point.
+</p>
+<p>
+<b>Ozone use and safety.</b> The results table gives the ozone used per wafer and the share of it
+that reaches the resist. Ozone that escapes from the film, and the undissolved ozone from the
+contactor, must go through an ozone destruct unit. For comparison, the OSHA limit for workplace air
+is 0.1 ppm averaged over 8 h, the NIOSH ceiling is 0.1 ppm, and 5 ppm is immediately dangerous to
+life or health (NIOSH). The exhaust concentration on the page assumes the released ozone mixes
+into the stated exhaust flow.
+</p>
+<p>
+<b>Photomasks.</b> Mask cleaning has moved towards sulfate-free chemistry, because sulfate left by
+sulfuric-acid cleans can grow haze under 193 nm exposure (Proc. SPIE 6283, 2006); ozonated water is
+one of the sulfate-free options. The program treats a 6-inch mask as a disc of 152 mm; the corners
+of a square mask are not modelled.
+</p>
+</div>
+
+<h2 id="calibration">Calibration</h2>
+<div class="text">
+<p>
+The strip rate is the ozone flux into the resist multiplied by the resist volume removed per mole
+of ozone. That yield depends on the resist. Three published room-temperature results give it once
+the settings they do not report are assumed: Abe et al. (2003) report about 100 nm/min with 10 to
+30 ppm ozone water; the NEC patent US 6,559,064 reports about 300 nm/min with 100 ppm on a rotating
+wafer; Dussault, Fittkau and Gottschalk report 279 nm/min at 80 ppm, 20 °C, 110 rpm and 1.4 L/min
+with megasonics, which raised the rate by over 65 %. With a 200 mm wafer and typical spin settings
+these imply 0.8 to 1.6 g of ozone per gram of resist (table below). The default is 1.0 g/g. For
+your own resist, enter a measured mean strip rate and press "Calibrate to this rate".
+</p>
+</div>
+
+<h2 id="rig">Test rig</h2>
+<div class="text">
+<p>
+The model can be checked on a bench built around one spin chamber (Figure 7). The rig measures
+every number the model uses or predicts: the ozone in the generator gas; the dissolved ozone after
+the contactor, before the nozzle and in the drain; the ozone that escapes into the exhaust; the
+temperatures, flows and spin speed; and the resist thickness before and after each run. A
+production tool needs few of these sensors. The rig needs them all, so that each part of the model
+can be tested on its own and a disagreement points to one part.
+</p>
+<p>
+Ozone gas from the generator dissolves in a membrane contactor. A back-pressure regulator on the
+gas outlet sets the contactor pressure, and a chiller sets the water temperature there. The water
+then passes a flow controller, a heater that sets the process temperature, a bubble trap and a
+supply line of known length on its way to a fixed nozzle above the centre of the wafer. A three-way
+valve sends it to the drain until the ozone reading before the nozzle is steady. Ozone gas can also
+be fed into the chamber lid, which is the "process gas" setting of the model. Everything that can
+carry ozone gas ends in the destruct unit.
+</p>
+</div>
+<div class="scroll"><svg id="fig7" class="plot wide" viewBox="0 0 1080 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piping and instruments of the test rig" font-family="'Times New Roman', Times, 'Liberation Serif', serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000000"/></marker></defs>
+<rect x="0" y="0" width="1080" height="620" fill="#ffffff"/>
+<rect x="14" y="40" width="30" height="62" rx="11" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="29.0" y="75.0" font-size="12" text-anchor="middle">O₂</text>
+<text x="29" y="118" font-size="11" text-anchor="middle">oxygen</text>
+<path d="M44,70 L72,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="72" y="60" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="90.0" y="74.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M90,45 L90,60" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="90" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="90" y="29" font-size="10" text-anchor="middle">FIC</text>
+<text x="90" y="40" font-size="10" text-anchor="middle">101</text>
+<path d="M108,70 L138,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="138" y="44" width="112" height="52" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="194.0" y="66.5" font-size="13" text-anchor="middle">Ozone</text>
+<text x="194.0" y="81.5" font-size="13" text-anchor="middle">generator</text>
+<path d="M166,116 L166,97" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M222,96 L222,115" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<text x="194" y="130" font-size="11" text-anchor="middle">cooling water</text>
+<polygon points="262,37 271,46 262,55 253,46" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="262" y="50" font-size="11" text-anchor="middle">I</text>
+<path d="M250,70 L322,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<path d="M292,45 L292,70" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="292" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="292" y="29" font-size="10" text-anchor="middle">AIT</text>
+<text x="292" y="40" font-size="10" text-anchor="middle">102</text>
+<polygon points="322,62 322,78 332,70" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="342,62 342,78 332,70" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="322,62 322,78 332,70" fill="#000000"/>
+<text x="332" y="92" font-size="10.5" text-anchor="middle">check valve</text>
+<path d="M342,70 L440,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<path d="M390,70 L390,62" stroke="#000000" stroke-width="1" fill="none"/>
+<polygon points="382,42 398,42 390,52" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="382,62 398,62 390,52" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<text x="390" y="34" font-size="10.5" text-anchor="middle">PSV</text>
+<circle cx="440" cy="70" r="2.6" fill="#000000"/>
+<path d="M440,70 L440,199" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M440,70 L602,70" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="602" y="60" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="620.0" y="74.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M620,45 L620,60" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="620" cy="30" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="620" y="29" font-size="10" text-anchor="middle">FIC</text>
+<text x="620" y="40" font-size="10" text-anchor="middle">104</text>
+<path d="M638,70 L1010,70 L1010,299" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="820" y="62" font-size="11" text-anchor="middle" font-style="italic">ozone gas to the chamber (option)</text>
+<rect x="405" y="200" width="70" height="220" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<line x1="429" y1="212" x2="429" y2="408" stroke="#888888" stroke-width="0.8"/>
+<line x1="440" y1="212" x2="440" y2="408" stroke="#888888" stroke-width="0.8"/>
+<line x1="451" y1="212" x2="451" y2="408" stroke="#888888" stroke-width="0.8"/>
+<path d="M417,396 L417,222" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M463,222 L463,396" stroke="#000000" stroke-width="1" stroke-dasharray="4 3" fill="none" marker-end="url(#ar)"/>
+<text x="440" y="438" font-size="12" text-anchor="middle">membrane</text>
+<text x="440" y="452" font-size="12" text-anchor="middle">contactor</text>
+<path d="M475,400 L490,400" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<polygon points="490,392 490,408 500,400" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="510,392 510,408 500,400" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<path d="M500,425 L500,408" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="500" cy="440" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="500" y="439" font-size="10" text-anchor="middle">PIC</text>
+<text x="500" y="450" font-size="10" text-anchor="middle">103</text>
+<path d="M510,400 L620,400 L620,559" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="16" y="410" font-size="11" text-anchor="start">ultrapure</text>
+<text x="16" y="423" font-size="11" text-anchor="start">water</text>
+<path d="M16,390 L70,390" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="70" y="372" width="50" height="36" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="394.0" font-size="12" text-anchor="middle">CO₂</text>
+<text x="95" y="424" font-size="11" text-anchor="middle">CO₂ contactor</text>
+<rect x="80" y="228" width="30" height="56" rx="11" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="260.0" font-size="12" text-anchor="middle">CO₂</text>
+<path d="M95,284 L95,304" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<rect x="77" y="304" width="36" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="95.0" y="318.0" font-size="10" text-anchor="middle">MFC</text>
+<path d="M127,314 L113,314" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="142" cy="314" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="142" y="313" font-size="10" text-anchor="middle">FIC</text>
+<text x="142" y="324" font-size="10" text-anchor="middle">201</text>
+<path d="M95,324 L95,371" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M120,390 L200,390" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M165,367 L165,390" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="165" cy="352" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="165" y="351" font-size="10" text-anchor="middle">AIT</text>
+<text x="165" y="362" font-size="10" text-anchor="middle">202</text>
+<rect x="200" y="374" width="54" height="32" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<polyline points="206.0,390.0 209.5,381.0 216.5,399.0 223.5,381.0 230.5,399.0 237.5,381.0 244.5,399.0 248.0,390.0" stroke="#000000" stroke-width="1" fill="none"/>
+<path d="M227,355 L227,374" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="227" cy="340" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="227" y="339" font-size="10" text-anchor="middle">TIC</text>
+<text x="227" y="350" font-size="10" text-anchor="middle">203</text>
+<text x="227" y="422" font-size="11" text-anchor="middle">chiller</text>
+<path d="M254,390 L404,390" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<path d="M475,230 L522,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M500,207 L500,230" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="500" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="500" y="191" font-size="10" text-anchor="middle">AIT</text>
+<text x="500" y="202" font-size="10" text-anchor="middle">204</text>
+<rect x="522" y="220" width="38" height="20" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="541.0" y="234.0" font-size="10" text-anchor="middle">LFC</text>
+<path d="M541,171 L541,220" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="541" cy="156" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="541" y="155" font-size="10" text-anchor="middle">FIC</text>
+<text x="541" y="166" font-size="10" text-anchor="middle">205</text>
+<path d="M560,230 L582,230" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="582" y="214" width="52" height="32" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<polyline points="588.0,230.0 591.3,221.0 598.0,239.0 604.7,221.0 611.3,239.0 618.0,221.0 624.7,239.0 628.0,230.0" stroke="#000000" stroke-width="1" fill="none"/>
+<path d="M608,207 L608,214" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="608" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="608" y="191" font-size="10" text-anchor="middle">TIC</text>
+<text x="608" y="202" font-size="10" text-anchor="middle">206</text>
+<text x="608" y="262" font-size="11" text-anchor="middle">heater</text>
+<path d="M634,230 L652,230" stroke="#000000" stroke-width="2" fill="none"/>
+<rect x="652" y="212" width="18" height="40" rx="5" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<path d="M661,212 L661,190" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="667" y="184" font-size="10.5" text-anchor="start">vent to destruct</text>
+<text x="661" y="268" font-size="11" text-anchor="middle">bubble trap</text>
+<path d="M670,230 L688,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M688,230 c6,-14 12,-14 12,0 c6,14 12,14 12,0 c6,-14 12,-14 12,0 c6,14 12,14 12,0" stroke="#000000" stroke-width="2" fill="none"/>
+<text x="712" y="254" font-size="11" text-anchor="middle">supply line</text>
+<path d="M736,230 L790,230" stroke="#000000" stroke-width="2" fill="none"/>
+<path d="M752,230 L752,244" stroke="#000000" stroke-width="1" fill="none"/>
+<polygon points="744,244 760,244 752,254" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="744,264 760,264 752,254" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<text x="752" y="280" font-size="10.5" text-anchor="middle">SP</text>
+<path d="M768,207 L768,230" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="768" cy="192" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="768" y="191" font-size="10" text-anchor="middle">AIT</text>
+<text x="768" y="202" font-size="10" text-anchor="middle">207</text>
+<polygon points="790,222 790,238 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="810,222 810,238 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<polygon points="792,246 808,246 800,230" fill="#ffffff" stroke="#000000" stroke-width="1.1"/>
+<path d="M810,230 L930,230 L930,350" stroke="#000000" stroke-width="2" fill="none"/>
+<polygon points="923,349 937,349 930,362" fill="#000000"/>
+<path d="M800,246 L800,519" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<rect x="820" y="300" width="240" height="180" fill="none" stroke="#000000" stroke-width="1.2"/>
+<polyline points="848,338 834,348 834,466 1046,466 1046,348 1032,338" fill="none" stroke="#000000" stroke-width="1.2"/>
+<rect x="850" y="381" width="160" height="4" fill="#9ab0d8"/>
+<rect x="850" y="385" width="160" height="4" fill="#000000"/>
+<rect x="918" y="389" width="24" height="28" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<line x1="930" y1="417" x2="930" y2="500" stroke="#000000" stroke-width="3"/>
+<rect x="906" y="500" width="48" height="30" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="930.0" y="519.0" font-size="13" text-anchor="middle">M</text>
+<path d="M971,515 L954,515" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="986" cy="515" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="986" y="514" font-size="10" text-anchor="middle">SIC</text>
+<text x="986" y="525" font-size="10" text-anchor="middle">301</text>
+<path d="M948,375 L994,375" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<path d="M912,375 L866,375" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#ar)"/>
+<text x="1028" y="380" font-size="11" text-anchor="middle">film</text>
+<text x="1028" y="395" font-size="11" text-anchor="middle">wafer</text>
+<path d="M873,300 L873,338" stroke="#000000" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+<rect x="858" y="338" width="30" height="14" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="878" y="318" font-size="10.5" text-anchor="start">megasonic</text>
+<text x="878" y="330" font-size="10.5" text-anchor="start">(option)</text>
+<text x="1050" y="318" font-size="11" text-anchor="end">spin</text>
+<text x="1050" y="330" font-size="11" text-anchor="end">chamber</text>
+<circle cx="1046" cy="258" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1046" y="257" font-size="10" text-anchor="middle">AIT</text>
+<text x="1046" y="268" font-size="10" text-anchor="middle">401</text>
+<polygon points="1069,227 1078,236 1069,245 1060,236" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1069" y="240" font-size="11" text-anchor="middle">I</text>
+<text x="1046" y="290" font-size="10.5" text-anchor="middle">ambient</text>
+<path d="M842,466 L842,519" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<path d="M857,500 L842,500" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="872" cy="500" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="872" y="499" font-size="10" text-anchor="middle">AIT</text>
+<text x="872" y="510" font-size="10" text-anchor="middle">302</text>
+<rect x="760" y="520" width="90" height="36" rx="4" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="805.0" y="542.0" font-size="11" text-anchor="middle">drain tank</text>
+<path d="M760,545 L732,545" stroke="#000000" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+<text x="728" y="549" font-size="11" text-anchor="end">to drain</text>
+<path d="M1032,466 L1032,580 L701,580" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<path d="M1047,505 L1032,505" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="1062" cy="505" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1062" y="504" font-size="10" text-anchor="middle">FT</text>
+<text x="1062" y="515" font-size="10" text-anchor="middle">303</text>
+<path d="M1047,545 L1032,545" stroke="#000000" stroke-width="0.8" fill="none"/>
+<circle cx="1062" cy="545" r="15" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="1062" y="544" font-size="10" text-anchor="middle">AIT</text>
+<text x="1062" y="555" font-size="10" text-anchor="middle">304</text>
+<rect x="580" y="560" width="120" height="40" rx="0" fill="#ffffff" stroke="#000000" stroke-width="1.2"/>
+<text x="640.0" y="577.5" font-size="11" text-anchor="middle">Ozone destruct</text>
+<text x="640.0" y="590.5" font-size="11" text-anchor="middle">heated catalyst</text>
+<path d="M580,580 L548,580" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none" marker-end="url(#ar)"/>
+<text x="544" y="584" font-size="11" text-anchor="end">to house exhaust</text>
+<rect x="14" y="470" width="400" height="140" fill="#ffffff" stroke="#808080" stroke-width="1"/>
+<path d="M26,490 L60,490" stroke="#000000" stroke-width="2" fill="none"/>
+<text x="66" y="494" font-size="11" text-anchor="start">water</text>
+<path d="M110,490 L144,490" stroke="#000000" stroke-width="1.5" stroke-dasharray="7 4" fill="none"/>
+<text x="150" y="494" font-size="11" text-anchor="start">gas</text>
+<rect x="186" y="483" width="30" height="14" fill="#ffffff" stroke="#000000" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="222" y="494" font-size="11" text-anchor="start">option</text>
+<text x="282" y="494" font-size="11" text-anchor="start">SP sample port</text>
+<text x="26" y="514.0" font-size="11" text-anchor="start">Tags after ISA-5.1. First letter: A analysis (ozone, resistivity),</text>
+<text x="26" y="529.5" font-size="11" text-anchor="start">F flow, P pressure, S speed, T temperature. Then I indicate,</text>
+<text x="26" y="545.0" font-size="11" text-anchor="start">T transmit, C control. 1xx gas, 2xx water, 3xx chamber, 4xx safety.</text>
+<text x="44" y="560.5" font-size="11" text-anchor="start">Interlock: the generator stops and the ozone water valve shuts on</text>
+<text x="44" y="576.0" font-size="11" text-anchor="start">0.1 ppm ambient ozone (AIT-401), low exhaust flow (FT-303), open</text>
+<text x="44" y="591.5" font-size="11" text-anchor="start">lid, a leak in the drip tray, or low cooling water.</text>
+<polygon points="32,548 41,557 32,566 23,557" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+<text x="32" y="561" font-size="11" text-anchor="middle">I</text>
+</svg></div>
+<p class="caption text"><b>Figure 7.</b> Piping and instruments of the test rig. Solid lines carry water,
+dashed lines gas. The circles are instruments: AIT-102 measures the ozone in the generator gas,
+AIT-202 the resistivity of the water (which gives its pH), AIT-204 and AIT-207 the dissolved ozone
+after the contactor and before the nozzle, AIT-302 the dissolved ozone in the drain, FT-303 and
+AIT-304 the flow and ozone in the exhaust, and AIT-401 the ozone in the room.</p>
+
+<h3>Parts</h3>
+<div class="scroll"><table class="data l" aria-label="Parts of the test rig">
+<tr><th>Tag</th><th>Part</th><th>Specification</th><th>In the model</th></tr>
+<tr><td></td><td>Oxygen supply</td><td>99.999 % or purer; regulator and lines cleaned for oxygen service</td><td></td></tr>
+<tr><td>FIC-101</td><td>Mass flow controller, oxygen</td><td>0.5 to 10 NL/min</td><td>Generator gas flow</td></tr>
+<tr><td></td><td>Ozone generator</td><td>Corona discharge, water-cooled, up to about 300 g/Nm³ (De Smedt et al. 2002)</td><td></td></tr>
+<tr><td>AIT-102</td><td>Ozone analyser, gas</td><td>UV absorption at 254 nm, 0 to 400 g/Nm³</td><td>Ozone in the generator gas</td></tr>
+<tr><td></td><td>Check valve, liquid trap, relief valve (PSV)</td><td>Keep water and pressure away from the generator</td><td></td></tr>
+<tr><td></td><td>Ozone contactor</td><td>Hollow-fibre membrane of PTFE or PFA; gas and water flow in opposite directions</td><td>Approach to equilibrium</td></tr>
+<tr><td>PIC-103</td><td>Back-pressure regulator, contactor gas outlet</td><td>1 to 3 bar absolute</td><td>Contactor pressure</td></tr>
+<tr><td>FIC-104</td><td>Mass flow controller, ozone gas to the chamber (option)</td><td>Into the lid, above the wafer</td><td>Gas above the film: process gas</td></tr>
+<tr><td>FIC-201</td><td>CO₂ mass flow controller and membrane contactor</td><td>0 to 100 mL/min (normal)</td><td>pH</td></tr>
+<tr><td>AIT-202</td><td>Resistivity cell</td><td>0.01 to 18.2 MΩ cm, reading corrected to 25 °C</td><td>pH (sizing table below)</td></tr>
+<tr><td>TIC-203</td><td>Chiller with a PFA heat exchanger</td><td>5 to 25 °C</td><td>Contactor temperature</td></tr>
+<tr><td>AIT-204<br>AIT-207</td><td>Dissolved ozone monitors</td><td>UV absorption near 260 nm in a short flow cell, 0 to 150 mg/L, checked against the indigo method</td><td>Ozone leaving the contactor; ozone at the nozzle</td></tr>
+<tr><td>FIC-205</td><td>Liquid flow controller</td><td>Ultrasonic flow meter and PFA control valve, 0.2 to 3 L/min</td><td>Flow</td></tr>
+<tr><td>TIC-206</td><td>Inline heater</td><td>PFA-lined, up to 80 °C, sensor next to the nozzle</td><td>Process temperature</td></tr>
+<tr><td></td><td>Bubble trap</td><td>PFA, vented to the destruct</td><td>Shows supersaturation</td></tr>
+<tr><td></td><td>Supply line</td><td>PFA tube, 6 mm inside, in exchangeable lengths</td><td>Line length and diameter</td></tr>
+<tr><td>SP</td><td>Sample port</td><td>Fills a stop-flow UV cell in a thermostat, and takes samples for the indigo method</td><td>Half-life</td></tr>
+<tr><td></td><td>Three-way valve</td><td>To the drain until AIT-207 is steady, then to the nozzle</td><td></td></tr>
+<tr><td></td><td>Spin chamber</td><td>Vacuum chuck for 150 to 300 mm, PFA or PVDF bowl, fixed nozzle 10 to 20 mm above the centre</td><td>Substrate</td></tr>
+<tr><td>SIC-301</td><td>Spin motor with encoder</td><td>20 to 3000 rpm</td><td>Spin speed</td></tr>
+<tr><td></td><td>Megasonic nozzle (option)</td><td>About 1 MHz, on a swing arm</td><td>Mass-transfer factor</td></tr>
+<tr><td>AIT-302</td><td>Dissolved ozone, drain</td><td>As AIT-204, sampled at the bowl outlet</td><td>Ozone running off the edge (Figure 2)</td></tr>
+<tr><td>FT-303<br>AIT-304</td><td>Exhaust flow and ozone</td><td>50 to 300 m³/h; UV analyser, 0 to 50 ppm</td><td>Chamber exhaust; ozone in the exhaust</td></tr>
+<tr><td></td><td>Ozone destruct</td><td>Heated catalyst, because the gas is wet; takes the contactor off-gas, the trap vent and the chamber exhaust</td><td></td></tr>
+<tr><td>AIT-401</td><td>Ambient ozone monitors</td><td>0 to 1 ppm, one at the chamber and one at the generator</td><td>Interlock</td></tr>
+<tr><td></td><td>Film thickness sensor (option)</td><td>Optical, above the wafer at several radii</td><td>Film thickness (Figure 1)</td></tr>
+<tr><td></td><td>Resist thickness</td><td>Reflectometer or ellipsometer, 49-point map before and after each run</td><td>Strip rate</td></tr>
+</table></div>
+
+<h3>Sizing for the current settings</h3>
+<p class="text">These numbers follow the form above and change when you press Compute.</p>
+<div class="scroll"><table class="data" id="rigsize" aria-label="Sizing of the rig for the current settings"></table></div>
+
+<h3>Measurements</h3>
+<div class="text">
+<p>
+<b>Dissolved ozone</b> is read by UV absorption near 260 nm, where ozone in water absorbs with
+3000&nbsp;L&nbsp;mol⁻¹&nbsp;cm⁻¹ (Levanov et al. 2016). The cell path is chosen so the absorbance stays between
+about 0.1 and 1; the sizing table gives it for a 1 mm cell. The monitors are checked against the
+indigo method (Bader and Hoigné 1981), a wet-chemical method made for ozone in water.
+</p>
+<p>
+<b>pH.</b> Glass electrodes drift in ultrapure water, so the rig reads resistivity, corrected to
+25 °C as such meters do, and converts it to pH with the CO₂ balance of the Chemistry section.
+Ultrapure water reads 18.2 MΩ cm (Light et al. 2005), water in contact with air about 1 MΩ cm
+(pH 5.6). The sizing table gives the reading for the pH in the form.
+</p>
+<p>
+<b>Strip rate.</b> The resist is measured at the same 49 points before and after a run. The clock
+starts when the ozonated water reaches the wafer and stops with a rinse in ozone-free water. The
+change in thickness over the time gives the strip rate at each radius, to compare with Figure 1.
+</p>
+<p>
+<b>Ozone budget.</b> The ozone at the nozzle (AIT-207) times the flow is what goes in. The ozone
+in the drain (AIT-302) times the flow is what runs off the edge; it is a lower bound, because the
+droplets lose some ozone in the bowl. The exhaust flow times the ozone in it (FT-303 and AIT-304)
+is what escapes to the gas, after the background without water is taken off. Runs with and
+without resist then give the share that reaches the resist, so each bar of Figure 2 can be
+measured.
+</p>
+</div>
+
+<h3>Test plan</h3>
+<p class="text">
+The tests come in four stages, and each stage adds one part of the model, so the parts can be
+checked in order.
+</p>
+<div class="scroll"><table class="data l" aria-label="Test stages">
+<tr><th>Stage</th><th>Wafer</th><th>Vary</th><th>Measure</th><th>Checks in the model</th></tr>
+<tr><td>1. Supply and decay</td><td>None; the three-way valve sends the water to the drain</td><td>Ozone in the gas 100 to 300 g/Nm³; contactor 1 to 3 bar and 5 to 25 °C; flow</td><td>AIT-102, AIT-204, AIT-207; decay in the stop-flow cell at pH 4, 5.6 and 7 and at 20 to 60 °C; indigo samples</td><td>Henry's law and the approach to equilibrium; k₁, k₂ and their activation energies; the loss in the supply line</td></tr>
+<tr><td>2. Film without resist</td><td>Bare wafer with thermal oxide</td><td>Spin 100 to 1500 rpm; flow 0.5 to 2 L/min; 20 to 60 °C; air or ozone gas above</td><td>AIT-302 in the drain; FT-303 and AIT-304 in the exhaust; film thickness (option)</td><td>The film thickness; how much ozone escapes to the gas and how much leaves at the edge when nothing takes it up (sizing table)</td></tr>
+<tr><td>3. Resist strip</td><td>Resist from one lot, coated and baked the same way</td><td>The design below; then a heater sweep with the ozone dissolved cold</td><td>Thickness maps before and after; partial strips of known time</td><td>The yield, fitted once at the centre point; the strip profile; the five effects; the best temperature (Figure 5)</td></tr>
+<tr><td>4. Agitation and chemistry</td><td>As in stage 3</td><td>Megasonics on and off; pH 4 to 5.6 with CO₂; 1 to 10 µM hydrogen peroxide</td><td>As in stages 1 and 3</td><td>The mass-transfer factor; the effect of pH, carbonate and peroxide on the decay (Figure 6) and on the strip rate</td></tr>
+</table></div>
+<div class="text">
+<p>
+Solubility should agree with Henry's law within about 20 %, the scatter of the published
+measurements. In stage 3 only one number is fitted, the yield, and only at the centre point; the
+model then has to predict the other runs. A fair target is the mean strip rate within about 20 %
+and the same order of the effects. If the mean is right but the profile is not, the film flow or
+the gas exchange is at fault. If twice the ozone does not give twice the rate, the resist is not
+transport-limited, and a surface rate constant has to be fitted as well (the Python package has
+one).
+</p>
+<p>
+Stage 3 is a two-level design in five factors. Sixteen runs, half of the full design (resolution
+V), separate all five effects and all interactions between two factors; four centre points show
+curvature and give the repeatability. In these runs the contactor works at the process
+temperature, so the water at the nozzle is not supersaturated; the sweep with cold-dissolved ozone
+follows separately. Run the rows in random order. Stop each run before the fastest point clears, so
+the whole profile can be measured: the last column gives 60 % of the predicted time for the fastest
+point outside the nozzle zone. The predictions take every other setting from the form.
+</p>
+</div>
+<div class="scroll"><table class="data" id="doe" aria-label="Design of the strip runs with predictions"></table></div>
+
+<h3>Safety and materials</h3>
+<ul class="text">
+<li>Parts that touch ozone water are made of PFA, PTFE or PVDF, with seals of perfluoroelastomer
+(FFKM); many other plastics and elastomers degrade in concentrated ozone. Gas lines are PFA or
+electropolished stainless steel, cleaned for oxygen service, with no oil or grease.</li>
+<li>A check valve, a liquid trap and a relief valve keep water and pressure away from the
+generator.</li>
+<li>All ozone gas goes to the destruct unit: the contactor off-gas, the bubble-trap vent and the
+chamber exhaust. The drain water still carries ozone (sizing table), so it needs time to decay, or
+a vented tank, before it reaches the plant drain.</li>
+<li>Ambient monitors sit at the chamber and at the generator. The interlock (I in Figure 7) stops
+the generator and shuts the valve to the nozzle at 0.1 ppm, which is the OSHA limit averaged over
+8 h and the NIOSH ceiling, and also on low exhaust flow, an open lid, a leak in the drip tray or
+lost cooling water. Before the lid opens, the chamber is purged until AIT-304 reads close to zero.</li>
+<li>Equipment for fabs is assessed against SEMI S2, the environmental, health and safety guideline
+for semiconductor manufacturing equipment; a laboratory rig should follow the same ideas.</li>
+</ul>
+
+<h2>Checks</h2>
+<p class="text">The Python version of this model (in the repository) runs the same checks as tests.</p>
+<div class="scroll"><table class="data" id="checks" aria-label="Checks"></table></div>
+
+<h2>Limitations</h2>
+<ul class="text">
+<li>The film is a steady, smooth, laminar film; inertia near the centre and waves are left out,
+and the zone under the nozzle (r &lt; 10 mm) is not modelled.</li>
+<li>Water and wafer are at one temperature; a heated wafer under cooler water is not modelled.</li>
+<li>The nozzle is fixed at the centre; swinging nozzles, sprays and immersion are not modelled.</li>
+<li>The decay law covers pH 2 to 8 and about 10 to 70 °C; organic acids from the resist, which
+can scavenge radicals, are ignored.</li>
+<li>One calibrated yield describes the resist; implanted or hard-baked resists strip differently,
+and no surface reaction limit is applied by default.</li>
+<li>The contactor efficiency is set by hand; bubble formation in supersaturated water is flagged
+but not modelled.</li>
+<li>UV-assisted ozone and peroxide chemistry is not included.</li>
+</ul>
+
+<h2>References</h2>
+<ol class="text small">
+<li>Abe, H., Iwamoto, H., Toshima, T., Iino, T. and Gale, G. W. (2003). Novel photoresist stripping using ozone/vaporized water mixture. IEEE Trans. Semicond. Manuf. 16, 401-408.</li>
+<li>Bader, H. and Hoigné, J. (1981). Determination of ozone in water by the indigo method. Water Res. 15, 449-456.</li>
+<li>Bergman, E. J. and Hess, M. P. Apparatus and method for processing the surface of a workpiece with ozone. US Patent 6,267,125 B1 (priority 1997).</li>
+<li>Bhatelia, T. J., Utikar, R. P., Pareek, V. K. and Tade, M. O. (2009). Characterizing liquid film thickness in spinning disc reactors. 7th Int. Conf. on CFD in the Minerals and Process Industries, Melbourne. Cites Lepehin and Riabchuk (1975) and Espig and Hoyle (1965).</li>
+<li>Bühler, R. E., Staehelin, J. and Hoigné, J. (1984). Ozone decomposition in water studied by pulse radiolysis. 1. HO₂/O₂⁻ and HO₃/O₃⁻ as intermediates. J. Phys. Chem. 88, 2560-2564.</li>
+<li>Burkholder, J. B. et al. (2019). Chemical kinetics and photochemical data for use in atmospheric studies, Evaluation No. 19. JPL Publication 19-5.</li>
+<li>Buxton, G. V., Greenstock, C. L., Helman, W. P. and Ross, A. B. (1988). Critical review of rate constants for reactions of hydrated electrons, hydrogen atoms and hydroxyl radicals in aqueous solution. J. Phys. Chem. Ref. Data 17, 513-886.</li>
+<li>Chen, J.-W. (2002). The study of photoresist removal mechanism by ozone. MSc thesis, National Chiao Tung University (in Chinese).</li>
+<li>De Smedt, F., De Gendt, S., Claes, M., Heyns, M. M., Vankerckhoven, H. and Vinckier, C. (2002). The increasing importance of the use of ozone in the microelectronics industry. Ozone Sci. Eng. 24, 379-390.</li>
+<li>Dussault, D., Fittkau, J. and Gottschalk, C. Megasonic enhanced photoresist strip with DiO₃. ProSys Inc. and ASTeX GmbH, technical paper (after 2012).</li>
+<li>Emslie, A. G., Bonner, F. T. and Peck, L. G. (1958). Flow of a viscous liquid on a rotating disk. J. Appl. Phys. 29, 858-862.</li>
+<li>Ershov, B. G. and Morozov, P. A. (2009). The kinetics of ozone decomposition in water, the influence of pH and temperature. Russ. J. Phys. Chem. A 83, 1295-1299.</li>
+<li>Gottschalk, C. and Schweckendiek, J. (2004). Using dissolved ozone in semiconductor cleaning applications. MICRO, March 2004.</li>
+<li>Gurol, M. D. and Singer, P. C. (1982). Kinetics of ozone decomposition: a dynamic approach. Environ. Sci. Technol. 16, 377-383.</li>
+<li>Haynes, W. M. (ed.) (2016). CRC Handbook of Chemistry and Physics, 97th ed. CRC Press.</li>
+<li>ISA (2009). ANSI/ISA-5.1-2009, Instrumentation symbols and identification. International Society of Automation.</li>
+<li>Johnson, P. N. and Davis, R. A. (1996). Diffusivity of ozone in water. J. Chem. Eng. Data 41, 1485-1487.</li>
+<li>Kell, G. S. (1975). Density, thermal expansivity, and compressibility of liquid water from 0 to 150 °C. J. Chem. Eng. Data 20, 97-105.</li>
+<li>Kestin, J., Sokolov, M. and Wakeham, W. A. (1978). Viscosity of liquid water in the range −8 °C to 150 °C. J. Phys. Chem. Ref. Data 7, 941-948.</li>
+<li>Lesko, T. M. (2004). Chemical effects of acoustic cavitation. PhD thesis, California Institute of Technology, chapter 5, table 1.</li>
+<li>Levanov, A. V., Isaikina, O. Ya., Tyutyunnik, A. N., Antipenko, E. E. and Lunin, V. V. (2016). Molar absorption coefficient of ozone in aqueous solutions. J. Anal. Chem. 71, 549-553.</li>
+<li>Light, T. S., Licht, S., Bevilacqua, A. C. and Morash, K. R. (2005). The fundamental conductivity and resistivity of water. Electrochem. Solid-State Lett. 8, E16-E19.</li>
+<li>NIOSH Pocket Guide to Chemical Hazards: Ozone. <a href="https://www.cdc.gov/niosh/npg/npgd0476.html" target="_blank" rel="noopener">cdc.gov/niosh/npg/npgd0476.html</a></li>
+<li>Proc. SPIE 6283, 62830B (2006). Sulfate-free photomask cleaning technology.</li>
+<li>Sander, R. (2023). Compilation of Henry's law constants (version 5.0.0) for water as solvent. Atmos. Chem. Phys. 23, 10901-12440.</li>
+<li>SEMI S2. Environmental, health, and safety guideline for semiconductor manufacturing equipment. SEMI.</li>
+<li>Shimizu, Y. (NEC). Method and apparatus for removing photoresist on semiconductor wafer. US Patent 6,559,064 B1 (priority 1999).</li>
+<li>Staehelin, J. and Hoigné, J. (1982). Decomposition of ozone in water: rate of initiation by hydroxide ions and hydrogen peroxide. Environ. Sci. Technol. 16, 676-681.</li>
+<li>Stumm, W. and Morgan, J. J. (1996). Aquatic Chemistry, 3rd ed. Wiley.</li>
+</ol>
+
+<hr>
+<p class="small">H. Ishaque, October 2026. <a href="/">Home page</a>.</p>
+
+</div>
+
+<script>
+(function () {
+'use strict';
+
+// Browser version of the Python package dio3 (same equations, same numbers; checked by crosscheck.js).
+// Units: SI inside, temperatures in kelvin, dissolved ozone in mol/m3.
+'use strict';
+
+const RGAS = 8.314462618, P_ATM = 101325.0, T_ZERO = 273.15;
+const M_O3 = 47.998e-3, M_O2 = 31.998e-3;
+const V_NORMAL = RGAS * T_ZERO / P_ATM;
+
+// ---------------------------------------------------------------- properties
+function waterDensity(T) {            // Kell (1975)
+  const t = T - T_ZERO;
+  const n = 999.83952 + 16.945176 * t - 7.9870401e-3 * t ** 2 - 46.170461e-6 * t ** 3 + 105.56302e-9 * t ** 4 - 280.54253e-12 * t ** 5;
+  return n / (1 + 16.879850e-3 * t);
+}
+function waterViscosity(T) {          // Kestin, Sokolov and Wakeham (1978)
+  const t = T - T_ZERO, d = 20 - t;
+  const s = 1.2378 * d - 1.303e-3 * d ** 2 + 3.06e-6 * d ** 3 + 2.55e-8 * d ** 4;
+  return 1002.0e-6 * Math.pow(10, s / (96 + t));
+}
+const kinematicViscosity = (T) => waterViscosity(T) / waterDensity(T);
+const ozoneDiffusivity = (T) => 1.1e-6 * Math.exp(-1896 / T);            // Johnson and Davis (1996)
+const henryO3 = (T) => 1.0e-4 * Math.exp(2800 * (1 / T - 1 / 298.15));   // Burkholder et al. (2019)
+const henryCO2 = (T) => 3.4e-4 * Math.exp(2300 * (1 / T - 1 / 298.15));
+const moleFractionFromGNm3 = (c) => (c / (M_O3 * 1e3)) * V_NORMAL;
+function moleFractionFromWt(w) { const a = w / M_O3, b = (1 - w) / M_O2; return a / (a + b); }
+function wtFromMoleFraction(y) { const a = y * M_O3, b = (1 - y) * M_O2; return a / (a + b); }
+const gNm3FromMoleFraction = (y) => y / V_NORMAL * M_O3 * 1e3;
+const mgL = (c) => c * M_O3 * 1e3;
+const molm3 = (ppm) => ppm / (M_O3 * 1e3);
+const equilibriumOzone = (T, y, p) => henryO3(T) * y * (p === undefined ? P_ATM : p);
+
+// ---------------------------------------------------------------- decomposition (engineering law)
+const DEC = { Tacid: 295.15, tHalfAcid: 3.5 * 3600, EaAcid: 39.6e3, Tbase: 292.15, EaBase: 76.0e3 };
+const k1 = (T) => Math.log(2) / DEC.tHalfAcid * Math.exp(-DEC.EaAcid / RGAS * (1 / T - 1 / DEC.Tacid));
+const k2 = (pH, T) => 1e-3 * Math.pow(10, -2.66 + 0.49 * pH) * Math.exp(-DEC.EaBase / RGAS * (1 / T - 1 / DEC.Tbase));
+function concentrationAfter(c0, t, pH, T) {
+  const a = k1(T), b = k2(pH, T);
+  if (t <= 0 || c0 <= 0) return c0;
+  const e = Math.exp(-a * t);
+  return a * c0 * e / (a + b * c0 * (1 - e));
+}
+function halfLife(c0, pH, T) { const a = k1(T), b = k2(pH, T); return Math.log((2 * a + b * c0) / (a + b * c0)) / a; }
+function timeToFraction(c0, frac, pH, T) {   // time for c0 to fall to frac * c0
+  const a = k1(T), b = k2(pH, T);
+  return -Math.log(frac * (a + b * c0) / (a + frac * b * c0)) / a;
+}
+
+// ---------------------------------------------------------------- pH of water holding CO2 (25 degC constants)
+function phFromCO2(pCO2, T) {
+  const co2 = henryCO2(T || 298.15) * pCO2 * 1e-3;
+  const ka1 = Math.pow(10, -6.35), ka2 = Math.pow(10, -10.33), kw = 1e-14;
+  let lo = 1e-14, hi = 1;
+  for (let i = 0; i < 200; i++) {
+    const h = Math.sqrt(lo * hi);
+    const f = h - (ka1 * co2 / h + 2 * ka1 * ka2 * co2 / (h * h) + kw / h);
+    if (f > 0) hi = h; else lo = h;
+  }
+  return -Math.log10(Math.sqrt(lo * hi));
+}
+// CO2 partial pressure (Pa) that brings pure water to a pH, the inverse of phFromCO2 (0 above pH 7)
+function co2PressureForPH(pH, T) {
+  const h = Math.pow(10, -pH), ka1 = Math.pow(10, -6.35), ka2 = Math.pow(10, -10.33), kw = 1e-14;
+  if (h * h <= kw) return 0;
+  const co2 = (h - kw / h) / (ka1 / h + 2 * ka1 * ka2 / (h * h));
+  return co2 * 1e3 / henryCO2(T || 298.15);
+}
+// Resistivity (MOhm cm, at 25 degC as meters report it) of water brought to a pH with CO2 alone.
+// Limiting molar conductivities in S cm2/mol: H+ and OH- from Light et al. (2005), HCO3- from the CRC Handbook.
+const LAMBDA = { H: 349.19, OH: 199.24, HCO3: 44.5 };
+function resistivityCO2(pH) {
+  if (pH > 7 + 1e-9) return NaN;
+  const h = Math.pow(10, -pH), oh = 1e-14 / h, hco3 = Math.max(h - oh, 0);
+  return 1e-6 / ((LAMBDA.H * h + LAMBDA.OH * oh + LAMBDA.HCO3 * hco3) * 1e-3);
+}
+
+// ---------------------------------------------------------------- supply
+function deliver(s, Q, Tp, pH) {
+  const y = moleFractionFromGNm3(s.gas_g_per_Nm3);
+  const cEq = equilibriumOzone(s.T_contactor, y, s.pressure);
+  const cOut = s.approach * cEq;
+  const vol = Math.PI * s.line_diameter ** 2 / 4 * s.line_length;
+  const tau = vol / Q;
+  const cNoz = concentrationAfter(cOut, tau, pH, Tp);
+  const cSat = equilibriumOzone(Tp, y, P_ATM);
+  return {
+    y_gas: y, wt_gas: wtFromMoleFraction(y), c_contactor_eq: cEq, c_contactor_out: cOut,
+    line_residence_time: tau, c_nozzle: cNoz, c_sat_nozzle: cSat, supersaturation: cNoz / cSat,
+    ozone_from_generator: s.gas_flow_Nlpm / 60e3 / V_NORMAL * y, ozone_dissolved: Q * cOut,
+    ozone_decayed_in_line: Q * (cOut - cNoz),
+  };
+}
+
+// ---------------------------------------------------------------- film on the spinning substrate
+const filmThickness = (r, Q, w, nu) => Math.pow(3 * nu * Q / (2 * Math.PI * w * w * r * r), 1 / 3);
+function inertiaRatio(r, Q, w, nu) { return Q * filmThickness(r, Q, w, nu) / (2 * Math.PI * nu * r * r); }
+function layers(n) {
+  const faces = new Float64Array(n + 1), centres = new Float64Array(n);
+  for (let i = 0; i <= n; i++) faces[i] = 0.5 * (1 - Math.cos(Math.PI * i / n));
+  for (let i = 0; i < n; i++) centres[i] = 0.5 * (faces[i] + faces[i + 1]);
+  return { faces, centres };
+}
+function stations(r0, R, n) {
+  const out = new Float64Array(n + 1);
+  for (let i = 0; i <= n; i++) { const s = i / n; out[i] = r0 + (R - r0) * s * s; }
+  return out;
+}
+function thomas(a, b, c, d) {
+  const n = b.length, cp = new Float64Array(n), dp = new Float64Array(n), x = new Float64Array(n);
+  cp[0] = c[0] / b[0]; dp[0] = d[0] / b[0];
+  for (let i = 1; i < n; i++) {
+    const m = b[i] - a[i] * cp[i - 1];
+    cp[i] = i < n - 1 ? c[i] / m : 0;
+    dp[i] = (d[i] - a[i] * dp[i - 1]) / m;
+  }
+  x[n - 1] = dp[n - 1];
+  for (let i = n - 2; i >= 0; i--) x[i] = dp[i] - cp[i] * x[i + 1];
+  return x;
+}
+
+function solveFilm(inp, profileRadii) {
+  const N = inp.n_layers || 48, NS = inp.n_steps || 400, r0 = inp.r0 || 5e-3;
+  const { faces, centres: zc } = layers(N);
+  const dz = new Float64Array(N), q = new Float64Array(N), dzc = new Float64Array(N - 1);
+  const Fz = (z) => z * z / 2 - z * z * z / 6;
+  for (let i = 0; i < N; i++) { dz[i] = faces[i + 1] - faces[i]; q[i] = 3 * inp.Q / (2 * Math.PI) * (Fz(faces[i + 1]) - Fz(faces[i])); }
+  for (let i = 0; i < N - 1; i++) dzc[i] = zc[i + 1] - zc[i];
+  const rs = stations(r0, inp.R, NS);
+  let c = new Float64Array(N).fill(inp.c_in);
+  const closed = inp.c_surface === null;
+  const cs = closed ? 0 : inp.c_surface;
+  const kw = inp.k_wall === undefined ? Infinity : inp.k_wall;
+  const fluxes = (r, h) => {
+    let gw;
+    if (kw === 0) gw = 0;
+    else if (!isFinite(kw)) gw = r * inp.D / (h * zc[0]);
+    else gw = r / (1 / kw + h * zc[0] / inp.D);
+    const gs = closed ? 0 : r * inp.D / (h * (1 - zc[N - 1]));
+    return [gw, gs];
+  };
+  const want = (profileRadii || []).slice().sort((a, b) => a - b);
+  const profiles = [];
+  const outR = [rs[0]], outH = [], outWall = [], outSurf = [], outCm = [inp.c_in];
+  const h0 = filmThickness(rs[0], inp.Q, inp.omega, inp.nu);
+  let [gw0, gs0] = fluxes(rs[0], h0);
+  outH.push(h0); outWall.push(gw0 * c[0] / rs[0]); outSurf.push(gs0 * (cs - c[N - 1]) / rs[0]);
+  let totWall = 0, totSurf = 0, totDec = 0;
+  const lower = new Float64Array(N), diag = new Float64Array(N), upper = new Float64Array(N), res = new Float64Array(N);
+  const g = new Float64Array(N - 1), V = new Float64Array(N);
+  for (let n = 1; n < rs.length; n++) {
+    const r = rs[n], dr = rs[n] - rs[n - 1];
+    const h = filmThickness(r, inp.Q, inp.omega, inp.nu);
+    for (let i = 0; i < N - 1; i++) g[i] = r * inp.D / (h * dzc[i]);
+    const [gw, gs] = fluxes(r, h);
+    for (let i = 0; i < N; i++) V[i] = r * h * dz[i];
+    const old = c;
+    let x = Float64Array.from(c);
+    for (let it = 0; it < 8; it++) {
+      for (let i = 0; i < N; i++) {
+        const rate = inp.k1 * x[i] + inp.k2 * x[i] * x[i];
+        lower[i] = 0; upper[i] = 0;
+        diag[i] = q[i] / dr + V[i] * (inp.k1 + 2 * inp.k2 * x[i]);
+        res[i] = q[i] / dr * (x[i] - old[i]) + V[i] * rate;
+      }
+      for (let i = 0; i < N - 1; i++) {
+        diag[i] += g[i]; diag[i + 1] += g[i];
+        upper[i] = -g[i]; lower[i + 1] = -g[i];
+        res[i] -= g[i] * (x[i + 1] - x[i]);
+        res[i + 1] -= g[i] * (x[i] - x[i + 1]);
+      }
+      diag[0] += gw; res[0] += gw * x[0];
+      diag[N - 1] += gs; res[N - 1] -= gs * (cs - x[N - 1]);
+      for (let i = 0; i < N; i++) res[i] = -res[i];
+      const step = thomas(lower, diag, upper, res);
+      let mx = 0;
+      for (let i = 0; i < N; i++) { x[i] += step[i]; mx = Math.max(mx, Math.abs(step[i])); }
+      if (mx <= 1e-12 * Math.max(inp.c_in, 1e-30)) break;
+    }
+    c = x;
+    const wall = gw * c[0], surf = gs * (cs - c[N - 1]);
+    let dec = 0, qc = 0, qs = 0;
+    for (let i = 0; i < N; i++) { dec += V[i] * (inp.k1 * c[i] + inp.k2 * c[i] * c[i]); qc += q[i] * c[i]; qs += q[i]; }
+    totWall += 2 * Math.PI * wall * dr; totSurf += 2 * Math.PI * surf * dr; totDec += 2 * Math.PI * dec * dr;
+    outR.push(r); outH.push(h); outWall.push(wall / r); outSurf.push(surf / r); outCm.push(qc / qs);
+    while (want.length && r >= want[0] - 1e-12) profiles.push({ r: want.shift(), c: Float64Array.from(c) });
+  }
+  let edge = 0;
+  for (let i = 0; i < N; i++) edge += q[i] * c[i];
+  edge *= 2 * Math.PI;
+  return {
+    r: outR, h: outH, wall_flux: outWall, surface_flux: outSurf, c_mean: outCm, zeta: zc, profiles,
+    budget: { in: inp.Q * inp.c_in, resist: totWall, gas_exchange: totSurf, decomposed: totDec, edge,
+      closure: (inp.Q * inp.c_in + totSurf) - (totWall + totDec + edge) },
+  };
+}
+
+function interp(x, xs, ys) {
+  if (x <= xs[0]) return ys[0];
+  for (let i = 1; i < xs.length; i++) if (x <= xs[i]) { const f = (x - xs[i - 1]) / (xs[i] - xs[i - 1]); return ys[i - 1] + f * (ys[i] - ys[i - 1]); }
+  return ys[ys.length - 1];
+}
+function areaAverage(r, y, rMin) {
+  const ym = interp(rMin, r, y);
+  const rr = [rMin], yy = [ym];
+  for (let i = 0; i < r.length; i++) if (r[i] > rMin) { rr.push(r[i]); yy.push(y[i]); }
+  let outer = 0;
+  for (let i = 1; i < rr.length; i++) outer += 0.5 * (2 * Math.PI * rr[i] * yy[i] + 2 * Math.PI * rr[i - 1] * yy[i - 1]) * (rr[i] - rr[i - 1]);
+  return (Math.PI * rMin * rMin * ym + outer) / (Math.PI * r[r.length - 1] ** 2);
+}
+
+// ---------------------------------------------------------------- whole process
+const R_MIN = 0.01;
+const DEFAULT_YIELD = M_O3 / 1200.0;     // 1 g of ozone per g of resist at 1200 kg/m3
+function defaultProcess() {
+  return {
+    T: 298.15, pH: 5.6, flow_lpm: 1.5, rpm: 500, diameter: 0.300, ambient: 'air', enhancement: 1.0,
+    resist_thickness: 1.0e-6, exhaust_m3h: 100.0, nozzle_ppm: null,
+    supply: { gas_g_per_Nm3: 200.0, pressure: P_ATM, T_contactor: 298.15, approach: 1.0, line_length: 5.0, line_diameter: 6e-3, gas_flow_Nlpm: 2.0 },
+    resist: { yield_m3_per_mol: DEFAULT_YIELD, density: 1200.0 },
+    n_layers: 48, n_steps: 400,
+  };
+}
+// rate constant at the resist surface (m/s): Infinity = transport-limited (default), 0 = inert surface (bare wafer)
+function wallRate(resist, T) {
+  const k = resist.k_wall_ref === undefined || resist.k_wall_ref === null ? Infinity : resist.k_wall_ref;
+  if (!isFinite(k) || k === 0) return k;
+  return k * Math.exp(-(resist.Ea_wall || 0) / RGAS * (1 / T - 1 / (resist.T_ref || 293.15)));
+}
+function ambientMoleFraction(p) {
+  if (p.ambient === 'air') return 0;
+  if (p.ambient === 'process gas') return moleFractionFromGNm3(p.supply.gas_g_per_Nm3);
+  return parseFloat(p.ambient) * 1e-6;
+}
+function simulate(p, profileRadii) {
+  const Q = p.flow_lpm / 60e3, omega = p.rpm * 2 * Math.PI / 60, R = p.diameter / 2;
+  const sup = deliver(p.supply, Q, p.T, p.pH);
+  if (p.nozzle_ppm !== null && p.nozzle_ppm !== undefined) {
+    sup.c_nozzle = molm3(p.nozzle_ppm);
+    sup.supersaturation = sup.c_nozzle / sup.c_sat_nozzle;
+  }
+  const cSurf = equilibriumOzone(p.T, ambientMoleFraction(p), P_ATM);
+  const nu = kinematicViscosity(p.T), D = ozoneDiffusivity(p.T);
+  const fr = solveFilm({ Q, omega, R, c_in: sup.c_nozzle, nu, D: D * p.enhancement, k1: k1(p.T), k2: k2(p.pH, p.T),
+    c_surface: cSurf, k_wall: wallRate(p.resist, p.T), n_layers: p.n_layers, n_steps: p.n_steps }, (profileRadii || []).filter((x) => x < R));
+  const rate = fr.wall_flux.map((f) => p.resist.yield_m3_per_mol * f);
+  const mean = areaAverage(fr.r, rate, R_MIN);
+  let mx = -Infinity, mn = Infinity;
+  for (let i = 0; i < fr.r.length; i++) if (fr.r[i] >= R_MIN) { mx = Math.max(mx, rate[i]); mn = Math.min(mn, rate[i]); }
+  const tClear = mn > 0 ? p.resist_thickness / mn : Infinity;
+  const emitted = Math.max(-fr.budget.gas_exchange, 0);
+  return {
+    supply: sup, film: fr, c_surface: cSurf, nu, D,
+    half_life_nozzle: sup.c_nozzle > 0 ? halfLife(sup.c_nozzle, p.pH, p.T) : Infinity,
+    strip_rate: rate, strip_mean: mean, strip_max: mx, strip_min: mn,
+    nonuniformity: mean > 0 ? (mx - mn) / (2 * mean) : NaN,
+    time_to_clear: tClear, budget: fr.budget,
+    ozone_per_wafer_g: isFinite(tClear) ? Q * sup.c_nozzle * M_O3 * 1e3 * tClear : Infinity,
+    exhaust_ppm: p.exhaust_m3h > 0 ? emitted / (p.exhaust_m3h / 3600 / V_NORMAL) * 1e6 : Infinity,
+    h_mid: filmThickness(R / 2, Q, omega, nu), inertia_mid: inertiaRatio(R / 2, Q, omega, nu),
+  };
+}
+function withChanges(p, changes) {
+  const q = JSON.parse(JSON.stringify(p));
+  for (const k in changes) q[k] = changes[k];
+  return q;
+}
+function sweep(p, temps, rpms) {
+  const mean = [], nonu = [], sat = [];
+  for (const rpm of rpms) {
+    const a = [], b = [], c = [];
+    for (const T of temps) {
+      const r = simulate(withChanges(p, { T, rpm, n_layers: 32, n_steps: 200 }));
+      a.push(r.strip_mean); b.push(r.nonuniformity); c.push(r.supply.supersaturation);
+    }
+    mean.push(a); nonu.push(b); sat.push(c);
+  }
+  return { mean, nonu, sat };
+}
+// resist yield from one measured mean strip rate at the given settings
+function impliedYield(rateNmMin, p) {
+  const r = simulate(withChanges(p, { resist: { yield_m3_per_mol: 1.0, density: p.resist.density } }));
+  return rateNmMin * 1e-9 / 60 / r.strip_mean;
+}
+
+const CHECKS = [{"group": "Properties of water and ozone", "label": "Density of water at 25 °C and 80 °C (kg/m³)", "expected": "997.05 and 971.79", "model": "997.04 and 971.80", "source": "CRC Handbook; model: Kell (1975)"}, {"group": "Properties of water and ozone", "label": "Viscosity of water at 25 °C and 80 °C (mPa s)", "expected": "0.890 and 0.354", "model": "0.890 and 0.355", "source": "CRC Handbook; model: Kestin, Sokolov and Wakeham (1978)"}, {"group": "Properties of water and ozone", "label": "Ozone water from 9 wt % ozone gas at 1 atm and 25 °C (mg/L)", "expected": "10 to 30 typical", "model": "30.1", "source": "Abe et al. (2003); model: Henry's law, Burkholder et al. (2019)"}, {"group": "Properties of water and ozone", "label": "Ozone solubility at 5 °C divided by that at 25 °C", "expected": "1.85 (120 and 65 ppm)", "model": "1.96", "source": "NEC patent US 6,559,064, Fig. 6"}, {"group": "Properties of water and ozone", "label": "Ozone diffusivity at 60 °C (10⁻⁹ m²/s)", "expected": "4.05 by Stokes-Einstein from 25 °C", "model": "3.71", "source": "Johnson and Davis (1996) correlation"}, {"group": "Properties of water and ozone", "label": "pH of ultrapure water in contact with air (420 ppm CO₂)", "expected": "about 5.6", "model": "5.60", "source": "De Smedt et al. (2002)"}, {"group": "Properties of water and ozone", "label": "Resistivity of ultrapure water at 25 °C (MΩ cm)", "expected": "18.19", "model": "18.23", "source": "Light et al. (2005); model: limiting ionic conductivities"}, {"group": "Ozone decomposition", "label": "Half-life at pH 2.5, room temperature, 10 mg/L (h)", "expected": "3 to 4", "model": "3.1", "source": "De Smedt et al. (2002), pH 1.8 to 3"}, {"group": "Ozone decomposition", "label": "Half-life at pH 6, 20 °C, 10 mg/L (min): rate law and radical mechanism with air-level carbonate", "expected": "32.3 (rate law, Ershov and Morozov 2009)", "model": "37.6 (mechanism)", "source": "Mechanism: Staehelin, Hoigné and Bühler; constants as compiled by Lesko (2004)"}, {"group": "Ozone decomposition", "label": "Half-life at pH 7, 20 °C, 10 mg/L (min): rate law and radical mechanism with air-level carbonate", "expected": "11.6 (rate law, Ershov and Morozov 2009)", "model": "7.4 (mechanism)", "source": "Mechanism: Staehelin, Hoigné and Bühler; constants as compiled by Lesko (2004)"}, {"group": "Film on the spinning wafer", "label": "Film thickness at r = 75 mm, 1.5 L/min, 500 rpm, 25 °C (µm)", "expected": "88.5", "model": "88.4", "source": "Lepehin and Riabchuk (1975) correlation, in Bhatelia et al. (2009)"}, {"group": "Film on the spinning wafer", "label": "Well-mixed film with first-order decay (k = 0.02 s⁻¹): ozone left at the edge", "expected": "0.995337 (exact)", "model": "0.995335", "source": "Exact solution c = c₀ exp(−k τ)"}, {"group": "Film on the spinning wafer", "label": "Mean ozone flux to the resist, normal grid against 4 times finer grid", "expected": "same", "model": "−0.1 %", "source": "Grid convergence"}, {"group": "Film on the spinning wafer", "label": "Ozone balance on the wafer (in = to resist + to gas + decomposed + off the edge)", "expected": "0", "model": "5e-16", "source": "Conservation"}, {"group": "Strip rate", "label": "Mean strip rate at 100, 500 and 1000 rpm, 30 ppm, 25 °C (nm/min)", "expected": "rises with spin speed", "model": "51, 102, 133", "source": "Dussault, Fittkau and Gottschalk: rpm is a large factor"}, {"group": "Strip rate", "label": "Mean strip rate at 10, 25 and 60 °C with the same 30 ppm (nm/min)", "expected": "rises with temperature", "model": "76, 102, 159", "source": "Gottschalk and Schweckendiek (2004)"}, {"group": "Strip rate", "label": "Strip rate at 60 ppm divided by that at 30 ppm", "expected": "about 2 (transport-limited)", "model": "2.000", "source": "Chen (2002); Gottschalk and Schweckendiek (2004)"}, {"group": "Strip rate", "label": "Ozone per gram of resist implied by Abe et al. 2003", "expected": "1.0 (default)", "model": "0.76", "source": "Calibration: see the text"}, {"group": "Strip rate", "label": "Ozone per gram of resist implied by NEC US 6,559,064 (500 rpm, 1.5 L/min assumed)", "expected": "1.0 (default)", "model": "1.27", "source": "Calibration: see the text"}, {"group": "Strip rate", "label": "Ozone per gram of resist implied by NEC US 6,559,064 (1000 rpm, 1.0 L/min assumed)", "expected": "1.0 (default)", "model": "1.62", "source": "Calibration: see the text"}, {"group": "Strip rate", "label": "Ozone per gram of resist implied by NEC US 6,559,064 (300 rpm, 2.0 L/min assumed)", "expected": "1.0 (default)", "model": "1.05", "source": "Calibration: see the text"}, {"group": "Strip rate", "label": "Ozone per gram of resist implied by Dussault et al. (without megasonics)", "expected": "1.0 (default)", "model": "0.83", "source": "Calibration: see the text"}];
+const MECH = {"pH": [3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0], "c0_mg_L": 10.0, "T_C": 20.0, "pure": [41572.61295421078, 23632.0523079297, 13535.844239586364, 7846.049162104789, 4627.967818189273, 2792.998975437603, 1730.228394212517, 1099.4543789954112, 713.429349312915, 469.78952688964523, 312.0261689634155, 207.99551328639845, 138.62385796140723, 92.10400907841117, 60.87325358072085, 39.97023718833018, 26.08887797955452, 17.00395508438468, 11.212538806954536, 7.70154866206087, 5.721173445903055], "air": [80177.54158570497, 57783.588577397735, 42605.037893152956, 31806.553999869997, 23905.89211112621, 18043.048124024714, 13661.261741646184, 10371.773075630523, 7891.3350988680495, 6008.690557865376, 4564.16292754148, 3437.114444154637, 2540.0329266521626, 1817.7056851836408, 1244.642294831755, 811.6987331287465, 506.7761735235215, 306.51949760330706, 182.1164749054921, 107.72847425160703, 64.30990731734062], "co2": [353128.3475742342, 268694.64918673655, 205589.06964657363, 158451.16103028657, 123321.38958101899, 97263.46941604571, 78098.05674406442, 64189.86470928267, 54230.60906827721, 46970.99247207545, 41042.81050548139, 35207.98001242391, 28830.539384206055, 22068.675797980908, 15659.765261113202, 10360.601570610193, 6490.384780933379, 3920.6932484968574, 2322.21749932476, 1367.9532398016154, 811.8252028276833], "h2o2": [529.8771624967713, 306.68813229910603, 181.14282504768025, 110.47661696212931, 70.63232668233688, 48.07291188769597, 35.18249922672113, 27.67809536775608, 23.139099018510798, 20.161859739458023, 17.882871526591536, 15.740846728357505, 13.407223970004774, 10.81792039829872, 8.180336618716751, 5.829825953098281, 4.005157994819732, 2.747662616256899, 1.9626257994013308, 1.5196804544739022, 1.3111277000440265], "ct_air": 1.6803619963426257e-05, "ct_co2": 0.00035690962541318146, "reactions": [["O3 + OH- -> HO2- + O2", 70.0], ["O3 + HO2- -> OH + O2- + O2", 2800000.0], ["H2O2 -> HO2- + H+", 0.079], ["HO2- + H+ -> H2O2", 50000000000.0], ["O3 + OH -> HO2 + O2", 110000000.0], ["H2O2 + OH -> HO2 + H2O", 27000000.0], ["HO2- + OH -> HO2 + OH-", 7500000000.0], ["HO2 -> O2- + H+", 790000.0], ["O2- + H+ -> HO2", 50000000000.0], ["O3 + O2- -> O3- + O2", 1600000000.0], ["HO3 -> O3- + H+", 330.0], ["O3- + H+ -> HO3", 52000000000.0], ["HO3 -> OH + O2", 110000.0], ["OH + HCO3- -> CO3- + H2O", 12000000.0], ["OH + CO3(2-) -> CO3- + OH-", 390000000.0], ["CO3- + HO2- -> CO3(2-) + HO2", 30000000.0], ["CO3- + H2O2 -> HCO3- + HO2", 430000.0], ["OH + OH -> H2O2", 5500000000.0], ["OH + O2- -> O2 + OH-", 11000000000.0], ["HO2 + HO2 -> H2O2 + O2", 980000.0], ["OH + HO2 -> H2O + O2", 37000000000.0], ["HO2 + O2- (+H2O) -> H2O2 + O2 + OH-", 97000000.0], ["CO3- + CO3- -> products", 20000000.0], ["CO3- + O3- -> CO3(2-) + O3", 60000000.0], ["CO3- + O3 -> products", 100000.0], ["CO3- + HO3 -> HCO3- + O3", 100000000.0]]};
+
+const $ = (id) => document.getElementById(id);
+const SVGNS = 'http://www.w3.org/2000/svg';
+const FONT = "'Times New Roman', Times, 'Liberation Serif', serif";
+const RED = '#cc0000', BLUE = '#0000cc', GREY = '#808080';
+function el(parent, tag, attrs) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs) {
+  const t = el(parent, 'text', Object.assign({ x, y, 'font-family': FONT, 'font-size': 13, fill: '#000000' }, attrs || {}));
+  t.textContent = s;
+  return t;
+}
+function blank(svg, w, h) {
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  el(svg, 'rect', { x: 0, y: 0, width: w, height: h, fill: '#ffffff' });
+}
+const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
+const num = (id, fb) => { const v = parseFloat($(id).value); return isFinite(v) ? v : fb; };
+function fmt(x, d) {
+  if (!isFinite(x)) return 'n/a';
+  const a = Math.abs(x);
+  if (a >= 1000) return Math.round(x).toLocaleString('en-GB');
+  return String(+x.toPrecision(d || 3));
+}
+const fmtMin = (s) => (s >= 5400 ? fmt(s / 3600, 2) + ' h' : s >= 90 ? fmt(s / 60, 2) + ' min' : fmt(s, 2) + ' s');
+function ticks(lo, hi, n) {
+  const span = hi - lo, raw = span / (n || 5);
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= (n || 5)) || 10 * mag;
+  const out = [];
+  for (let v = Math.ceil(lo / step - 1e-9) * step; v <= hi + 1e-9 * span; v += step) out.push(Math.abs(v) < 1e-12 * span ? 0 : +v.toPrecision(10));
+  return out;
+}
+const tickLabel = (v) => String(+v.toPrecision(4));
+function frame(svg, x0, y0, x1, y1) { el(svg, 'rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: 'none', stroke: '#000000', 'stroke-width': 1 }); }
+function yLabel(svg, x, y, s, attrs) { txt(svg, x, y, s, Object.assign({ 'text-anchor': 'middle', transform: `rotate(-90 ${x} ${y})` }, attrs || {})); }
+function clip(svg, id, x0, y0, x1, y1) {
+  const cp = el(svg, 'clipPath', { id });
+  el(cp, 'rect', { x: x0, y: y0, width: x1 - x0, height: y1 - y0 });
+  return el(svg, 'g', { 'clip-path': `url(#${id})` });
+}
+const path = (pts) => pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+
+// ---------------------------------------------------------------- inputs
+const DEFAULTS = { gas: 200, pres: 1.013, tc: 25, appr: 100, gf: 2, ll: 5, ld: 6, tp: 25, ph: 5.6, sub: '300', q: 1.5, rpm: 500,
+  amb: 'air', ambppm: 0, enh: 1, exh: 100, thk: 1, dem: 1.0, meas: '' };
+const EXAMPLES = {
+  base: { label: 'Spin strip at room temperature (300 mm, 500 rpm, 1.5 L/min, 25 °C)', set: {} },
+  warm: { label: 'Warm water, ozone dissolved cold (20 °C, used at 45 °C)', set: { tc: 20, tp: 45 } },
+  film: { label: 'Thin hot film under ozone gas (70 °C, 1200 rpm, 0.5 L/min)', set: { tp: 70, rpm: 1200, q: 0.5, amb: 'process gas' } },
+  pres: { label: 'Pressurised contactor and megasonics (2.5 bar, 300 g/Nm³, ×1.65)', set: { pres: 2.5, gas: 300, enh: 1.65 } },
+  mask: { label: '6-inch photomask with CO₂-acidified water (pH 4.9, 300 rpm)', set: { sub: '152', ph: 4.9, rpm: 300, q: 1.0 } },
+  custom: { label: 'Your own values', set: null },
+};
+function setForm(values) { for (const k in values) if ($(k)) $(k).value = values[k]; ambState(); }
+function ambState() { $('ambppm').disabled = $('amb').value !== 'custom'; }
+function readInputs() {
+  const p = defaultProcess();
+  const v = {
+    gas: clamp(num('gas', 200), 1, 400), pres: clamp(num('pres', 1.013), 0.5, 10), tc: clamp(num('tc', 20), 1, 90),
+    appr: clamp(num('appr', 100), 1, 100), gf: clamp(num('gf', 2), 0.01, 100), ll: clamp(num('ll', 5), 0, 200),
+    ld: clamp(num('ld', 6), 1, 50), tp: clamp(num('tp', 25), 5, 90), ph: clamp(num('ph', 5.6), 2, 8),
+    q: clamp(num('q', 1.5), 0.05, 20), rpm: clamp(num('rpm', 500), 20, 3000), ambppm: clamp(num('ambppm', 0), 0, 300000),
+    enh: clamp(num('enh', 1), 1, 10), exh: clamp(num('exh', 100), 1, 10000), thk: clamp(num('thk', 1), 0.01, 100),
+    dem: clamp(num('dem', 1), 0.05, 50),
+  };
+  for (const k in v) $(k).value = v[k];          // show the values actually used
+  Object.assign(p.supply, { gas_g_per_Nm3: v.gas, pressure: v.pres * 1e5, T_contactor: v.tc + T_ZERO, approach: v.appr / 100,
+    gas_flow_Nlpm: v.gf, line_length: v.ll, line_diameter: v.ld / 1000 });
+  Object.assign(p, { T: v.tp + T_ZERO, pH: v.ph, flow_lpm: v.q, rpm: v.rpm, diameter: parseFloat($('sub').value) / 1000,
+    ambient: $('amb').value === 'custom' ? String(v.ambppm) : $('amb').value, enhancement: v.enh, exhaust_m3h: v.exh,
+    resist_thickness: v.thk * 1e-6 });
+  p.resist = { yield_m3_per_mol: M_O3 / (v.dem * 1200), density: 1200 };
+  return p;
+}
+
+// ---------------------------------------------------------------- Figure 1: strip rate and film thickness across the wafer
+function drawFig1(r, p) {
+  const svg = $('fig1');
+  blank(svg, 640, 420);
+  const X0 = 64, X1 = 620, A = { y0: 16, y1: 250 }, B = { y0: 280, y1: 372 };
+  const R = p.diameter / 2 * 1000;
+  const xs = (mm) => X0 + (X1 - X0) * mm / R;
+  const rate = r.strip_rate.map((v) => v * 6e10);           // nm/min
+  const rr = r.film.r.map((v) => v * 1000);
+  const show = rr.map((x, i) => [x, rate[i]]).filter((q) => q[0] >= R_MIN * 1000);
+  const top = Math.max(...show.map((q) => q[1])) * 1.12;
+  const ya = (v) => A.y1 - (A.y1 - A.y0) * v / top;
+  frame(svg, X0, A.y0, X1, A.y1);
+  el(svg, 'rect', { x: X0, y: A.y0, width: xs(R_MIN * 1000) - X0, height: A.y1 - A.y0, fill: '#eeeeee' });
+  txt(svg, X0 + 4, A.y1 - 6, 'nozzle', { 'font-size': 11, fill: '#555555', 'font-style': 'italic' });
+  for (const t of ticks(0, top, 6)) { const y = ya(t); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 5, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, tickLabel(t), { 'text-anchor': 'end', 'font-size': 12 }); }
+  yLabel(svg, 18, (A.y0 + A.y1) / 2, 'strip rate (nm/min)');
+  const g = clip(svg, 'c1', X0, A.y0, X1, A.y1);
+  const mean = r.strip_mean * 6e10;
+  el(g, 'line', { x1: X0, y1: ya(mean), x2: X1, y2: ya(mean), stroke: GREY, 'stroke-dasharray': '6 4' });
+  txt(g, X1 - 6, ya(mean) - 5, 'mean ' + fmt(mean, 3), { 'text-anchor': 'end', 'font-size': 12, fill: '#555555' });
+  el(g, 'path', { d: path(show.map((q) => [xs(q[0]), ya(q[1])])), fill: 'none', stroke: RED, 'stroke-width': 1.8 });
+  // film thickness panel
+  const h = r.film.h.map((v) => v * 1e6);
+  const hs = rr.map((x, i) => [x, h[i]]).filter((q) => q[0] >= R_MIN * 1000);
+  const hTop = Math.max(...hs.map((q) => q[1])) * 1.1;
+  const yb = (v) => B.y1 - (B.y1 - B.y0) * v / hTop;
+  frame(svg, X0, B.y0, X1, B.y1);
+  el(svg, 'rect', { x: X0, y: B.y0, width: xs(R_MIN * 1000) - X0, height: B.y1 - B.y0, fill: '#eeeeee' });
+  for (const t of ticks(0, hTop, 3)) { const y = yb(t); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 5, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, tickLabel(t), { 'text-anchor': 'end', 'font-size': 12 }); }
+  yLabel(svg, 18, (B.y0 + B.y1) / 2, 'film (µm)');
+  const g2 = clip(svg, 'c1b', X0, B.y0, X1, B.y1);
+  el(g2, 'path', { d: path(hs.map((q) => [xs(q[0]), yb(q[1])])), fill: 'none', stroke: '#000000', 'stroke-width': 1.3 });
+  for (const t of ticks(0, R, 7)) {
+    const x = xs(t);
+    el(svg, 'line', { x1: x, y1: B.y1, x2: x, y2: B.y1 - 5, stroke: '#000000' });
+    el(svg, 'line', { x1: x, y1: A.y1, x2: x, y2: A.y1 - 5, stroke: '#000000' });
+    txt(svg, x, B.y1 + 16, tickLabel(t), { 'text-anchor': 'middle', 'font-size': 12 });
+  }
+  txt(svg, (X0 + X1) / 2, 410, 'distance from the centre (mm)', { 'text-anchor': 'middle' });
+  const sub = $('sub').selectedOptions[0].textContent;
+  $('cap1').innerHTML = `<b>Figure 1.</b> Strip rate across the ${sub} (red) and film thickness (black) at ${fmt(p.rpm)} rpm and ` +
+    `${fmt(p.flow_lpm)} L/min, ${fmt(p.T - T_ZERO)} °C, with ${fmt(mgL(r.supply.c_nozzle), 3)} mg/L ozone at the nozzle. ` +
+    `Grey: the zone under the nozzle, not modelled. Dashed: the area-weighted mean.`;
+}
+
+// ---------------------------------------------------------------- Figure 2: where the ozone goes
+function drawFig2(r, p) {
+  const svg = $('fig2');
+  blank(svg, 640, 250);
+  const s = r.supply, b = r.budget, Q = p.flow_lpm / 60e3;
+  const toMg = (mol) => mol * M_O3 * 1e6 * 60;                 // mol/s -> mg/min
+  const gen = toMg(s.ozone_from_generator), dis = toMg(s.ozone_dissolved);
+  const X0 = 150, X1 = 620, W = X1 - X0;
+  const bar = (y, parts, total, label, sub) => {
+    txt(svg, 10, y + 15, label, { 'font-size': 13 });
+    txt(svg, 10, y + 31, sub, { 'font-size': 12, fill: '#555555' });
+    let x = X0;
+    for (const part of parts) {
+      const w = total > 0 ? W * Math.max(part.v, 0) / total : 0;
+      if (w <= 0) continue;
+      el(svg, 'rect', { x, y, width: w, height: 34, fill: part.fill, stroke: '#000000', 'stroke-width': 0.8 });
+      if (w > 42) txt(svg, x + w / 2, y + 22, Math.round(100 * part.v / total) + ' %', { 'text-anchor': 'middle', 'font-size': 12, fill: part.ink || '#000000' });
+      x += w;
+    }
+  };
+  const genParts = gen > 0 ? [{ v: Math.min(dis, gen), fill: '#9ab0d8' }, { v: Math.max(gen - dis, 0), fill: '#ffffff' }] : [];
+  bar(20, genParts, Math.max(gen, dis), 'Generator', fmt(gen, 3) + ' mg/min');
+  const absorbed = Math.max(b.gas_exchange, 0), escaped = Math.max(-b.gas_exchange, 0);
+  const lineLoss = toMg(s.ozone_decayed_in_line);
+  const total = dis + toMg(absorbed);
+  const parts = [
+    { v: lineLoss, fill: '#555555', ink: '#ffffff' },
+    { v: toMg(b.resist), fill: RED, ink: '#ffffff' },
+    { v: toMg(escaped), fill: '#c9d6ee' },
+    { v: toMg(b.decomposed), fill: '#bbbbbb' },
+    { v: toMg(b.edge), fill: '#ffffff' },
+  ];
+  bar(90, parts, total, 'Dissolved ozone', fmt(dis, 3) + ' mg/min' + (absorbed > 0 ? ' + ' + fmt(toMg(absorbed), 2) + ' from gas' : ''));
+  // legend
+  const leg = [['dissolved', '#9ab0d8'], ['not dissolved (to destruct)', '#ffffff'], ['decays in the line', '#555555'], ['reaches the resist', RED],
+    ['escapes to the gas', '#c9d6ee'], ['decays on the wafer', '#bbbbbb'], ['runs off the edge', '#ffffff']];
+  let lx = 10, ly = 160;
+  for (const [name, fill] of leg) {
+    const w = 18 + name.length * 6.3 + 14;
+    if (lx + w > 630) { lx = 10; ly += 22; }
+    el(svg, 'rect', { x: lx, y: ly, width: 14, height: 12, fill, stroke: '#000000', 'stroke-width': 0.8 });
+    txt(svg, lx + 19, ly + 11, name, { 'font-size': 12 });
+    lx += w;
+  }
+  $('cap2').innerHTML = `<b>Figure 2.</b> Ozone flows in mg/min. Top: generator output, of which ${fmt(100 * Math.min(dis, gen) / Math.max(gen, 1e-30), 2)} % dissolves. ` +
+    `Bottom: what happens to the dissolved ozone; ${fmt(100 * b.resist / (total / (M_O3 * 1e6 * 60)), 2)} % of it reaches the resist.`;
+}
+
+// ---------------------------------------------------------------- Figure 3: ozone across the film
+function drawFig3(r, p, radii) {
+  const svg = $('fig3');
+  blank(svg, 640, 352);
+  const X0 = 64, X1 = 620, Y0 = 16, Y1 = 280;
+  const cmax = Math.max(mgL(r.supply.c_nozzle), mgL(r.c_surface), 1e-6) * 1.05;
+  const xs = (c) => X0 + (X1 - X0) * c / cmax, ys = (z) => Y1 - (Y1 - Y0) * z;
+  frame(svg, X0, Y0, X1, Y1);
+  for (const t of ticks(0, cmax, 6)) { const x = xs(t); el(svg, 'line', { x1: x, y1: Y1, x2: x, y2: Y1 - 5, stroke: '#000000' }); txt(svg, x, Y1 + 16, tickLabel(t), { 'text-anchor': 'middle', 'font-size': 12 }); }
+  for (const t of [0, 0.25, 0.5, 0.75, 1]) { const y = ys(t); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 5, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, String(t), { 'text-anchor': 'end', 'font-size': 12 }); }
+  txt(svg, (X0 + X1) / 2, 314, 'dissolved ozone (mg/L)', { 'text-anchor': 'middle' });
+  yLabel(svg, 18, (Y0 + Y1) / 2, 'height above the wafer / film thickness');
+  txt(svg, X1 - 6, Y0 + 14, 'free surface', { 'text-anchor': 'end', 'font-size': 12, 'font-style': 'italic', fill: '#555555' });
+  txt(svg, X1 - 6, Y1 - 6, 'resist', { 'text-anchor': 'end', 'font-size': 12, 'font-style': 'italic', fill: '#555555' });
+  const g = clip(svg, 'c3', X0, Y0, X1, Y1);
+  el(g, 'line', { x1: xs(mgL(r.supply.c_nozzle)), y1: Y0, x2: xs(mgL(r.supply.c_nozzle)), y2: Y1, stroke: GREY, 'stroke-dasharray': '2 3' });
+  const styles = [{ stroke: '#000000', dash: '' }, { stroke: RED, dash: '' }, { stroke: BLUE, dash: '6 4' }];
+  const zc = Array.from(r.film.zeta);
+  r.film.profiles.forEach((pr, i) => {
+    const pts = [[xs(0), ys(0)]];
+    if (r.c_surface !== undefined) { /* wall value is 0 in the transport-limited case */ }
+    zc.forEach((z, j) => pts.push([xs(mgL(pr.c[j])), ys(z)]));
+    pts.push([xs(mgL(r.c_surface)), ys(1)]);
+    const st = styles[i % 3];
+    el(g, 'path', { d: path(pts), fill: 'none', stroke: st.stroke, 'stroke-width': 1.5, 'stroke-dasharray': st.dash });
+    const lx = X0 + 20 + i * 180;
+    el(svg, 'line', { x1: lx, y1: 336, x2: lx + 30, y2: 336, stroke: st.stroke, 'stroke-width': 1.5, 'stroke-dasharray': st.dash });
+    txt(svg, lx + 36, 340, 'r = ' + fmt(pr.r * 1000, 3) + ' mm', { 'font-size': 12 });
+  });
+  $('cap3').innerHTML = `<b>Figure 3.</b> Dissolved ozone across the film at three radii. The resist takes up ozone at the bottom ` +
+    `(zero at the wall) and the free surface is in equilibrium with the gas above (${fmt(mgL(r.c_surface), 2)} mg/L). ` +
+    `Dotted: the concentration at the nozzle.`;
+}
+
+// ---------------------------------------------------------------- results table and notes
+function showResults(r, p) {
+  const s = r.supply;
+  const nm = (v) => fmt(v * 6e10, 3);
+  const rows = [
+    ['Ozone in the generator gas', `${fmt(p.supply.gas_g_per_Nm3)} g/Nm³ (${fmt(s.wt_gas * 100, 3)} wt %)`],
+    ['Ozone leaving the contactor', `${fmt(mgL(s.c_contactor_out), 3)} mg/L`],
+    ['Time in the supply line', fmtMin(s.line_residence_time)],
+    ['Ozone at the nozzle', `${fmt(mgL(s.c_nozzle), 3)} mg/L`],
+    ['Saturation at the nozzle (1 atm)', `${fmt(mgL(s.c_sat_nozzle), 3)} mg/L, ratio ${fmt(s.supersaturation, 3)}`],
+    ['Half-life at process temperature', fmtMin(r.half_life_nozzle)],
+    ['Film thickness at mid-radius', `${fmt(r.h_mid * 1e6, 3)} µm`],
+    ['Inertia / viscous force at mid-radius', fmt(r.inertia_mid, 2)],
+    ['Mean strip rate', `${nm(r.strip_mean)} nm/min`],
+    ['Range across the wafer', `${nm(r.strip_min)} to ${nm(r.strip_max)} nm/min`],
+    ['Non-uniformity (max − min) / (2 mean)', `${fmt(r.nonuniformity * 100, 3)} %`],
+    [`Time to clear ${fmt(p.resist_thickness * 1e6)} µm (slowest point)`, fmtMin(r.time_to_clear)],
+    ['Ozone dispensed per wafer', `${fmt(r.ozone_per_wafer_g * 1000, 3)} mg`],
+    ['Ozone released into the chamber', `${fmt(Math.max(-r.budget.gas_exchange, 0) * M_O3 * 1e6 * 60, 3)} mg/min`],
+    [`Ozone in the exhaust at ${fmt(p.exhaust_m3h)} m³/h`, `${fmt(r.exhaust_ppm, 3)} ppm`],
+    ['Resist yield', `${fmt(p.resist.yield_m3_per_mol * 1e6, 3)} cm³ of resist per mol of ozone`],
+  ];
+  $('results').innerHTML = '<tr><th class="l">Result</th><th>Value</th></tr>' + rows.map((x) => `<tr><td>${x[0]}</td><td>${x[1]}</td></tr>`).join('');
+  const notes = [];
+  if (s.supersaturation > 1.02) notes.push(`<p class="warn">The water at the nozzle holds ${fmt(s.supersaturation, 2)} times the ozone it can keep at 1 atm and ${fmt(p.T - T_ZERO)} °C. It will lose ozone as bubbles or at its surface, so the real concentration on the wafer is lower than shown.</p>`);
+  if (r.inertia_mid > 0.5) notes.push(`<p class="warn">Inertia is not small at mid-radius (ratio ${fmt(r.inertia_mid, 2)}); the real film is thicker than the simple film model, so the strip rate is overestimated.</p>`);
+  if (p.T - T_ZERO > 70) notes.push('<p class="warn">Above about 70 °C the decay law is extrapolated.</p>');
+  if (r.exhaust_ppm > 0.1) notes.push(`<p>The exhaust carries ${fmt(r.exhaust_ppm, 2)} ppm of ozone, ${fmt(r.exhaust_ppm / 0.1, 2)} times the OSHA workplace limit of 0.1 ppm; it must go through an ozone destruct unit.</p>`);
+  $('notes').innerHTML = notes.join('');
+}
+
+// ---------------------------------------------------------------- test rig: sizing table
+const EPS_O3 = 3000;            // L/(mol cm) near 260 nm (Levanov et al. 2016)
+function showRig(r, p) {
+  const s = r.supply, b = r.budget, Q = p.flow_lpm / 60e3;
+  const gh = (mol) => mol * M_O3 * 1e3 * 3600;                 // mol/s -> g/h
+  const gen = s.ozone_from_generator, dis = Math.min(s.ozone_dissolved, gen);
+  const escaped = Math.max(-b.gas_exchange, 0);
+  const bare = simulate(withChanges(p, { resist: Object.assign({}, p.resist, { k_wall_ref: 0 }), n_layers: 32, n_steps: 200 }));
+  const drain = (res) => mgL(res.budget.edge / Q);
+  const absorb = EPS_O3 * (s.c_nozzle / 1000) * 0.1;
+  const rho = resistivityCO2(p.pH), pco2 = co2PressureForPH(p.pH);
+  const t10 = s.c_nozzle > 0 ? timeToFraction(s.c_nozzle, 0.9, p.pH, p.T) : Infinity;
+  const stop = r.strip_max > 0 ? 0.6 * p.resist_thickness / r.strip_max : Infinity;
+  const lid = p.ambient === 'air' ? '' : ', plus the ozone gas fed to the lid';
+  const rows = [
+    ['Ozone made by the generator', `${fmt(gh(gen), 3)} g/h in ${fmt(p.supply.gas_flow_Nlpm)} NL/min of gas`],
+    ['Ozone dissolved in the contactor', `${fmt(gh(dis), 3)} g/h, ${fmt(100 * dis / Math.max(gen, 1e-30), 2)} % of it`],
+    ['Ozone in the contactor off-gas, to the destruct', `${fmt(gh(Math.max(gen - dis, 0)), 3)} g/h`],
+    ['Ozone released by the film into the chamber', `${fmt(gh(escaped), 3)} g/h; ${fmt(r.exhaust_ppm, 3)} ppm at AIT-304${lid}`],
+    ['Ozone in the water leaving the wafer (AIT-302)', `${fmt(drain(r), 3)} mg/L or a little less`],
+    ['Stage 2, bare wafer: AIT-302 and AIT-304', `${fmt(drain(bare), 3)} mg/L and ${fmt(bare.exhaust_ppm, 3)} ppm`],
+    ['UV absorbance before the nozzle, 1 mm cell (AIT-207)', fmt(absorb, 2)],
+    ['Resistivity for this pH with CO₂ alone (AIT-202)', isFinite(rho) ? `${fmt(rho, 3)} MΩ cm at 25 °C; the water is in equilibrium with ${pco2 >= 1000 ? fmt(pco2 / 1000, 3) + ' kPa' : fmt(pco2, 2) + ' Pa'} of CO₂` : 'CO₂ cannot raise the pH above 7'],
+    ['Time for 10 % of the ozone to decay (stop-flow cell)', fmtMin(t10)],
+    ['Partial strip: stop after', `${fmtMin(stop)}, 60 % of the time the fastest point needs`],
+    ['Water used to clear the slowest point', `${fmt(p.flow_lpm * r.time_to_clear / 60, 3)} L per wafer`],
+  ];
+  $('rigsize').innerHTML = '<tr><th class="l">Quantity</th><th class="l">Value</th></tr>' +
+    rows.map((x) => `<tr><td>${x[0]}</td><td class="l">${x[1]}</td></tr>`).join('');
+}
+
+// ---------------------------------------------------------------- test plan: two-level design, 2^(5-1) with E = ABCD, and centre points
+const DOE = { T: [20, 40], rpm: [300, 1000], q: [0.8, 1.6], gas: [150, 300] };
+const doeLevel = (k, x) => DOE[k][0] + (DOE[k][1] - DOE[k][0]) * (x + 1) / 2;
+function doeRuns() {
+  const runs = [];
+  for (let i = 0; i < 16; i++) {
+    const a = i & 1 ? 1 : -1, b = i & 2 ? 1 : -1, c = i & 4 ? 1 : -1, d = i & 8 ? 1 : -1;
+    runs.push([a, b, c, d, a * b * c * d]);
+  }
+  for (const e of [-1, 1, -1, 1]) runs.push([0, 0, 0, 0, e]);
+  return runs;
+}
+function showDOE(p, predict) {
+  let html = '<tr><th>Run</th><th>Temperature (°C)</th><th>Spin (rpm)</th><th>Flow (L/min)</th><th>Generator gas (g/Nm³)</th>' +
+    '<th class="l">Gas above</th><th>Mean strip rate (nm/min)</th><th>Non-uniformity (%)</th><th>Stop after</th></tr>';
+  doeRuns().forEach((x, i) => {
+    const T = doeLevel('T', x[0]), rpm = doeLevel('rpm', x[1]), q = doeLevel('q', x[2]), gas = doeLevel('gas', x[3]);
+    let pred = '<td>…</td><td>…</td><td>…</td>';
+    if (predict) {
+      const r = simulate(withChanges(p, { T: T + T_ZERO, rpm, flow_lpm: q, ambient: x[4] > 0 ? 'process gas' : 'air',
+        supply: Object.assign({}, p.supply, { gas_g_per_Nm3: gas, T_contactor: T + T_ZERO }), n_layers: 32, n_steps: 200 }));
+      const stop = r.strip_max > 0 ? 0.6 * p.resist_thickness / r.strip_max : Infinity;
+      pred = `<td>${fmt(r.strip_mean * 6e10, 3)}</td><td>${fmt(r.nonuniformity * 100, 2)}</td><td>${fmtMin(stop)}</td>`;
+    }
+    html += `<tr><td>${i + 1}${i >= 16 ? ' (centre)' : ''}</td><td>${fmt(T)}</td><td>${fmt(rpm)}</td><td>${fmt(q)}</td><td>${fmt(gas)}</td>` +
+      `<td class="l">${x[4] > 0 ? 'ozone gas' : 'air'}</td>${pred}</tr>`;
+  });
+  $('doe').innerHTML = html;
+}
+
+// ---------------------------------------------------------------- Figure 5: temperature trade-off
+function drawFig5(p, temps, res) {
+  const svg = $('fig5');
+  blank(svg, 640, 400);
+  const X0 = 64, X1 = 566, Y0 = 16, Y1 = 340;
+  const tLo = temps[0] - T_ZERO, tHi = temps[temps.length - 1] - T_ZERO;
+  const xs = (t) => X0 + (X1 - X0) * (t - tLo) / (tHi - tLo);
+  const ppmTop = Math.max(...res.map((q) => Math.max(q.noz, q.sat))) * 1.1;
+  const rateTop = Math.max(...res.map((q) => q.rate)) * 1.15;
+  const yl = (v) => Y1 - (Y1 - Y0) * v / ppmTop, yr = (v) => Y1 - (Y1 - Y0) * v / rateTop;
+  frame(svg, X0, Y0, X1, Y1);
+  for (const t of ticks(0, ppmTop, 6)) { const y = yl(t); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 5, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, tickLabel(t), { 'text-anchor': 'end', 'font-size': 12 }); }
+  for (const t of ticks(0, rateTop, 6)) { const y = yr(t); el(svg, 'line', { x1: X1, y1: y, x2: X1 - 5, y2: y, stroke: RED }); txt(svg, X1 + 6, y + 4, tickLabel(t), { 'font-size': 12, fill: RED }); }
+  for (const t of ticks(tLo, tHi, 7)) { const x = xs(t); el(svg, 'line', { x1: x, y1: Y1, x2: x, y2: Y1 - 5, stroke: '#000000' }); txt(svg, x, Y1 + 16, tickLabel(t), { 'text-anchor': 'middle', 'font-size': 12 }); }
+  txt(svg, (X0 + X1) / 2, 380, 'process temperature (°C)', { 'text-anchor': 'middle' });
+  yLabel(svg, 18, (Y0 + Y1) / 2, 'dissolved ozone (mg/L)');
+  yLabel(svg, 622, (Y0 + Y1) / 2, 'mean strip rate (nm/min)', { fill: RED });
+  const g = clip(svg, 'c5', X0, Y0, X1, Y1);
+  const P = (key, ys) => res.map((q) => [xs(q.T - T_ZERO), ys(q[key])]);
+  el(g, 'path', { d: path(P('sat', yl)), fill: 'none', stroke: GREY, 'stroke-width': 1.2, 'stroke-dasharray': '6 4' });
+  el(g, 'path', { d: path(P('noz', yl)), fill: 'none', stroke: '#000000', 'stroke-width': 1.5 });
+  el(g, 'path', { d: path(P('rate', yr)), fill: 'none', stroke: RED, 'stroke-width': 1.8 });
+  const best = res.reduce((a, q) => (q.rate > a.rate ? q : a), res[0]);
+  el(g, 'circle', { cx: xs(best.T - T_ZERO), cy: yr(best.rate), r: 3.5, fill: RED });
+  const xc = xs(p.T - T_ZERO);
+  el(g, 'line', { x1: xc, y1: Y0, x2: xc, y2: Y1, stroke: '#000000', 'stroke-dasharray': '2 3' });
+  txt(g, X0 + 8, Y1 - 26, 'black: ozone at the nozzle', { 'font-size': 12 });
+  txt(g, X0 + 8, Y1 - 10, 'dashed: saturation at 1 atm', { 'font-size': 12, fill: '#555555' });
+  $('cap5').innerHTML = `<b>Figure 5.</b> For the current settings: ozone at the nozzle (black), the saturation at 1 atm ` +
+    `with the generator gas (dashed), and the mean strip rate (red, right axis) against process temperature. ` +
+    `The best temperature here is about ${fmt(best.T - T_ZERO, 2)} °C (dot). Dotted line: the current temperature.`;
+}
+
+// ---------------------------------------------------------------- Figure 4: process window map
+function contourSegments(grid, xs, ys, level) {
+  const segs = [];
+  for (let i = 0; i < ys.length - 1; i++) {
+    for (let j = 0; j < xs.length - 1; j++) {
+      const v = [grid[i][j], grid[i][j + 1], grid[i + 1][j + 1], grid[i + 1][j]];
+      const p = [[xs[j], ys[i]], [xs[j + 1], ys[i]], [xs[j + 1], ys[i + 1]], [xs[j], ys[i + 1]]];
+      const cross = [];
+      for (let e = 0; e < 4; e++) {
+        const a = v[e], b = v[(e + 1) % 4];
+        if ((a < level) !== (b < level)) {
+          const f = (level - a) / (b - a);
+          const pa = p[e], pb = p[(e + 1) % 4];
+          cross.push([pa[0] + f * (pb[0] - pa[0]), pa[1] + f * (pb[1] - pa[1])]);
+        }
+      }
+      if (cross.length === 2) segs.push(cross);
+      else if (cross.length === 4) { segs.push([cross[0], cross[1]]); segs.push([cross[2], cross[3]]); }
+    }
+  }
+  return segs;
+}
+function chain(segs) {
+  const key = (q) => q[0].toFixed(5) + ',' + q[1].toFixed(5);
+  const lines = [], used = new Array(segs.length).fill(false);
+  const ends = new Map();
+  segs.forEach((s, i) => { for (const q of s) { const k = key(q); if (!ends.has(k)) ends.set(k, []); ends.get(k).push(i); } });
+  for (let i = 0; i < segs.length; i++) {
+    if (used[i]) continue;
+    used[i] = true;
+    const line = [segs[i][0], segs[i][1]];
+    for (const dir of [1, -1]) {
+      for (;;) {
+        const endPt = dir === 1 ? line[line.length - 1] : line[0];
+        const next = (ends.get(key(endPt)) || []).find((k) => !used[k]);
+        if (next === undefined) break;
+        used[next] = true;
+        const s = segs[next];
+        const other = key(s[0]) === key(endPt) ? s[1] : s[0];
+        if (dir === 1) line.push(other); else line.unshift(other);
+      }
+    }
+    lines.push(line);
+  }
+  return lines;
+}
+function refine(grid, k) {
+  const ny = grid.length, nx = grid[0].length, out = [];
+  for (let i = 0; i <= (ny - 1) * k; i++) {
+    const row = [], fi = i / k, i0 = Math.min(Math.floor(fi), ny - 2), ti = fi - i0;
+    for (let j = 0; j <= (nx - 1) * k; j++) {
+      const fj = j / k, j0 = Math.min(Math.floor(fj), nx - 2), tj = fj - j0;
+      row.push((1 - ti) * ((1 - tj) * grid[i0][j0] + tj * grid[i0][j0 + 1]) + ti * ((1 - tj) * grid[i0 + 1][j0] + tj * grid[i0 + 1][j0 + 1]));
+    }
+    out.push(row);
+  }
+  return out;
+}
+const MAP = { temps: [], rpms: [] };
+for (let t = 10; t <= 80.001; t += 5) MAP.temps.push(t + T_ZERO);
+for (let n = 100; n <= 1500.001; n += 100) MAP.rpms.push(n);
+function drawFig4(p, sw) {
+  const svg = $('fig4');
+  blank(svg, 640, 400);
+  const X0 = 64, X1 = 620, Y0 = 16, Y1 = 340;
+  const tLo = 10, tHi = 80, nLo = 100, nHi = 1500;
+  const xs = (t) => X0 + (X1 - X0) * (t - tLo) / (tHi - tLo), ys = (n) => Y1 - (Y1 - Y0) * (n - nLo) / (nHi - nLo);
+  frame(svg, X0, Y0, X1, Y1);
+  for (const t of ticks(tLo, tHi, 7)) { const x = xs(t); el(svg, 'line', { x1: x, y1: Y1, x2: x, y2: Y1 - 5, stroke: '#000000' }); txt(svg, x, Y1 + 16, tickLabel(t), { 'text-anchor': 'middle', 'font-size': 12 }); }
+  for (const n of ticks(nLo, nHi, 7)) { const y = ys(n); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 5, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, tickLabel(n), { 'text-anchor': 'end', 'font-size': 12 }); }
+  txt(svg, (X0 + X1) / 2, 380, 'process temperature (°C)', { 'text-anchor': 'middle' });
+  yLabel(svg, 18, (Y0 + Y1) / 2, 'spin speed (rpm)');
+  const g = clip(svg, 'c4', X0, Y0, X1, Y1);
+  if (!sw) { txt(svg, (X0 + X1) / 2, (Y0 + Y1) / 2, 'computing …', { 'text-anchor': 'middle', fill: '#555555' }); return; }
+  const k = 4;
+  const rate = refine(sw.mean.map((row) => row.map((v) => v * 6e10)), k);
+  const sat = refine(sw.sat, k);
+  const tx = [], ny = [];
+  for (let j = 0; j < rate[0].length; j++) tx.push(xs(tLo + (tHi - tLo) * j / (rate[0].length - 1)));
+  for (let i = 0; i < rate.length; i++) ny.push(ys(nLo + (nHi - nLo) * i / (rate.length - 1)));
+  // shade the supersaturated part
+  for (let i = 0; i < sat.length - 1; i++) for (let j = 0; j < sat[0].length - 1; j++) {
+    if ((sat[i][j] + sat[i][j + 1] + sat[i + 1][j] + sat[i + 1][j + 1]) / 4 > 1) el(g, 'rect', { x: tx[j], y: ny[i + 1], width: tx[j + 1] - tx[j] + 0.3, height: ny[i] - ny[i + 1] + 0.3, fill: '#f6eded' });
+  }
+  const all = rate.flat();
+  const levels = ticks(Math.min(...all), Math.max(...all), 8).filter((L) => L > Math.min(...all) && L < Math.max(...all));
+  for (const L of levels) {
+    for (const line of chain(contourSegments(rate, tx, ny, L))) {
+      el(g, 'path', { d: path(line), fill: 'none', stroke: '#000000', 'stroke-width': 1 });
+      if (line.length > 6) {
+        const m = line[Math.floor(line.length / 2)];
+        el(g, 'rect', { x: m[0] - 14, y: m[1] - 8, width: 28, height: 14, fill: '#ffffff' });
+        txt(g, m[0], m[1] + 4, tickLabel(L), { 'text-anchor': 'middle', 'font-size': 11 });
+      }
+    }
+  }
+  for (const line of chain(contourSegments(sat, tx, ny, 1.0))) el(g, 'path', { d: path(line), fill: 'none', stroke: RED, 'stroke-width': 1.4, 'stroke-dasharray': '6 4' });
+  const cx = xs(clamp(p.T - T_ZERO, tLo, tHi)), cy = ys(clamp(p.rpm, nLo, nHi));
+  el(g, 'line', { x1: cx - 7, y1: cy, x2: cx + 7, y2: cy, stroke: '#000000', 'stroke-width': 2 });
+  el(g, 'line', { x1: cx, y1: cy - 7, x2: cx, y2: cy + 7, stroke: '#000000', 'stroke-width': 2 });
+  $('cap4').innerHTML = `<b>Figure 4.</b> Mean strip rate in nm/min (contours) against process temperature and spin speed, with every ` +
+    `other setting as in the form. Shaded, beyond the dashed red line: water supersaturated at the nozzle. Cross: the current settings.`;
+}
+
+// ---------------------------------------------------------------- Figure 6: half-life against pH
+function drawFig6(p) {
+  const svg = $('fig6');
+  blank(svg, 640, 452);
+  const X0 = 64, X1 = 620, Y0 = 16, Y1 = 340, pLo = 2, pHi = 8, lo = -2, hi = 4;     // log10 minutes
+  const xs = (pH) => X0 + (X1 - X0) * (pH - pLo) / (pHi - pLo);
+  const ys = (min) => Y1 - (Y1 - Y0) * (Math.log10(min) - lo) / (hi - lo);
+  frame(svg, X0, Y0, X1, Y1);
+  for (let e = lo; e <= hi; e++) { const y = ys(Math.pow(10, e)); el(svg, 'line', { x1: X0, y1: y, x2: X0 + 6, y2: y, stroke: '#000000' }); txt(svg, X0 - 6, y + 4, String(Math.pow(10, e) >= 1 ? Math.pow(10, e) : Math.pow(10, e).toString()), { 'text-anchor': 'end', 'font-size': 12 }); }
+  for (let v = pLo; v <= pHi; v++) { const x = xs(v); el(svg, 'line', { x1: x, y1: Y1, x2: x, y2: Y1 - 5, stroke: '#000000' }); txt(svg, x, Y1 + 16, String(v), { 'text-anchor': 'middle', 'font-size': 12 }); }
+  txt(svg, (X0 + X1) / 2, 374, 'pH', { 'text-anchor': 'middle' });
+  yLabel(svg, 18, (Y0 + Y1) / 2, 'half-life (min), 10 mg/L at start');
+  const g = clip(svg, 'c6', X0, Y0, X1, Y1);
+  // De Smedt et al. (2002): 3 to 4 h at pH 1.8 to 3, room temperature
+  el(g, 'rect', { x: xs(1.8), y: ys(240), width: xs(3) - xs(1.8), height: ys(180) - ys(240), fill: '#dddddd', stroke: '#000000', 'stroke-width': 0.8 });
+  txt(g, xs(2.05), ys(240) - 6, 'measured, room temp.', { 'font-size': 11, fill: '#333333' });
+  const c0 = molm3(10);
+  const law = (T) => { const pts = []; for (let v = 2; v <= 8.0001; v += 0.1) pts.push([xs(v), ys(halfLife(c0, v, T) / 60)]); return pts; };
+  el(g, 'path', { d: path(law(293.15)), fill: 'none', stroke: '#000000', 'stroke-width': 1.8 });
+  if (Math.abs(p.T - 293.15) > 2) el(g, 'path', { d: path(law(p.T)), fill: 'none', stroke: RED, 'stroke-width': 1.6 });
+  const mech = (key) => MECH.pH.map((v, i) => [xs(v), ys(MECH[key][i] / 60)]).filter((q) => isFinite(q[1]));
+  el(g, 'path', { d: path(mech('pure')), fill: 'none', stroke: '#000000', 'stroke-width': 1.2, 'stroke-dasharray': '2 3' });
+  el(g, 'path', { d: path(mech('air')), fill: 'none', stroke: '#000000', 'stroke-width': 1.2, 'stroke-dasharray': '7 4' });
+  el(g, 'path', { d: path(mech('co2')), fill: 'none', stroke: GREY, 'stroke-width': 1.2, 'stroke-dasharray': '10 3 2 3' });
+  el(g, 'path', { d: path(mech('h2o2')), fill: 'none', stroke: BLUE, 'stroke-width': 1.3 });
+  const key = [['rate law, 20 °C', '#000000', '', 1.8], ['rate law, ' + fmt(p.T - T_ZERO, 2) + ' °C', RED, '', 1.6],
+    ['mechanism, degassed water', '#000000', '2 3', 1.2], ['mechanism, water in contact with air', '#000000', '7 4', 1.2],
+    ['mechanism, 1 % CO₂ in the gas', GREY, '10 3 2 3', 1.2], ['mechanism, air + 10 µM H₂O₂', BLUE, '', 1.3]];
+  let n = 0;
+  for (const [name, stroke, dash, w] of key) {
+    if (name.startsWith('rate law, ' + fmt(p.T - T_ZERO, 2)) && Math.abs(p.T - 293.15) <= 2) continue;
+    const kx = X0 + (n % 2) * 280, ky = 402 + Math.floor(n / 2) * 18;
+    el(svg, 'line', { x1: kx, y1: ky - 4, x2: kx + 30, y2: ky - 4, stroke, 'stroke-width': w, 'stroke-dasharray': dash });
+    txt(svg, kx + 36, ky, name, { 'font-size': 12 });
+    n++;
+  }
+  $('cap6').innerHTML = `<b>Figure 6.</b> Half-life of dissolved ozone (10 mg/L at the start) against pH. Solid: the rate law used in the ` +
+    `process calculation, at 20 °C and at the process temperature. Other lines: the radical mechanism at 20 °C, for degassed water, ` +
+    `for water in contact with air (${(MECH.ct_air * 1e6).toFixed(0)} µM carbonate), for 1 % CO₂ (${(MECH.ct_co2 * 1e6).toFixed(0)} µM) ` +
+    `and with 10 µM hydrogen peroxide. Box: measured half-life of 3 to 4 h at pH 1.8 to 3 (De Smedt et al. 2002).`;
+}
+
+// ---------------------------------------------------------------- checks table
+function showChecks() {
+  let html = '<tr><th class="l">Check</th><th>Expected</th><th>This model</th><th class="l">Source</th></tr>';
+  let group = '';
+  for (const c of CHECKS) {
+    if (c.group !== group) { group = c.group; html += `<tr><th class="l" colspan="4">${group}</th></tr>`; }
+    html += `<tr><td>${c.label}</td><td>${c.expected}</td><td>${c.model}</td><td class="l">${c.source}</td></tr>`;
+  }
+  $('checks').innerHTML = html;
+}
+
+// ---------------------------------------------------------------- run
+let job = 0;
+function compute() {
+  const p = readInputs();
+  const R = p.diameter / 2;
+  const radii = [0.15 * R, 0.5 * R, 0.95 * R];
+  const t0 = performance.now();
+  const r = simulate(p, radii);
+  drawFig1(r, p); drawFig2(r, p); drawFig3(r, p, radii); showResults(r, p); drawFig6(p); showRig(r, p); showDOE(p, false);
+  $('status').textContent = `Done in ${Math.round(performance.now() - t0)} ms; computing Figures 4 and 5 and the test plan …`;
+  const my = ++job;
+  drawFig4(p, null);
+  // Figure 5, then the map row by row, so the page stays responsive
+  const temps = [];
+  for (let t = 10; t <= 80.001; t += 2.5) temps.push(t + T_ZERO);
+  const res5 = temps.map((T) => {
+    const q = simulate(withChanges(p, { T, n_layers: 32, n_steps: 200 }));
+    return { T, noz: mgL(q.supply.c_nozzle), sat: mgL(q.supply.c_sat_nozzle), rate: q.strip_mean * 6e10 };
+  });
+  drawFig5(p, temps, res5);
+  const sw = { mean: [], sat: [] };
+  let i = 0;
+  const step = () => {
+    if (my !== job) return;
+    const rowMean = [], rowSat = [];
+    for (const T of MAP.temps) {
+      const q = simulate(withChanges(p, { T, rpm: MAP.rpms[i], n_layers: 24, n_steps: 150 }));
+      rowMean.push(q.strip_mean); rowSat.push(q.supply.supersaturation);
+    }
+    sw.mean.push(rowMean); sw.sat.push(rowSat);
+    i++;
+    if (i < MAP.rpms.length) setTimeout(step, 0);
+    else {
+      drawFig4(p, sw);
+      setTimeout(() => { if (my !== job) return; showDOE(p, true); $('status').textContent = `Done in ${Math.round(performance.now() - t0)} ms.`; }, 0);
+    }
+  };
+  setTimeout(step, 0);
+}
+
+function init() {
+  const ex = $('ex');
+  for (const key in EXAMPLES) { const o = document.createElement('option'); o.value = key; o.textContent = EXAMPLES[key].label; ex.appendChild(o); }
+  setForm(DEFAULTS);
+  ex.addEventListener('change', () => { const e = EXAMPLES[ex.value]; if (e.set) { setForm(Object.assign({}, DEFAULTS, e.set)); compute(); } });
+  $('amb').addEventListener('change', ambState);
+  $('form').addEventListener('submit', (ev) => { ev.preventDefault(); ex.value = 'custom'; compute(); });
+  $('reset').addEventListener('click', () => { ex.value = 'base'; setForm(DEFAULTS); $('fitnote').textContent = 'The default of 1.0 g of ozone per gram of resist fits published room-temperature strip rates (see Calibration below).'; compute(); });
+  $('fit').addEventListener('click', () => {
+    const rate = parseFloat($('meas').value);
+    if (!(rate > 0)) { $('fitnote').textContent = 'Enter a measured mean strip rate in nm/min first.'; return; }
+    const p = readInputs();
+    const y = impliedYield(rate, p);
+    const demand = M_O3 / (y * 1200);
+    $('dem').value = +demand.toPrecision(3);
+    $('fitnote').textContent = `Calibrated: ${fmt(demand, 3)} g of ozone per gram of resist reproduces ${fmt(rate, 3)} nm/min at these settings.`;
+    ex.value = 'custom';
+    compute();
+  });
+  showChecks();
+  compute();
+}
+init();
+})();
+</script>
+</body>
+</html>
