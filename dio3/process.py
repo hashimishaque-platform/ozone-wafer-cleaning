@@ -25,6 +25,8 @@ class Process:
     resist_thickness: float = 1.0e-6  # m
     exhaust_m3h: float = 100.0        # chamber exhaust, m3/h, for the ozone concentration in it
     nozzle_ppm: float = None          # set to fix the ozone at the nozzle (mg/L) instead of computing the supply
+    ring_radius: float = None         # optional second dispense: a ring of nozzles at this radius, m
+    ring_flow_lpm: float = 0.0        # flow through the ring, L/min (same ozone water as the centre nozzle)
     supply: Supply = field(default_factory=Supply)
     resist: Resist = field(default_factory=Resist)
     n_layers: int = 48
@@ -52,7 +54,9 @@ def simulate(p: Process, profile_radii=(0.02, 0.075, 0.14)):
     nu, D = P.kinematic_viscosity(p.T), P.ozone_diffusivity(p.T)
     inp = F.FilmInput(Q=Q, omega=omega, R=R, c_in=sup['c_nozzle'], nu=nu, D=D * p.enhancement,
                       k1=Dc.k1(p.T), k2=Dc.k2(p.pH, p.T), c_surface=c_surface,
-                      k_wall=p.resist.k_wall(p.T), n_layers=p.n_layers, n_steps=p.n_steps)
+                      k_wall=p.resist.k_wall(p.T), n_layers=p.n_layers, n_steps=p.n_steps,
+                      r_inject=p.ring_radius if p.ring_flow_lpm > 0 else None, Q_inject=p.ring_flow_lpm / 60e3,
+                      c_inject=sup['c_nozzle'])
     radii = [x for x in profile_radii if x < R]
     fr = F.solve(inp, profile_radii=radii)
     rate = p.resist.yield_m3_per_mol * fr.wall_flux                     # m/s

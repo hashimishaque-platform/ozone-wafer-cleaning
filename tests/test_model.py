@@ -142,3 +142,14 @@ def test_bare_wafer_takes_up_no_ozone():
     assert b['resist'] == 0.0 and r['strip_mean'] == 0.0
     assert abs(b['closure']) < 1e-12 * b['in']
     assert b['edge'] > 0 and b['gas_exchange'] < 0
+
+
+def test_second_dispense_ring_conserves_ozone():
+    # liquid of the same concentration added on top of a closed, inert film changes nothing
+    inp = F.FilmInput(Q=2.5e-5, omega=52.36, R=0.15, c_in=0.6, nu=1e-6, D=1.7e-9, k1=0.0, k2=0.0, c_surface=None,
+                      k_wall=0.0, r_inject=0.08, Q_inject=1e-5, c_inject=0.6)
+    r = F.solve(inp)
+    assert max(abs(x - 0.6) for x in r.c_mean) < 1e-12
+    # and with uptake, decay and gas exchange the balance still closes
+    res = simulate(Process(ring_radius=0.07, ring_flow_lpm=0.5), profile_radii=())
+    assert abs(res['budget']['closure']) < 1e-12 * res['budget']['in']
