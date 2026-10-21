@@ -104,11 +104,11 @@
    "exhaust_m3": 0.3798549083331919,
    "energy_kWh": {
     "generator": 0.008204866019996945,
-    "heating": 0.021078430168819086,
+    "heating": 0.04215686033763817,
     "chiller": 0.017565358474015903,
     "ultrapure water": 0.047774330099984726
    },
-   "energy_total_kWh": 0.09462298476281666,
+   "energy_total_kWh": 0.11570141493163574,
    "ozone_used_fraction": 0.17643258233426062,
    "c_nozzle_mg_L": 100.75670150849584,
    "supersaturation": 1.7265814459800715
@@ -133,11 +133,11 @@
    "exhaust_m3": 4.110528558926928,
    "energy_kWh": {
     "generator": 0.008878741687282168,
-    "heating": 0.05702406845713178,
+    "heating": 0.11404813691426356,
     "chiller": 0.01900802281904393,
     "ultrapure water": 0.05114370843641083
    },
-   "energy_total_kWh": 0.1360545413998687,
+   "energy_total_kWh": 0.1930786098570005,
    "ozone_used_fraction": 0.17413119666696397,
    "c_nozzle_mg_L": 100.75670150849584,
    "supersaturation": 1.7265814459800715
@@ -162,7 +162,7 @@
    "water_L": 6.146001180241569,
    "ozone_g": 1.0792002360483142,
    "oxygen_NL": 3.597334120161046,
-   "energy_kWh": 0.12032143129631134,
+   "energy_kWh": 0.1827898527061803,
    "exhaust_m3": 5.995556866935077,
    "ozone_used_fraction": 0.09707214780885419,
    "supersaturation": 1.4790758426659838,
@@ -174,7 +174,7 @@
    "water_L": 5.682634270712314,
    "ozone_g": 0.7398951406068472,
    "oxygen_NL": 2.466317135356157,
-   "energy_kWh": 0.1360545413998687,
+   "energy_kWh": 0.1930786098570005,
    "exhaust_m3": 4.110528558926928,
    "ozone_used_fraction": 0.17413119666696397,
    "supersaturation": 1.7265814459800715,
@@ -186,7 +186,7 @@
    "water_L": 5.308258899998303,
    "ozone_g": 0.6837388349997455,
    "oxygen_NL": 2.2791294499991515,
-   "energy_kWh": 0.1262406300160453,
+   "energy_kWh": 0.17893670543809298,
    "exhaust_m3": 3.7985490833319187,
    "ozone_used_fraction": 0.17643258233426062,
    "supersaturation": 1.7265814459800715,
@@ -198,7 +198,7 @@
    "water_L": 5.308258899998303,
    "ozone_g": 0.6837388349997455,
    "oxygen_NL": 0.9116517799996606,
-   "energy_kWh": 0.09462298476281666,
+   "energy_kWh": 0.11570141493163574,
    "exhaust_m3": 0.3798549083331919,
    "ozone_used_fraction": 0.17643258233426062,
    "supersaturation": 1.7265814459800715,
@@ -210,9 +210,21 @@
    "water_L": 5.47521762806069,
    "ozone_g": 0.7087826442091036,
    "oxygen_NL": 0.9450435256121381,
-   "energy_kWh": 0.09784157372165156,
+   "energy_kWh": 0.11969205917906761,
    "exhaust_m3": 0.3937681356717242,
    "ozone_used_fraction": 0.22274293475299595,
+   "supersaturation": 1.7265814459800715,
+   "c_nozzle_mg_L": 100.75670150849584
+  },
+  {
+   "step": "Option: the chiller as a heat pump for the heater",
+   "time_to_clear_min": 2.2791294499991515,
+   "water_L": 5.308258899998303,
+   "ozone_g": 0.6837388349997455,
+   "oxygen_NL": 0.9116517799996606,
+   "energy_kWh": 0.07354455459399757,
+   "exhaust_m3": 0.3798549083331919,
+   "ozone_used_fraction": 0.17643258233426062,
    "supersaturation": 1.7265814459800715,
    "c_nozzle_mg_L": 100.75670150849584
   }

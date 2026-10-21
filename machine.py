@@ -58,8 +58,13 @@ def offgas_mole_fraction(s: Supply, Q, T_process, pH):
     return max(n_gen - n_dis, 0.0) / max(f_gas - n_dis, 1e-30), f_gas - n_dis
 
 
-def footprint(p: Process, r, closed):
-    """Use of water, ozone, oxygen, energy and exhaust air per wafer for the strip step."""
+def footprint(p: Process, r, closed, heat_pump=False):
+    """Use of water, ozone, oxygen, energy and exhaust air per wafer for the strip step.
+
+    The water is heated from the inlet to the contactor (if the contactor is warmer) and from the
+    contactor to the process temperature; a chilled contactor means chilling first and heating
+    afterwards. With heat_pump the condenser heat of the chiller goes into the water after the
+    contactor, so the heater supplies only what is left."""
     t = r['time_to_clear']
     s = r['supply']
     rho = P.water_density(p.T)
@@ -67,11 +72,14 @@ def footprint(p: Process, r, closed):
     water = p.flow_lpm * t / 60.0 + A['rinse_L']                    # L
     o3_g = s['ozone_from_generator'] * P.M_O3 * 1e3 * t             # g made while dispensing
     o2_NL = p.supply.gas_flow_Nlpm * t / 60.0 * (1 - (A['oxygen_recovery'] if closed else 0.0))
-    dT_heat = max(p.T - max(p.supply.T_contactor, A['upw_inlet_C'] + 273.15), 0.0) + \
-        max(p.supply.T_contactor - (A['upw_inlet_C'] + 273.15), 0.0)
-    heat_kWh = q * rho * CP * dT_heat * t * (1 - (A['heat_recovery'] if closed else 0.0)) / 3.6e6
-    chill = max(A['upw_inlet_C'] + 273.15 - p.supply.T_contactor, 0.0)
-    chill_kWh = q * rho * CP * chill * t / A['chiller_COP'] / 3.6e6
+    T_in, Tc = A['upw_inlet_C'] + 273.15, p.supply.T_contactor
+    dT_heat = max(p.T - Tc, 0.0) + max(Tc - T_in, 0.0)
+    heat_J = q * rho * CP * dT_heat * t * (1 - (A['heat_recovery'] if closed else 0.0))
+    chill_J = q * rho * CP * max(T_in - Tc, 0.0) * t               # heat taken out of the water
+    chill_kWh = chill_J / A['chiller_COP'] / 3.6e6
+    if heat_pump:
+        heat_J = max(heat_J - chill_J * (1 + 1 / A['chiller_COP']), 0.0)
+    heat_kWh = heat_J / 3.6e6
     gen_kWh = o3_g * A['generator_Wh_per_g'] / 1000.0
     upw_kWh = water * A['upw_Wh_per_L'] / 1000.0
     exhaust_m3 = (A['machine_exhaust_m3h'] if closed else A['rig_exhaust_m3h']) * t / 3600.0
@@ -167,10 +175,11 @@ def contributions(best):
     out.append(('Recovery of heat and oxygen, small exhaust', covered, True))
     out.append(('Option: megasonics (mass transfer x 1.65, Dussault et al. 2014)',
                 Process(**{**covered.__dict__, 'enhancement': 1.65}), True))
+    out.append(('Option: the chiller as a heat pump for the heater', covered, 'heat pump'))
     rows = []
     for label, proc, closed in out:
         r = simulate(proc, profile_radii=())
-        fp = footprint(proc, r, closed=closed)
+        fp = footprint(proc, r, closed=bool(closed), heat_pump=(closed == 'heat pump'))
         rows.append({'step': label, 'time_to_clear_min': fp['time_to_clear_min'], 'water_L': fp['water_L'],
                      'ozone_g': fp['ozone_g'], 'oxygen_NL': fp['oxygen_NL'], 'energy_kWh': fp['energy_total_kWh'],
                      'exhaust_m3': fp['exhaust_m3'], 'ozone_used_fraction': fp['ozone_used_fraction'],

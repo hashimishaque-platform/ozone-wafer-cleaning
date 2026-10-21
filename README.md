@@ -105,7 +105,7 @@ neither has been built.
 | Water (L) | 12.9 | 5.3 |
 | Ozone made (g) | 3.2 | 0.68 |
 | Oxygen bought (NL) | 16 | 0.9 |
-| Electricity (kWh) | 0.22 | 0.095 |
+| Electricity (kWh) | 0.22 | 0.12 (0.074 with the chiller as a heat pump) |
 | Exhaust air (m³) | 13.5 | 0.38 |
 | Share of the ozone made that reaches the resist | 3 % | 18 % |
 
