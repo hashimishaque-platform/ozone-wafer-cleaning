@@ -1,0 +1,312 @@
+{
+ "assumptions": {
+  "generator_Wh_per_g": {
+   "value": 12.0,
+   "note": "about 10 to 20 times the theoretical 0.82 Wh/g for oxygen-fed corona generators (Oxidation Technologies); 12 Wh/g taken"
+  },
+  "upw_Wh_per_L": {
+   "value": 9.0,
+   "note": "ultrapure water: 9.0 kWh/m3 (SEMI S23 model) to 18.1 kWh/m3 (IRDS energy-equivalent model), UPM 2022; the lower value taken"
+  },
+  "upw_inlet_C": {
+   "value": 20.0,
+   "note": "ultrapure water supplied at 20 C"
+  },
+  "heat_recovery": {
+   "value": 0.6,
+   "note": "counterflow PFA exchanger between the drain and the water to the heater; assumed"
+  },
+  "oxygen_recovery": {
+   "value": 0.6,
+   "note": "oxygen recovered behind the destruct and fed back to the generator; at least 60 % in commercial units for ozone plants (Linde OZORA)"
+  },
+  "chiller_COP": {
+   "value": 3.0,
+   "note": "assumed"
+  },
+  "rinse_L": {
+   "value": 0.75,
+   "note": "rinse with ozone-free water, 30 s at 1.5 L/min, the same for every option"
+  },
+  "rig_exhaust_m3h": {
+   "value": 100.0,
+   "note": "open chamber of the test rig"
+  },
+  "machine_exhaust_m3h": {
+   "value": 10.0,
+   "note": "enclosure purge of the closed module, plus the cover gas"
+  },
+  "spm_per_wafer_L": {
+   "value": [
+    0.45,
+    2.4
+   ],
+   "note": "single-wafer SPM: about 0.45 L of H2O2 and 2.4 L of H2SO4 per wafer, from the savings ACM Research reports for 2000 wafers a day (852 L/day of H2O2 is 94 %, 1608 L/day of H2SO4 is 33 %); SPM 4:1 at 120 C"
+  }
+ },
+ "rig": {
+  "settings": {
+   "T_C": 25.0,
+   "rpm": 500.0,
+   "flow_lpm": 1.5,
+   "gas_g_per_Nm3": 200.0,
+   "gas_flow_Nlpm": 2.0,
+   "ambient": "air"
+  },
+  "footprint": {
+   "time_to_clear_min": 8.08245308782758,
+   "strip_mean_nm_min": 152.55887446601972,
+   "nonuniformity": 0.49104894517967285,
+   "water_L": 12.873679631741371,
+   "ozone_g": 3.2329812351310325,
+   "oxygen_NL": 16.16490617565516,
+   "exhaust_m3": 13.4707551463793,
+   "energy_kWh": {
+    "generator": 0.03879577482157239,
+    "heating": 0.07017670150323796,
+    "chiller": 0.0,
+    "ultrapure water": 0.11586311668567234
+   },
+   "energy_total_kWh": 0.2248355930104827,
+   "ozone_used_fraction": 0.032404815115684674,
+   "c_nozzle_mg_L": 44.85867903340975,
+   "supersaturation": 0.9876000314027796
+  },
+  "budget_mol_s": {
+   "in": 2.3364868866103667e-05,
+   "resist": 4.5008563017465555e-06,
+   "gas_exchange": -8.571319193806835e-06,
+   "decomposed": 6.6287106166373125e-09,
+   "edge": 1.028606465993364e-05,
+   "closure": -1.6940658945086007e-21
+  }
+ },
+ "machine": {
+  "settings": {
+   "T_C": 30.0,
+   "rpm": 1600.0,
+   "flow_lpm": 2.0,
+   "gas_g_per_Nm3": 300.0,
+   "gas_flow_Nlpm": 1.0,
+   "pH": 4.5,
+   "T_contactor_C": 10.0,
+   "cover_gas_ozone_vol_pct": 5.068001320352809,
+   "cover_gas_depletion": 0.0,
+   "h_edge_um": 27.223004132415127
+  },
+  "footprint": {
+   "time_to_clear_min": 2.2791294499991515,
+   "strip_mean_nm_min": 623.3153996398331,
+   "nonuniformity": 0.585121125255428,
+   "water_L": 5.308258899998303,
+   "ozone_g": 0.6837388349997455,
+   "oxygen_NL": 0.9116517799996606,
+   "exhaust_m3": 0.3798549083331919,
+   "energy_kWh": {
+    "generator": 0.008204866019996945,
+    "heating": 0.021078430168819086,
+    "chiller": 0.017565358474015903,
+    "ultrapure water": 0.047774330099984726
+   },
+   "energy_total_kWh": 0.09462298476281666,
+   "ozone_used_fraction": 0.17643258233426062,
+   "c_nozzle_mg_L": 100.75670150849584,
+   "supersaturation": 1.7265814459800715
+  },
+  "budget_mol_s": {
+   "in": 6.997284713841955e-05,
+   "resist": 1.8379159791476798e-05,
+   "gas_exchange": -2.533419349422857e-05,
+   "decomposed": 6.92521360763676e-09,
+   "edge": 2.625256863910657e-05,
+   "closure": -2.710505431213761e-20
+  }
+ },
+ "machine_without_cover_gas": {
+  "footprint": {
+   "time_to_clear_min": 2.466317135356157,
+   "strip_mean_nm_min": 615.3263303138937,
+   "nonuniformity": 0.6197777816454364,
+   "water_L": 5.682634270712314,
+   "ozone_g": 0.7398951406068472,
+   "oxygen_NL": 2.466317135356157,
+   "exhaust_m3": 4.110528558926928,
+   "energy_kWh": {
+    "generator": 0.008878741687282168,
+    "heating": 0.05702406845713178,
+    "chiller": 0.01900802281904393,
+    "ultrapure water": 0.05114370843641083
+   },
+   "energy_total_kWh": 0.1360545413998687,
+   "ozone_used_fraction": 0.17413119666696397,
+   "c_nozzle_mg_L": 100.75670150849584,
+   "supersaturation": 1.7265814459800715
+  }
+ },
+ "steps": [
+  {
+   "step": "Test rig, default settings",
+   "time_to_clear_min": 8.08245308782758,
+   "water_L": 12.873679631741371,
+   "ozone_g": 3.2329812351310325,
+   "oxygen_NL": 16.16490617565516,
+   "energy_kWh": 0.2248355930104827,
+   "exhaust_m3": 13.4707551463793,
+   "ozone_used_fraction": 0.032404815115684674,
+   "supersaturation": 0.9876000314027796,
+   "c_nozzle_mg_L": 44.85867903340975
+  },
+  {
+   "step": "Supply: 300 g/Nm³, contactor at 10 °C, CO₂ to pH 4.5, short line",
+   "time_to_clear_min": 3.597334120161046,
+   "water_L": 6.146001180241569,
+   "ozone_g": 1.0792002360483142,
+   "oxygen_NL": 3.597334120161046,
+   "energy_kWh": 0.12032143129631134,
+   "exhaust_m3": 5.995556866935077,
+   "ozone_used_fraction": 0.09707214780885419,
+   "supersaturation": 1.4790758426659838,
+   "c_nozzle_mg_L": 100.77367312045533
+  },
+  {
+   "step": "Process: 30 °C, 1600 rpm, 2.0 L/min",
+   "time_to_clear_min": 2.466317135356157,
+   "water_L": 5.682634270712314,
+   "ozone_g": 0.7398951406068472,
+   "oxygen_NL": 2.466317135356157,
+   "energy_kWh": 0.1360545413998687,
+   "exhaust_m3": 4.110528558926928,
+   "ozone_used_fraction": 0.17413119666696397,
+   "supersaturation": 1.7265814459800715,
+   "c_nozzle_mg_L": 100.75670150849584
+  },
+  {
+   "step": "Cover with the contactor off-gas",
+   "time_to_clear_min": 2.2791294499991515,
+   "water_L": 5.308258899998303,
+   "ozone_g": 0.6837388349997455,
+   "oxygen_NL": 2.2791294499991515,
+   "energy_kWh": 0.1262406300160453,
+   "exhaust_m3": 3.7985490833319187,
+   "ozone_used_fraction": 0.17643258233426062,
+   "supersaturation": 1.7265814459800715,
+   "c_nozzle_mg_L": 100.75670150849584
+  },
+  {
+   "step": "Recovery of heat and oxygen, small exhaust",
+   "time_to_clear_min": 2.2791294499991515,
+   "water_L": 5.308258899998303,
+   "ozone_g": 0.6837388349997455,
+   "oxygen_NL": 0.9116517799996606,
+   "energy_kWh": 0.09462298476281666,
+   "exhaust_m3": 0.3798549083331919,
+   "ozone_used_fraction": 0.17643258233426062,
+   "supersaturation": 1.7265814459800715,
+   "c_nozzle_mg_L": 100.75670150849584
+  },
+  {
+   "step": "Option: megasonics (mass transfer x 1.65, Dussault et al. 2014)",
+   "time_to_clear_min": 2.362608814030345,
+   "water_L": 5.47521762806069,
+   "ozone_g": 0.7087826442091036,
+   "oxygen_NL": 0.9450435256121381,
+   "energy_kWh": 0.09784157372165156,
+   "exhaust_m3": 0.3937681356717242,
+   "ozone_used_fraction": 0.22274293475299595,
+   "supersaturation": 1.7265814459800715,
+   "c_nozzle_mg_L": 100.75670150849584
+  }
+ ],
+ "endpoint": {
+  "drain_with_resist_mg_L": 37.80212368619512,
+  "drain_bare_mg_L": 62.61940227324675,
+  "cover_gas_escape_with_resist_mol_s": 2.533419349422857e-05,
+  "cover_gas_escape_bare_mol_s": 2.6474162851171554e-05
+ },
+ "rings": [
+  {
+   "ring_radius_mm": 50.0,
+   "ring_flow_lpm": 0.5,
+   "time_to_clear_min": 2.0598615173117194,
+   "water_L": 5.899653793279299,
+   "nonuniformity": 0.5214041182809561
+  },
+  {
+   "ring_radius_mm": 50.0,
+   "ring_flow_lpm": 1.0,
+   "time_to_clear_min": 1.9153023645298133,
+   "water_L": 6.49590709358944,
+   "nonuniformity": 0.4792686710931357
+  },
+  {
+   "ring_radius_mm": 70.0,
+   "ring_flow_lpm": 1.0,
+   "time_to_clear_min": 1.9811309862360997,
+   "water_L": 6.6933929587083,
+   "nonuniformity": 0.4997514202831067
+  },
+  {
+   "ring_radius_mm": 90.0,
+   "ring_flow_lpm": 1.0,
+   "time_to_clear_min": 2.0718134780301605,
+   "water_L": 6.965440434090482,
+   "nonuniformity": 0.5265573932355034
+  }
+ ],
+ "spm": {
+  "H2O2_L": 0.45,
+  "H2SO4_L": 2.4,
+  "note": "single-wafer SPM: about 0.45 L of H2O2 and 2.4 L of H2SO4 per wafer, from the savings ACM Research reports for 2000 wafers a day (852 L/day of H2O2 is 94 %, 1608 L/day of H2SO4 is 33 %); SPM 4:1 at 120 C"
+ },
+ "search": {
+  "n": 1800,
+  "feasible": 1053,
+  "pareto": [
+   {
+    "time_to_clear_min": 2.0747182331471845,
+    "water_L": 4.899436466294369,
+    "T_C": 35.0,
+    "rpm": 1600.0,
+    "flow_lpm": 2.0,
+    "gas_flow_Nlpm": 3.0,
+    "pH": 5.6
+   },
+   {
+    "time_to_clear_min": 2.457550266087383,
+    "water_L": 4.436325399131075,
+    "T_C": 25.0,
+    "rpm": 1600.0,
+    "flow_lpm": 1.5,
+    "gas_flow_Nlpm": 3.0,
+    "pH": 4.5
+   },
+   {
+    "time_to_clear_min": 2.944953371357136,
+    "water_L": 3.694953371357136,
+    "T_C": 25.0,
+    "rpm": 1600.0,
+    "flow_lpm": 1.0,
+    "gas_flow_Nlpm": 3.0,
+    "pH": 4.5
+   },
+   {
+    "time_to_clear_min": 3.082762662161395,
+    "water_L": 3.2162101297291157,
+    "T_C": 25.0,
+    "rpm": 1600.0,
+    "flow_lpm": 0.8,
+    "gas_flow_Nlpm": 3.0,
+    "pH": 4.5
+   },
+   {
+    "time_to_clear_min": 3.4918223180645884,
+    "water_L": 2.4959111590322944,
+    "T_C": 25.0,
+    "rpm": 1200.0,
+    "flow_lpm": 0.5,
+    "gas_flow_Nlpm": 3.0,
+    "pH": 4.5
+   }
+  ]
+ }
+}
