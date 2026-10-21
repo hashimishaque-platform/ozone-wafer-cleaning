@@ -148,7 +148,7 @@
  },
  {
   "group": "Strip rate",
-  "label": "Ozone per gram of resist implied by Dussault et al. (without megasonics)",
+  "label": "Ozone per gram of resist implied by Dussault et al. 2014 (megasonic gain taken out)",
   "expected": "1.0 (default)",
   "model": "0.83",
   "source": "Calibration: see the text"
