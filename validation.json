@@ -1,0 +1,903 @@
+{
+ "solubility": {
+  "rows": [
+   {
+    "source": "Levanov et al.",
+    "year": 2008,
+    "T_ref": 293.15,
+    "measured": 0.00011,
+    "model": 0.00011737199722494785,
+    "ratio": 1.067018156590435,
+    "B": null
+   },
+   {
+    "source": "Gershenzon et al.",
+    "year": 2001,
+    "T_ref": 298.15,
+    "measured": 0.00011,
+    "model": 0.0001,
+    "ratio": 0.9090909090909091,
+    "B": 2300.0,
+    "ratio_5C": 1.0255948960383545,
+    "ratio_50C": 0.7984768312787347
+   },
+   {
+    "source": "Rischbieter et al.",
+    "year": 2000,
+    "T_ref": 298.15,
+    "measured": 9.9e-05,
+    "model": 0.0001,
+    "ratio": 1.0101010101010102,
+    "B": 2600.0,
+    "ratio_5C": 1.0600155099225332,
+    "ratio_50C": 0.9590181071003928
+   },
+   {
+    "source": "Andreozzi et al.",
+    "year": 1996,
+    "T_ref": 298.15,
+    "measured": 9.2e-05,
+    "model": 0.0001,
+    "ratio": 1.0869565217391304,
+    "B": 2600.0,
+    "ratio_5C": 1.1406688639383782,
+    "ratio_50C": 1.031986876118901
+   },
+   {
+    "source": "Sotelo et al.",
+    "year": 1989,
+    "T_ref": 298.15,
+    "measured": 0.00012,
+    "model": 0.0001,
+    "ratio": 0.8333333333333334,
+    "B": 1400.0,
+    "ratio_5C": 1.1680210101270994,
+    "ratio_50C": 0.5794991001016638
+   },
+   {
+    "source": "Kosak-Channing and Helz",
+    "year": 1983,
+    "T_ref": 298.15,
+    "measured": 0.00011,
+    "model": 0.0001,
+    "ratio": 0.9090909090909091,
+    "B": 2300.0,
+    "ratio_5C": 1.0255948960383545,
+    "ratio_50C": 0.7984768312787347
+   },
+   {
+    "source": "Gurol and Singer",
+    "year": 1982,
+    "T_ref": 293.15,
+    "measured": 0.00017,
+    "model": 0.00011737199722494785,
+    "ratio": 0.6904235130879285,
+    "B": null
+   },
+   {
+    "source": "Stumm",
+    "year": 1958,
+    "T_ref": 298.15,
+    "measured": 0.00012,
+    "model": 0.0001,
+    "ratio": 0.8333333333333334,
+    "B": 1900.0,
+    "ratio_5C": 1.0353379156188942,
+    "ratio_50C": 0.6597778959786528
+   },
+   {
+    "source": "Kilpatrick et al.",
+    "year": 1956,
+    "T_ref": 298.15,
+    "measured": 9.9e-05,
+    "model": 0.0001,
+    "ratio": 1.0101010101010102,
+    "B": 2600.0,
+    "ratio_5C": 1.0600155099225332,
+    "ratio_50C": 0.9590181071003928
+   },
+   {
+    "source": "Briner and Perrottet",
+    "year": 1939,
+    "T_ref": 298.15,
+    "measured": 0.00013,
+    "model": 0.0001,
+    "ratio": 0.7692307692307694,
+    "B": 2000.0,
+    "ratio_5C": 0.9329240851870473,
+    "ratio_50C": 0.6250354567431331
+   },
+   {
+    "source": "Fischer and Tropsch",
+    "year": 1917,
+    "T_ref": 298.15,
+    "measured": 0.0002,
+    "model": 0.0001,
+    "ratio": 0.5,
+    "B": null
+   },
+   {
+    "source": "Luther",
+    "year": 1905,
+    "T_ref": 298.15,
+    "measured": 8e-05,
+    "model": 0.0001,
+    "ratio": 1.25,
+    "B": 2900.0,
+    "ratio_5C": 1.2202148493089902,
+    "ratio_50C": 1.2828592563727106
+   },
+   {
+    "source": "Mailfert",
+    "year": 1894,
+    "T_ref": 298.15,
+    "measured": 0.00012,
+    "model": 0.0001,
+    "ratio": 0.8333333333333334,
+    "B": 4100.0,
+    "ratio_5C": 0.6090606761093388,
+    "ratio_50C": 1.1676582250581882
+   },
+   {
+    "source": "Schöne",
+    "year": 1873,
+    "T_ref": 291.15,
+    "measured": 0.00012,
+    "model": 0.00012533122854219047,
+    "ratio": 1.044426904518254,
+    "B": null
+   }
+  ],
+  "modern_n": 9,
+  "modern_median_ratio": 0.9090909090909091,
+  "modern_min": 0.6904235130879285,
+  "modern_max": 1.0869565217391304,
+  "modern_within_20pct": 8,
+  "model_B": 2800.0,
+  "measured_B_median": 2300.0
+ },
+ "half_life": {
+  "mks": [
+   {
+    "T_C": 15.0,
+    "quoted_min": 30.0,
+    "model_5": 36.807551754057606,
+    "model_10": 19.60259641682727,
+    "model_20": 10.132334320334303,
+    "model_90": 2.312503728259805
+   },
+   {
+    "T_C": 20.0,
+    "quoted_min": 20.0,
+    "model_5": 22.041729199340995,
+    "model_10": 11.584029739053896,
+    "model_20": 5.94427384240559,
+    "model_90": 1.3485678509576713
+   },
+   {
+    "T_C": 25.0,
+    "quoted_min": 15.0,
+    "model_5": 13.353615750452718,
+    "model_10": 6.945742126105576,
+    "model_20": 3.5443988061360545,
+    "model_90": 0.8004839934184981
+   },
+   {
+    "T_C": 30.0,
+    "quoted_min": 12.0,
+    "model_5": 8.18999133034315,
+    "model_10": 4.225705280901301,
+    "model_20": 2.1471773629577857,
+    "model_90": 0.48326313145391275
+   },
+   {
+    "T_C": 35.0,
+    "quoted_min": 8.0,
+    "model_5": 5.08687337847637,
+    "model_10": 2.608137696418033,
+    "model_20": 1.3208919459148996,
+    "model_90": 0.2965090883499505
+   }
+  ],
+  "curves": {
+   "5 mg/L, pH 7": [
+    [
+     10,
+     62.11731177575426
+    ],
+    [
+     11,
+     55.90100777421927
+    ],
+    [
+     12,
+     50.325724390809526
+    ],
+    [
+     13,
+     45.32413792029652
+    ],
+    [
+     14,
+     40.83603113539644
+    ],
+    [
+     15,
+     36.807551754057606
+    ],
+    [
+     16,
+     33.19054565322231
+    ],
+    [
+     17,
+     29.94195781211906
+    ],
+    [
+     18,
+     27.023294540011378
+    ],
+    [
+     19,
+     24.40014108172295
+    ],
+    [
+     20,
+     22.041729199340995
+    ],
+    [
+     21,
+     19.920549800674255
+    ],
+    [
+     22,
+     18.012006124923083
+    ],
+    [
+     23,
+     16.294103404424305
+    ],
+    [
+     24,
+     14.747171299290608
+    ],
+    [
+     25,
+     13.353615750452718
+    ],
+    [
+     26,
+     12.097697217345704
+    ],
+    [
+     27,
+     10.965332560682835
+    ],
+    [
+     28,
+     9.94391809990822
+    ],
+    [
+     29,
+     9.022171620551665
+    ],
+    [
+     30,
+     8.18999133034315
+    ],
+    [
+     31,
+     7.438329966137315
+    ],
+    [
+     32,
+     6.759082437926289
+    ],
+    [
+     33,
+     6.144985562954191
+    ],
+    [
+     34,
+     5.589528593587689
+    ],
+    [
+     35,
+     5.08687337847637
+    ],
+    [
+     36,
+     4.631783118927514
+    ],
+    [
+     37,
+     4.219558792505077
+    ],
+    [
+     38,
+     3.845982414763299
+    ],
+    [
+     39,
+     3.5072663987707413
+    ],
+    [
+     40,
+     3.200008351635002
+    ]
+   ],
+   "20 mg/L, pH 7": [
+    [
+     10,
+     17.558651469996835
+    ],
+    [
+     11,
+     15.709349194362478
+    ],
+    [
+     12,
+     14.06415780914371
+    ],
+    [
+     13,
+     12.599626522708961
+    ],
+    [
+     14,
+     11.295091245031005
+    ],
+    [
+     15,
+     10.132334320334303
+    ],
+    [
+     16,
+     9.095286649015476
+    ],
+    [
+     17,
+     8.169766855749991
+    ],
+    [
+     18,
+     7.34325283501972
+    ],
+    [
+     19,
+     6.604681595649237
+    ],
+    [
+     20,
+     5.94427384240559
+    ],
+    [
+     21,
+     5.353380184257558
+    ],
+    [
+     22,
+     4.824346253452032
+    ],
+    [
+     23,
+     4.350394364191649
+    ],
+    [
+     24,
+     3.925519640581348
+    ],
+    [
+     25,
+     3.5443988061360545
+    ],
+    [
+     26,
+     3.2023100563103295
+    ],
+    [
+     27,
+     2.895062635451264
+    ],
+    [
+     28,
+     2.61893491399897
+    ],
+    [
+     29,
+     2.3706199139052146
+    ],
+    [
+     30,
+     2.1471773629577857
+    ],
+    [
+     31,
+     1.9459914744674291
+    ],
+    [
+     32,
+     1.7647337497682494
+    ],
+    [
+     33,
+     1.6013301890961809
+    ],
+    [
+     34,
+     1.453932373296476
+    ],
+    [
+     35,
+     1.3208919459148996
+    ],
+    [
+     36,
+     1.2007380838024795
+    ],
+    [
+     37,
+     1.0921575955077674
+    ],
+    [
+     38,
+     0.9939773313983945
+    ],
+    [
+     39,
+     0.905148628475914
+    ],
+    [
+     40,
+     0.8247335469475939
+    ]
+   ],
+   "90 mg/L, pH 7": [
+    [
+     10,
+     4.039485362519274
+    ],
+    [
+     11,
+     3.607597094769048
+    ],
+    [
+     12,
+     3.2243517632129426
+    ],
+    [
+     13,
+     2.884007946653321
+    ],
+    [
+     14,
+     2.581531227971423
+    ],
+    [
+     15,
+     2.312503728259805
+    ],
+    [
+     16,
+     2.073045624831667
+    ],
+    [
+     17,
+     1.8597470154622722
+    ],
+    [
+     18,
+     1.669608721271122
+    ],
+    [
+     19,
+     1.4999908176004726
+    ],
+    [
+     20,
+     1.3485678509576713
+    ],
+    [
+     21,
+     1.2132898446880345
+    ],
+    [
+     22,
+     1.0923483200620765
+    ],
+    [
+     23,
+     0.9841466658810845
+    ],
+    [
+     24,
+     0.887274281091733
+    ],
+    [
+     25,
+     0.8004839934184981
+    ],
+    [
+     26,
+     0.7226723245346278
+    ],
+    [
+     27,
+     0.6528622303730843
+    ],
+    [
+     28,
+     0.5901879951832455
+    ],
+    [
+     29,
+     0.5338820010162212
+    ],
+    [
+     30,
+     0.48326313145391275
+    ],
+    [
+     31,
+     0.4377266004342926
+    ],
+    [
+     32,
+     0.39673502467326077
+    ],
+    [
+     33,
+     0.3598105820718416
+    ],
+    [
+     34,
+     0.3265281191430271
+    ],
+    [
+     35,
+     0.2965090883499505
+    ],
+    [
+     36,
+     0.26941621170789826
+    ],
+    [
+     37,
+     0.24494878038831625
+    ],
+    [
+     38,
+     0.22283851167034952
+    ],
+    [
+     39,
+     0.20284589464980346
+    ],
+    [
+     40,
+     0.1847569648511464
+    ]
+   ],
+   "90 mg/L, pH 4.5 (CO₂)": [
+    [
+     10,
+     58.54031464069227
+    ],
+    [
+     11,
+     52.65733503239929
+    ],
+    [
+     12,
+     47.3843653067589
+    ],
+    [
+     13,
+     42.656873186105386
+    ],
+    [
+     14,
+     38.4172032360213
+    ],
+    [
+     15,
+     34.613850200413026
+    ],
+    [
+     16,
+     31.200806846384218
+    ],
+    [
+     17,
+     28.136979152582903
+    ],
+    [
+     18,
+     25.38566228115158
+    ],
+    [
+     19,
+     22.914071341650768
+    ],
+    [
+     20,
+     20.692921485837697
+    ],
+    [
+     21,
+     18.69605236572692
+    ],
+    [
+     22,
+     16.90009244495532
+    ],
+    [
+     23,
+     15.284159076324377
+    ],
+    [
+     24,
+     13.82959064794014
+    ],
+    [
+     25,
+     12.51970745815303
+    ],
+    [
+     26,
+     11.339598307198438
+    ],
+    [
+     27,
+     10.275930092796566
+    ],
+    [
+     28,
+     9.316777969749845
+    ],
+    [
+     29,
+     8.451473881591925
+    ],
+    [
+     30,
+     7.670471497328548
+    ],
+    [
+     31,
+     6.965225790028049
+    ],
+    [
+     32,
+     6.328085678119062
+    ],
+    [
+     33,
+     5.752198316348747
+    ],
+    [
+     34,
+     5.2314237729700706
+    ],
+    [
+     35,
+     4.760258964301385
+    ],
+    [
+     36,
+     4.333769838683657
+    ],
+    [
+     37,
+     3.9475309103148555
+    ],
+    [
+     38,
+     3.59757134063383
+    ],
+    [
+     39,
+     3.280326851937462
+    ],
+    [
+     40,
+     2.992596835741523
+    ]
+   ]
+  },
+  "acm": {
+   "T_C": 25.0,
+   "quoted_min": 15.0,
+   "ppm": 90.0,
+   "model_pH7": 0.8004839934184981,
+   "model_pH4_5": 12.51970745815303,
+   "model_pH4": 20.86363121991185,
+   "source": "ACM Research, US 12,334,367 (priority 2020): about 15 min at 25 °C and pH 7.0, for 90 ppm baths"
+  },
+  "sumco": {
+   "quoted": "10 to 30 min",
+   "source": "Sumco, Echo Giken and Chlorine Engineers, US 7,678,200 (priority 2002)",
+   "model_min": 4.824346253452032,
+   "model_max": 65.29430381406405
+  },
+  "temperature_ratio_15_35": {
+   "quoted": 3.75,
+   "model": 7.515936157722465
+  }
+ },
+ "leave_one_out": [
+  {
+   "left_out": "Abe et al. 2003",
+   "published": 100.0,
+   "predicted": 74.08879574041046,
+   "ratio": 0.7408879574041046,
+   "conditions": {
+    "nozzle_ppm": 20.0,
+    "T": 298.15,
+    "rpm": 500.0,
+    "flow_lpm": 1.5,
+    "diameter": 0.2
+   }
+  },
+  {
+   "left_out": "NEC US 6,559,064",
+   "published": 300.0,
+   "predicted": 477.93993263707915,
+   "ratio": 1.5931331087902638,
+   "conditions": {
+    "nozzle_ppm": 100.0,
+    "T": 298.15,
+    "rpm": 500.0,
+    "flow_lpm": 1.5,
+    "diameter": 0.2
+   }
+  },
+  {
+   "left_out": "Dussault et al. 2014",
+   "published": 169.0909090909091,
+   "predicted": 143.25693662170193,
+   "ratio": 0.8472184423864092,
+   "conditions": {
+    "nozzle_ppm": 80.0,
+    "T": 293.15,
+    "rpm": 110.0,
+    "flow_lpm": 1.4,
+    "diameter": 0.2
+   }
+  }
+ ],
+ "heated_wafer": {
+  "published_ratio": [
+   1.0,
+   2.0,
+   3.0
+  ],
+  "model_ratio_60C": 1.7559473429244434,
+  "model_ratio_80C": 2.2003014960616496
+ },
+ "film": {
+  "lambda_mid": 3.4305870952017574e-09,
+  "threshold": 1e-07
+ },
+ "mechanism": {
+  "base_min": 8.446269558725358,
+  "oh_ho2_buxton_min": 8.445965007640527,
+  "oh_hco3_buxton_min": 6.580380873294956,
+  "k_oh_ho2": 37000000000.0,
+  "k_oh_hco3": 12000000.0
+ },
+ "inputs": [
+  {
+   "item": "Ozone solubility (Henry's law)",
+   "value": "1.0 × 10⁻⁴ mol m⁻³ Pa⁻¹ at 25 °C, 2800 K",
+   "source": "Burkholder et al. (2019), JPL evaluation 19-5; listed by Sander (2023)",
+   "checked": "9 measurements since 1950 in Sander (2023)",
+   "result": "model/measured median 0.91 (0.69 to 1.09); 8 of 9 within 20 %. Measured temperature coefficients have a median of 2300 K, so the model leans high below 25 °C and low above."
+  },
+  {
+   "item": "CO₂ solubility",
+   "value": "3.4 × 10⁻⁴ mol m⁻³ Pa⁻¹, 2300 K",
+   "source": "Burkholder et al. (2019)",
+   "checked": "Sander (2023)",
+   "result": "same value"
+  },
+  {
+   "item": "Carbonate and water constants",
+   "value": "pKa 6.35 and 10.33, pKw 14.00 at 25 °C",
+   "source": "Stumm and Morgan (1996)",
+   "checked": "pH of water in contact with air; resistivity of pure water",
+   "result": "pH 5.60 (about 5.6 expected); 18.23 MΩ cm against 18.19 (Light et al. 2005)"
+  },
+  {
+   "item": "Decay in acid (k₁)",
+   "value": "half-life 3.5 h at 22 °C, 39.6 kJ/mol",
+   "source": "De Smedt et al. (2002)",
+   "checked": "De Smedt et al. (2002)",
+   "result": "3.1 h at pH 2.5 and 10 mg/L (3 to 4 h reported)"
+  },
+  {
+   "item": "Decay near neutral (k₂)",
+   "value": "log k = −2.66 + 0.49 pH at 19 °C, 76 kJ/mol",
+   "source": "Ershov and Morozov (2009)",
+   "checked": "Half-lives quoted by MKS (data sheet), ACM (US 12,334,367) and Sumco (US 7,678,200)",
+   "result": "agrees at 5 to 10 mg/L; at 90 mg/L and pH 7 the model gives 0.8 min against about 15 min. With CO₂ to pH 4.5 the model gives 13 min. The model's half-life falls 7.5 times from 15 to 35 °C, the quoted values 3.8 times. Open question; stage 1 of the test plan measures it."
+  },
+  {
+   "item": "Radical mechanism",
+   "value": "26 reactions",
+   "source": "Lesko (2004), two from Buxton et al. (1988)",
+   "checked": "Staehelin and Hoigné (1982), Bühler et al. (1984), Buxton et al. (1988)",
+   "result": "all within the published ranges except OH + HO₂ (3.7e+10; Buxton 6.6 × 10⁹, no effect on the half-life) and OH + HCO₃⁻ (1.2e+07; Buxton 8.5 × 10⁶, half-life at pH 7 8.4 → 6.6 min)"
+  },
+  {
+   "item": "Ozone diffusivity",
+   "value": "1.1 × 10⁻⁶ exp(−1896/T) m²/s",
+   "source": "Johnson and Davis (1996)",
+   "checked": "Stokes-Einstein scaling with the viscosity",
+   "result": "within 10 % from 25 to 60 °C"
+  },
+  {
+   "item": "Water density and viscosity",
+   "value": "Kell (1975); Kestin et al. (1978)",
+   "source": "as named",
+   "checked": "CRC Handbook",
+   "result": "within 0.02 % and 0.4 %"
+  },
+  {
+   "item": "Film thickness",
+   "value": "h = (3νQ / 2πω²r²)^(1/3)",
+   "source": "Emslie, Bonner and Peck (1958)",
+   "checked": "Lepehin and Riabchuk correlation; direct simulation and experiments (Stafford et al. 2024)",
+   "result": "same coefficient; the mean thickness follows it, but the film is wavy at these settings, with peaks up to twice the mean"
+  },
+  {
+   "item": "Transfer across the film",
+   "value": "smooth laminar film, no waves",
+   "source": "this model",
+   "checked": "Aoune and Ramshaw (1999); Burns and Jachuck (2005); Zhao (2020)",
+   "result": "measured gas-liquid and liquid-solid transfer on spinning discs is higher than the smooth-film value, so the model gives a lower bound; the fitted yield absorbs part of the difference"
+  },
+  {
+   "item": "Resist yield",
+   "value": "1.0 g of ozone per g of resist",
+   "source": "calibration, three sources",
+   "checked": "leave one out (below)",
+   "result": "each source predicted within a factor of 1.6 from the other two"
+  },
+  {
+   "item": "Dussault et al. calibration point",
+   "value": "279 nm/min, megasonic gain 65 %",
+   "source": "Solid State Phenomena 219, 187 (2014)",
+   "checked": "the paper",
+   "result": "corrected: 279 nm/min is for a negative resist with megasonics; the 65 % gain was measured on a positive resist; the water came through a radial manifold, not a centre nozzle"
+  },
+  {
+   "item": "Chemical oxide on silicon",
+   "value": "0.5 to 1.2 nm, self-limiting",
+   "source": "De Smedt et al. (2002)",
+   "checked": "De Smedt et al. (2002)",
+   "result": "as reported"
+  },
+  {
+   "item": "Ozone absorption near 260 nm",
+   "value": "3000 L mol⁻¹ cm⁻¹",
+   "source": "Levanov et al. (2016)",
+   "checked": "Levanov et al. (2016)",
+   "result": "2992 ± 71 measured; 3000 recommended"
+  },
+  {
+   "item": "Workplace limits",
+   "value": "0.1 ppm (OSHA 8 h, NIOSH ceiling), 5 ppm IDLH",
+   "source": "NIOSH Pocket Guide",
+   "checked": "NIOSH Pocket Guide",
+   "result": "as listed"
+  },
+  {
+   "item": "Generator gas",
+   "value": "up to 300 g/Nm³",
+   "source": "De Smedt et al. (2002)",
+   "checked": "MKS SEMOZON data (2020s)",
+   "result": "current generators exceed 400 g/Nm³"
+  }
+ ]
+}
