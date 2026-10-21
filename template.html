@@ -733,7 +733,10 @@ possible. The generator runs at 1 NL/min, not 3: that takes 9 % longer but makes
 Two ideas were tried in the model and dropped. Megasonics make the slowest point slower here: they
 speed the uptake near the centre, which leaves less ozone for the edge. Dussault et al. also saw a
 lower rate with more megasonic power, though in a different set-up. A second ring of nozzles at 50 mm
-shortens the strip by 16 % but needs 22 % more water.
+shortens the strip by 16 % but needs 22 % more water. One idea is kept as an option: used as a heat pump,
+the chiller puts the heat it takes out before the contactor, and its own work, back into the water after
+the contactor, so the heater has nothing left to do and the electricity per wafer falls by about a further
+third (last row).
 </p>
 </div>
 <div class="fig"><!--MACHINE_SPACE--></div>
@@ -795,9 +798,12 @@ ozone water.</li>
 <li><b>UV without mercury (option).</b> Light below about 190 nm is absorbed in a fraction of a
 millimetre of water (172 nm within about 0.04 mm; Heit and Braun 1997), so it acts on the water rather
 than on the resist beneath. At 222 nm and above a film of 0.03 to 0.1 mm is practically transparent
-(Quickenden and Irvin 1980), so the light reaches the resist. KrCl lamps (222 nm) or UVC LEDs above
-the quartz avoid mercury, which the EU is phasing out. Whether UV helps the strip is open; stage 4 of
-the test plan can test it in the rig.</li>
+(Quickenden and Irvin 1980), and the dissolved ozone in it takes only a few per cent of the light over
+most of the wafer. The gas in the gap is the obstacle: with 5 % ozone, 3 mm of it passes about 2 % of
+the light at 254 nm (Viallon et al. 2015) and about half at 222 nm (Molina and Molina 1986), and UVC
+LEDs at 265 to 280 nm lie in the same absorption band. A UV step therefore runs with oxygen in the gap
+instead of the off-gas. KrCl lamps (222 nm) or UVC LEDs above the quartz avoid mercury, which the EU
+is phasing out. Whether UV helps the strip is open; stage 4 of the test plan can test it in the rig.</li>
 <li><b>Particles (option).</b> Ozone water does not lift particles. With the cover lowered until it
 touches the liquid, the gap fills, and a transducer on the cover can couple megasonics into hydrogen
 water for particle removal in the same chamber.</li>
@@ -901,6 +907,7 @@ it; nothing of it has been built or tested. The second ring of nozzles is in the
 <li>McCoy, O. (2022). Five things we learned about the UPW-energy relationship at UPM 2022. UltraFacility.</li>
 <li>Meeuwse, M., van der Schaaf, J. and Schouten, J. C. (2010). Liquid-solid mass transfer in a rotor-stator spinning disc reactor. ISCRE 21, Philadelphia.</li>
 <li>MKS Instruments (2022). Ozone Conversion, data sheet, rev. 10/22.</li>
+<li>Molina, L. T. and Molina, M. J. (1986). Absolute absorption cross sections of ozone in the 185- to 350-nm wavelength range. J. Geophys. Res. 91, 14501-14508.</li>
 <li>Morioka, T. (SCREEN Holdings). Substrate processing apparatus and gap washing method. US Patent 10,141,206 B2 (priority 2016, granted 2018).</li>
 <li>NIOSH Pocket Guide to Chemical Hazards: Ozone. <a href="https://www.cdc.gov/niosh/npg/npgd0476.html" target="_blank" rel="noopener">cdc.gov/niosh/npg/npgd0476.html</a></li>
 <li>Oxidation Technologies. Ozone production from corona discharge. <a href="https://www.oxidationtech.com/blog/?p=5428" target="_blank" rel="noopener">oxidationtech.com</a></li>
@@ -920,6 +927,7 @@ it; nothing of it has been built or tested. The second ring of nozzles is in the
 <li>Sumco, Echo Giken and Chlorine Engineers. US Patent 7,678,200 (priority 2002): ozone water for cleaning; half-life of ozone in pure water 10 to 30 min.</li>
 <li>SUSS MicroTec Photomask Equipment (Dattilo, Dietze and Singh). US Patent 11,358,172 B2 (priority 2015; published as US 2017/0087585 A1, granted 2022): substrate treatment with an aqueous medium exposed to UV light.</li>
 <li>Takahashi, M., Ishikawa, H., Asano, T. and Horibe, H. (2012). Effect of microbubbles on ozonized water for photoresist removal. J. Phys. Chem. C 116, 12578-12583.</li>
+<li>Viallon, J., Lee, S., Moussay, P., Tworek, K., Petersen, M. and Wielgosz, R. I. (2015). Accurate measurements of ozone absorption cross-sections in the Hartley band. Atmos. Meas. Tech. 8, 1245-1257.</li>
 <li>Yamamoto, M., Taki, T., Sunada, T., Shikama, T., Nagaoka, S., Umemoto, H. and Horibe, H. (2018). Removal of polymers for KrF and ArF photoresist using hydrogen radicals containing a small amount of oxidizing radicals. J. Photopolym. Sci. Technol. 31, 419-424.</li>
 <li>Zhang, X., Wang, W., Chen, F. et al. (ACM Research (Shanghai)). Method and apparatus for removing particles or photoresist on substrates. US Patent 12,334,367 B2 (priority 2020, granted 2025).</li>
 <li>Zhao, K. (2020). Dynamics of thin liquid films over a spinning disk. PhD thesis, Imperial College London.</li>
