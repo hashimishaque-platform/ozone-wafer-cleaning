@@ -76,8 +76,9 @@ photoresist from a spinning wafer. It follows the ozone from the generator gas i
 through the supply line and across the liquid film on the wafer into the resist. It shows how
 fast the resist strips across the wafer, where the ozone goes, and how temperature, spin speed,
 flow, pH and the gas above the film change the result. Choose an example or enter your own
-values and press Compute. The last part designs a test rig and a test plan to check the model on
-real wafers.
+values and press Compute. Later sections check the model against published measurements, design
+a test rig to test it on real wafers, with its mechanical drawings, and design a closed-loop machine
+that uses less water, ozone and energy.
 </p>
 <p class="text">
 <b>About the data.</b> This is a theoretical model built from published equations and data,
@@ -87,10 +88,16 @@ calibrated against published strip rates; with your own measurements you can cal
 the Resist box. No measured data, and no data from any research centre or company process, were
 used.
 </p>
+<p class="text small"><b>Contents.</b> <a href="#program">The program</a>, <a href="#window">process window</a>,
+<a href="#chemistry">chemistry</a>, <a href="#engineering">engineering</a>, <a href="#process">process</a>,
+<a href="#calibration">calibration</a>, <a href="#validation">validation</a>, <a href="#inputs">inputs checked</a>,
+<a href="#recent">recent work</a>, <a href="#rig">test rig</a>, <a href="#mechanical">mechanical design</a>,
+<a href="#choices">design choices</a>, <a href="#machine">a closed-loop machine</a>, <a href="#checking">checks</a>,
+<a href="#limitations">limitations</a>, <a href="#references">references</a>.</p>
 
 <hr>
 
-<div class="tool">
+<div class="tool" id="program">
   <div class="fig">
     <svg id="fig1" class="plot" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Strip rate and film thickness across the wafer"></svg>
     <p class="caption" id="cap1"></p>
@@ -165,7 +172,7 @@ used.
   </div>
 </div>
 
-<h2>Process window</h2>
+<h2 id="window">Process window</h2>
 <div class="tool">
   <div class="fig">
     <svg id="fig4" class="plot" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mean strip rate against temperature and spin speed"></svg>
@@ -197,7 +204,7 @@ faster, but holds and keeps less of it.
 </p>
 </div>
 
-<h2>Chemistry</h2>
+<h2 id="chemistry">Chemistry</h2>
 <div class="text">
 <h3>Solubility</h3>
 <p>
@@ -258,7 +265,7 @@ Oxidation does not lift particles; they need a separate step.
 </p>
 </div>
 
-<h2>Engineering</h2>
+<h2 id="engineering">Engineering</h2>
 <div class="text">
 <h3>Supply</h3>
 <p>
@@ -309,12 +316,13 @@ above to see the effect.
 <h3>Megasonics</h3>
 <p>
 Agitation thins the diffusion layer at the resist (Chen 2002). Dussault, Fittkau and Gottschalk
-measured strip rates over 65 % higher with megasonics than without. The program represents this
-with a single enhancement factor on the ozone diffusivity in the film.
+(2014) measured strip rates of a positive resist over 65 % higher with megasonics than without, and
+found that more megasonic power gave a lower rate. The program represents agitation with a single
+enhancement factor on the ozone diffusivity in the film.
 </p>
 </div>
 
-<h2>Process</h2>
+<h2 id="process">Process</h2>
 <div class="text">
 <p>
 <b>Temperature</b> has two opposite effects. Warmer water carries ozone to the resist faster, but
@@ -351,17 +359,96 @@ The strip rate is the ozone flux into the resist multiplied by the resist volume
 of ozone. That yield depends on the resist. Three published room-temperature results give it once
 the settings they do not report are assumed: Abe et al. (2003) report about 100 nm/min with 10 to
 30 ppm ozone water; the NEC patent US 6,559,064 reports about 300 nm/min with 100 ppm on a rotating
-wafer; Dussault, Fittkau and Gottschalk report 279 nm/min at 80 ppm, 20 °C, 110 rpm and 1.4 L/min
-with megasonics, which raised the rate by over 65 %. With a 200 mm wafer and typical spin settings
-these imply 0.8 to 1.6 g of ozone per gram of resist (table below). The default is 1.0 g/g. For
-your own resist, enter a measured mean strip rate and press "Calibrate to this rate".
+wafer; Dussault, Fittkau and Gottschalk (2014) report 279 nm/min for a negative resist at 80 ppm,
+20 °C, 110 rpm and 1.4 L/min with megasonics, the water fed through a radial manifold under the
+transducer. The megasonic gain of 65 % that is taken out of their value was measured on a positive
+resist, so this point is the weakest of the three. With a 200 mm wafer and typical spin settings
+the three imply 0.8 to 1.6 g of ozone per gram of resist (checks table below). The default is
+1.0 g/g. For your own resist, enter a measured mean strip rate and press "Calibrate to this rate".
 </p>
 </div>
+
+<h2 id="validation">Validation against published measurements</h2>
+<div class="text">
+<p>
+The checks further down compare the model with exact solutions and with the values it was built
+from. Figure 7 compares it with published measurements that were not used to build it.
+</p>
+<ul>
+<li><b>Solubility (a).</b> Nine measurements of Henry's constant since 1950, as compiled by Sander
+(2023). The value used is 0.91 times the median measurement, and eight of the nine lie within 20 %.
+The measured temperature coefficients are smaller (median 2300 K against 2800 K), so the model
+gives a little too much ozone in cold water and too little in hot water.</li>
+<li><b>Life of ozone (b).</b> Tool makers quote half-lives of about 30 min at 15 °C and 15 min at
+25 °C for pH 7 (MKS data sheet; the ACM patent US 12,334,367 uses 15 min for baths of 90 ppm). The
+rate law gives these values for 5 mg/L, or for 90 mg/L when CO₂ brings the water to pH 4.5; at
+90 mg/L and pH 7 it gives under a minute. Dissolvers add CO₂ (MKS uses it as a dopant), which fits,
+but the quoted values do not state their concentration, and the rate law also shortens faster with
+temperature than they do. This is the largest open question; stage 1 of the test plan measures it.</li>
+<li><b>Strip rate (c).</b> The yield is fitted to two of the three sources and the third is
+predicted: each comes out within a factor of 1.6.</li>
+<li><b>Heated wafer.</b> With cold ozone water on a heated wafer the NEC patent reports 2 and 3 times
+the rate without heating; the model with the whole film at 60 and 80 °C gives 1.8 and 2.2 times. The
+direction is right and the gain smaller, as expected from a model with one temperature across the
+film.</li>
+<li><b>Film.</b> Stafford et al. (2024) find, by direct simulation and experiment, that the mean
+film thickness follows the formula used here, but that the film carries waves when Qν/(ω²r⁵) is
+below about 10⁻⁷. At the default settings it is 3.4 × 10⁻⁹ at mid-radius, so the real film is wavy,
+with peaks up to twice the mean. Measured gas-liquid and liquid-solid transfer on spinning discs is
+higher than for a smooth film (Aoune and Ramshaw 1999; Burns and Jachuck 2005; Zhao 2020), so the
+transfer in the model is a lower bound; the fitted yield takes up part of the difference.</li>
+</ul>
+</div>
+<div class="fig"><!--VALIDATION--></div>
+<p class="caption text"><b>Figure 7.</b> (a) Henry's constant of the model divided by each measurement since
+1950. (b) Half-life of dissolved ozone quoted by MKS (squares) and in the ACM patent (triangle), against the
+rate law for 5, 20 and 90 mg/L at pH 7 and for 90 mg/L at pH 4.5. (c) Strip rates predicted with the yield fitted
+to the other two sources.</p>
+
+<h2 id="inputs">Inputs checked against their sources</h2>
+<p class="text">Every input of the model: where it comes from, what it was checked against, and what came out.</p>
+<div class="scroll"><table class="data l" id="inputs-table" aria-label="Inputs checked against their sources"></table></div>
+
+<h2 id="recent">Recent work, 2016 to 2026</h2>
+<p class="text">Papers, theses and patents of the last ten years that bear on the model, the test rig or the
+machine below, and what each is used for here. For a patent the year is the year it was granted, with the
+priority year in brackets. The older foundations are in the references.</p>
+<div class="scroll"><table class="data l" aria-label="Recent work">
+<tr><th>Year</th><th>Kind</th><th>Source</th><th>What it shows</th><th>Used here</th></tr>
+<tr><td>2016</td><td>paper</td><td>Levanov et al., J. Anal. Chem. 71</td><td>Ozone in water absorbs 3000 L mol⁻¹ cm⁻¹ at 260 nm.</td><td>dissolved-ozone monitors</td></tr>
+<tr><td>2017</td><td>paper</td><td>Kawaguchi et al. (Lam Research), 232nd ECS Meeting</td><td>Heated O₃/O₂ gas strips 193 nm resist at about 900 nm/min with the wafer above 300 °C; ozone water then cleans in the same chamber.</td><td>context: a dry alternative</td></tr>
+<tr><td>2017</td><td>patent</td><td>MKS Instruments, US 9,597,613 (priority 2012)</td><td>Unused ozone water is collected in a buffer contactor, kept at strength with the off-gas of the delivery system, and pumped back to it.</td><td>prior art for reclaim and for using the off-gas</td></tr>
+<tr><td>2018</td><td>patent</td><td>SCREEN Holdings, US 10,141,206 (priority 2016)</td><td>A shield plate with a nozzle through its centre is lowered close over the wafer, with nitrogen in the gap, to dry it after hot SPM.</td><td>prior art for the cover of the machine</td></tr>
+<tr><td>2018</td><td>paper</td><td>Dussault, Weinhart, Zenger and Eichinger, AiMES 2018</td><td>Water-based phase fluids with megasonics at 925 kHz strip several resists in under 20 s.</td><td>context: a solvent-free alternative</td></tr>
+<tr><td>2018</td><td>paper</td><td>Yamamoto et al. (Horibe group), J. Photopolym. Sci. Technol. 31</td><td>KrF and ArF resist polymers removed by hydrogen radicals.</td><td>context</td></tr>
+<tr><td>2019</td><td>patent</td><td>Semes, US 10,453,672 (priority 2015)</td><td>Microbubbles remove the dissolved ozone from used liquid before it is reused.</td><td>water reclaim of the machine</td></tr>
+<tr><td>2019 or later</td><td>paper</td><td>Chen et al. (ACM Research and Shanghai Huali)</td><td>A bench and single-wafer SPM tool saves 94 % of the H₂O₂ and 33 % of the H₂SO₄ of single-wafer SPM.</td><td>SPM per wafer for the comparison</td></tr>
+<tr><td>2020</td><td>paper</td><td>Zhou et al. (ACM Research), ICEPT 2020</td><td>Megasonics halve the time of a solvent strip.</td><td>context</td></tr>
+<tr><td>2020</td><td>thesis</td><td>Zhao, PhD, Imperial College London</td><td>Waves on films over a spinning disc raise heat and mass transfer markedly.</td><td>limitation of the smooth film</td></tr>
+<tr><td>2021</td><td>paper</td><td>Lo et al. (WIN Semiconductors), CS MANTECH 2021</td><td>Solvent swelling and a fine water mist lift resist off with 90.7 % less chemical.</td><td>context</td></tr>
+<tr><td>2021</td><td>patent</td><td>Applied Materials, US 11,114,350 (priority 2019)</td><td>Photomask resist removed by a plasma of water vapour, then one of O₃ or O₂, with an optical end point.</td><td>context</td></tr>
+<tr><td>2022</td><td>patent</td><td>SCREEN Holdings, US 11,342,162 (priority 2017)</td><td>Ozone gas on a wafer on a hot plate at 200 to 300 °C; the end point is read from the ozone and CO₂ in the exhaust.</td><td>end point of the machine, read here from the drain and the cover gas</td></tr>
+<tr><td>2022</td><td>patent</td><td>SUSS MicroTec Photomask Equipment, US 11,358,172 (priority 2015, published 2017)</td><td>A UV lamp in a housing moves over the substrate, 1 to 2 mm above it, while water with O₃, H₂O₂ or TMAH flows out under it; with 185 nm light added the strip rate is about three times that with 254 nm.</td><td>prior art for UV through a liquid film</td></tr>
+<tr><td>2022, 2023</td><td>patents</td><td>Tohoku University and Nomura Micro Science, US 11,295,947 and US 11,817,309 (priority 2018)</td><td>Ozone water heated to 60 to 90 °C keeps a high ozone level when made acidic (pH 4 or less; 3 or less in the second patent); gas of 200 g/Nm³ or more, membrane dissolution at 0.15 to 0.7 MPa, and preferably no more than 6 s and 5 m from the dissolver to the point of use.</td><td>cold dissolution and a short line in the machine; CO₂ instead of acid</td></tr>
+<tr><td>2022</td><td>data sheet</td><td>MKS Instruments, Ozone Conversion (rev. 10/22)</td><td>Half-lives of dissolved ozone at pH 7 from 15 to 35 °C.</td><td>validation, Figure 7b</td></tr>
+<tr><td>2022</td><td>report</td><td>McCoy, UPM 2022 (UltraFacility)</td><td>Ultrapure water takes 9.0 to 18.1 kWh/m³, depending on what is counted.</td><td>energy per wafer</td></tr>
+<tr><td>2023</td><td>paper</td><td>Sander, Atmos. Chem. Phys. 23</td><td>Compilation of Henry's law constants, version 5.</td><td>solubility, Figure 7a</td></tr>
+<tr><td>2023</td><td>paper</td><td>Solid State Phenomena 346, 296</td><td>Unused hot water, ozone water and reclaimed SPM are recycled in high-volume fabs.</td><td>water reclaim</td></tr>
+<tr><td>2024</td><td>paper</td><td>Stafford et al., arXiv 2412.12730</td><td>Direct simulation and experiments: the mean film on a spinning disc follows the Nusselt film, with waves.</td><td>validation of the film</td></tr>
+<tr><td>2024</td><td>regulation</td><td>Regulation (EU) 2024/1849; Fraunhofer IOSB-AST</td><td>Mercury UV lamps are being phased out; the exemption for UV disinfection lamps runs to 24 February 2027 unless extended.</td><td>mercury-free UV in the machine</td></tr>
+<tr><td>2024, 2025</td><td>patents</td><td>SCREEN Holdings, US 11,958,087 and US 12,397,326 (priority 2021)</td><td>Ozone gas onto wafers wet with sulfuric acid, which forms peroxodisulfuric acid.</td><td>context</td></tr>
+<tr><td>2025</td><td>patent</td><td>ACM Research, US 12,334,367 (priority 2020)</td><td>Ozone-water baths of 30 to 120 ppm crack the crust of implanted resist before SPM; half-life about 15 min at 25 °C and pH 7.</td><td>validation, Figure 7b</td></tr>
+<tr><td>2026</td><td>review</td><td>Liu, Zhou, Zhang and Hu, Water 18, 1189</td><td>Ozone microbubbles raised the dissolved ozone about 2.5 times and resist removal about 30 % at the same ozone input (Takahashi et al. 2012).</td><td>an option for the machine</td></tr>
+</table></div>
+<p class="text small">Older work used for the machine: rotor-stator spinning-disc reactors reach liquid-solid
+transfer coefficients of 1.5 to 3 × 10⁻⁴ m/s, at least three times those of conventional reactors (Meeuwse et
+al. 2010); undissolved ozone has been fed back into the injector of a dissolver (Liou, US 7,501,055, priority 2004);
+ozone plants recover at least 60 % of their oxygen (Linde, OZORA).</p>
 
 <h2 id="rig">Test rig</h2>
 <div class="text">
 <p>
-The model can be checked on a bench built around one spin chamber (Figure 7). The rig measures
+The model can be checked on a bench built around one spin chamber (Figure 8). The rig measures
 every number the model uses or predicts: the ozone in the generator gas; the dissolved ozone after
 the contactor, before the nozzle and in the drain; the ozone that escapes into the exhaust; the
 temperatures, flows and spin speed; and the resist thickness before and after each run. A
@@ -379,7 +466,7 @@ carry ozone gas ends in the destruct unit.
 </p>
 </div>
 <div class="scroll"><!--RIG--></div>
-<p class="caption text"><b>Figure 7.</b> Piping and instruments of the test rig. Solid lines carry water,
+<p class="caption text"><b>Figure 8.</b> Piping and instruments of the test rig. Solid lines carry water,
 dashed lines gas. The circles are instruments: AIT-102 measures the ozone in the generator gas,
 AIT-202 the resistivity of the water (which gives its pH), AIT-204 and AIT-207 the dissolved ozone
 after the contactor and before the nozzle, AIT-302 the dissolved ozone in the drain, FT-303 and
@@ -494,7 +581,7 @@ generator.</li>
 <li>All ozone gas goes to the destruct unit: the contactor off-gas, the bubble-trap vent and the
 chamber exhaust. The drain water still carries ozone (sizing table), so it needs time to decay, or
 a vented tank, before it reaches the plant drain.</li>
-<li>Ambient monitors sit at the chamber and at the generator. The interlock (I in Figure 7) stops
+<li>Ambient monitors sit at the chamber and at the generator. The interlock (I in Figure 8) stops
 the generator and shuts the valve to the nozzle at 0.1 ppm, which is the OSHA limit averaged over
 8 h and the NIOSH ceiling, and also on low exhaust flow, an open lid, a leak in the drip tray or
 lost cooling water. Before the lid opens, the chamber is purged until AIT-304 reads close to zero.</li>
@@ -502,11 +589,260 @@ lost cooling water. Before the lid opens, the chamber is purged until AIT-304 re
 for semiconductor manufacturing equipment; a laboratory rig should follow the same ideas.</li>
 </ul>
 
-<h2>Checks</h2>
+<h3 id="mechanical">Mechanical design</h3>
+<div class="text">
+<p>
+The rig fits a frame of aluminium profile, 1600 mm wide, 800 mm deep and 2000 mm high, in three bays
+(Figures 9 and 10). The gas bay on the left holds the ozone generator and its analyser on the upper
+deck, the mass flow controllers, and the control cabinet with the interlock relay. The water bay in
+the middle holds the contactor, the heat exchanger, the flow controller, the heater, the bubble trap
+and the dissolved-ozone monitors over a drip tray with a leak sensor, with the chiller below. The
+process bay on the right holds the spin chamber with the wafer at 1150 mm, the drain tank below it,
+and the destruct unit on top of the frame in the exhaust duct. The CAD model (CadQuery) uses the same
+dimensions as the drawings and is in the repository as STEP files.
+</p>
+<p>
+The spin module (Figures 11 and 12) is a PVDF chamber with a hinged lid. A catch cup of 380 mm with an
+inward lip collects the spray; its floor carries the exhaust openings and, behind a weir, the gutter
+that drains to the drain tank. The vacuum chuck sits on a stainless steel shaft in a PFA sleeve,
+carried by two bearings in a housing on the deck. Where the shaft enters the chamber, a rotating skirt
+over a fixed collar forms a labyrinth that is purged with nitrogen, so no seal rubs in ozone water and
+the motor below stays dry. The nozzle arm holds the PFA nozzle tube 15 mm above the centre of the
+wafer, adjustable from 10 to 20 mm; a megasonic nozzle on its own arm is an option. The lid has a
+quartz viewport for the film-thickness sensor and the inlet for ozone gas through a PTFE diffuser.
+</p>
+</div>
+<div class="scroll"><!--CAD:rig_iso--></div>
+<p class="caption text"><b>Figure 9.</b> The test rig from the front left, with the process bay cut along the spin
+axis. The numbers refer to the parts list below.</p>
+<div class="scroll"><!--CAD:rig_ga--></div>
+<p class="caption text"><b>Figure 10.</b> General arrangement in front and plan view. Dimensions in mm.</p>
+<div class="fig"><!--CAD:spin_cutaway--></div>
+<p class="caption text"><b>Figure 11.</b> The spin module cut along its axis.</p>
+<div class="scroll"><!--CAD:spin_section--></div>
+<p class="caption text"><b>Figure 12.</b> Section A-A through the spin module. Cut parts are hatched by material;
+dashed parts lie behind the section plane or are options.</p>
+<h3>Parts list of the rig</h3>
+<div class="scroll"><table class="data l" aria-label="Parts list of the test rig">
+<tr><th>Item</th><th>Part</th><th>Material or type</th><th>Bought or made</th></tr>
+<tr><td>1</td><td>Frame</td><td>aluminium profile 45 × 45 mm</td><td>bought, cut to length</td></tr>
+<tr><td>2</td><td>Decks</td><td>aluminium plate covered with PVDF</td><td>made</td></tr>
+<tr><td>3</td><td>Control cabinet with the interlock relay</td><td>steel cabinet, safety relay</td><td>bought</td></tr>
+<tr><td>4</td><td>Ozone generator</td><td>corona discharge, water-cooled</td><td>bought</td></tr>
+<tr><td>5</td><td>Ozone analyser, gas (AIT-102)</td><td>UV absorption at 254 nm</td><td>bought</td></tr>
+<tr><td>6</td><td>Mass flow controllers (FIC-101, FIC-104, FIC-201)</td><td>stainless steel, cleaned for oxygen</td><td>bought</td></tr>
+<tr><td>7</td><td>Membrane contactor</td><td>PTFE or PFA hollow fibres</td><td>bought</td></tr>
+<tr><td>8</td><td>Heat exchanger (TIC-203)</td><td>PFA</td><td>bought</td></tr>
+<tr><td>9</td><td>Liquid flow controller (FIC-205)</td><td>ultrasonic meter, PFA valve</td><td>bought</td></tr>
+<tr><td>10</td><td>Inline heater (TIC-206)</td><td>PFA-lined</td><td>bought</td></tr>
+<tr><td>11</td><td>Bubble trap</td><td>PFA</td><td>bought</td></tr>
+<tr><td>12</td><td>Dissolved-ozone monitors (AIT-204, AIT-207)</td><td>UV flow cells</td><td>bought</td></tr>
+<tr><td>13</td><td>Recirculating chiller</td><td></td><td>bought</td></tr>
+<tr><td>14</td><td>Drip tray with leak sensor</td><td>PVDF sheet, welded</td><td>made</td></tr>
+<tr><td>15</td><td>Supply lines</td><td>PFA tube, 3/8 in</td><td>bought</td></tr>
+<tr><td>16</td><td>Chamber</td><td>PVDF sheet, welded</td><td>made</td></tr>
+<tr><td>17</td><td>Lid with hinge; 17a viewport; 17b gas inlet with diffuser; 17c lid switch</td><td>PVDF; quartz; sintered PTFE; interlock switch</td><td>made, with bought parts</td></tr>
+<tr><td>18</td><td>Catch cup; 18a lip; 18b weir; 18c exhaust openings</td><td>PVDF, turned</td><td>made</td></tr>
+<tr><td>19</td><td>Vacuum chuck; 19a shaft with vacuum bore</td><td>PVDF; stainless steel 316L in a PFA sleeve</td><td>made</td></tr>
+<tr><td>20</td><td>Wafer, 300 mm</td><td>silicon, coated with resist</td><td></td></tr>
+<tr><td>21</td><td>Spin motor with encoder (SIC-301); 21a bearings; 21b rotating skirt of the labyrinth; 21c rotary union</td><td>servo motor; sealed bearings in a 316L housing; 316L; vacuum union</td><td>bought; skirt made</td></tr>
+<tr><td>22</td><td>Nozzle arm; 22a nozzle tube</td><td>PVDF; PFA</td><td>made</td></tr>
+<tr><td>23</td><td>Exhaust duct with FT-303 and AIT-304</td><td>PVDF or stainless steel</td><td>bought</td></tr>
+<tr><td>24</td><td>Ozone destruct</td><td>heated catalyst</td><td>bought</td></tr>
+<tr><td>25</td><td>Drain tank with the AIT-302 line</td><td>PVDF</td><td>made</td></tr>
+<tr><td>26</td><td>Ambient ozone monitor (AIT-401)</td><td></td><td>bought</td></tr>
+<tr><td>27</td><td>Megasonic nozzle (option)</td><td>quartz or sapphire face</td><td>bought</td></tr>
+</table></div>
+<p class="text small">CAD files in the repository: cad/rig.step (the whole rig) and cad/spin_module.step. They open in
+FreeCAD or any other CAD program; cad/rig_cad.py rebuilds them, and cad/drawings.py draws Figure 12.</p>
+
+<h3 id="choices">Why the rig is built this way</h3>
+<div class="scroll"><table class="data l" aria-label="Design choices of the test rig">
+<tr><th>Choice</th><th>Why</th><th>Instead of</th></tr>
+<tr><td>Membrane contactor</td><td>No bubbles reach the wafer, the area for transfer is fixed, and the gas pressure can be set apart from the water.</td><td>a venturi injector with a degassing separator: more ozone, but bubbles and pulsation</td></tr>
+<tr><td>Separate temperatures in the contactor and at the nozzle</td><td>Solubility and reaction can be varied on their own; this tests the best temperature of Figure 5 and the limit of supersaturation.</td><td>one temperature: simpler, but those two tests become impossible</td></tr>
+<tr><td>Fixed nozzle over the centre</td><td>The flow is the same at every angle, as in the model, so the simplest case is tested first.</td><td>a swinging arm: more even stripping, added once the simple case is understood</td></tr>
+<tr><td>Three-way valve to the drain</td><td>The ozone is steady before the wafer is wetted; dead legs lose ozone.</td><td>dispensing straight away: a start-up transient on every run</td></tr>
+<tr><td>Exchangeable supply lines and a stop-flow cell</td><td>Decay in the line is measured apart from the film.</td><td>one fixed line</td></tr>
+<tr><td>Ozone gas into the lid</td><td>Tests the boundary condition at the free surface, the largest single term in Figure 2.</td><td>air only</td></tr>
+<tr><td>Every ozone stream measured</td><td>The ozone balance on the wafer closes, so each bar of Figure 2 is checked; a strip rate alone can hide errors that cancel.</td><td>strip rate only</td></tr>
+<tr><td>Resistivity instead of a pH electrode</td><td>Glass electrodes drift in ultrapure water.</td><td>pH probe</td></tr>
+<tr><td>PFA, PTFE and PVDF wetted parts, FFKM seals</td><td>They resist ozone, and no metal touches the water, so nothing contaminates the wafer or speeds the decay.</td><td>stainless steel in the water path</td></tr>
+<tr><td>Vacuum chuck</td><td>Flat backing and no pins at the edge to disturb the film.</td><td>an edge-grip chuck, needed later for back-side work</td></tr>
+<tr><td>Labyrinth purged with nitrogen</td><td>No seal rubs in ozone water, and the motor stays dry.</td><td>a lip seal, which wears and sheds particles</td></tr>
+<tr><td>Catch cup with an inward lip and the exhaust under it</td><td>Spray does not bounce back onto the wafer, and the gas is drawn down and away from the operator.</td><td>an open bowl</td></tr>
+<tr><td>Heated catalytic destruct</td><td>The gas is wet, and the catalyst needs it above its dew point.</td><td>activated carbon, which ozone consumes and can overheat</td></tr>
+<tr><td>Loading by hand through the lid</td><td>A laboratory rig: a robot adds cost and nothing to the validation.</td><td>a load port and robot</td></tr>
+</table></div>
+<h3>What is new in the rig</h3>
+<p class="text">
+The parts are standard, and ozone water on spinning wafers has been in use since the late 1990s. In the
+papers and patents we checked we did not find a rig built to close the ozone balance on a spinning
+wafer, with every measurement tied to one term of a model, nor a test plan that uses the model to pick
+the runs and to stop each one before the resist clears. Those two things are new here; the hardware is
+not.
+</p>
+
+<h2 id="machine">A closed-loop machine</h2>
+<div class="text">
+<p>
+The test rig is built to measure; a machine for production should use what the model shows. In the
+open rig at its default settings the generator makes 3.2 g of ozone per wafer and 3 % of it ends up
+in the resist: 83 % of the generator gas leaves the contactor undissolved, and of the ozone that does
+dissolve, more than a third escapes into the air above the film. The design below closes these
+losses with four loops and takes its operating point from the model.
+</p>
+<ul>
+<li><b>Ozone cascade.</b> The off-gas of the contactor still carries most of the ozone. Instead of going
+straight to the destruct unit, it flows through the annulus of a coaxial dispenser into a 3 mm gap
+under a quartz cover, so the film is covered by ozone-rich gas instead of room air, and it leaves
+through the gas plenum of the rim collector.</li>
+<li><b>Oxygen loop.</b> Behind the destruct unit the gas is almost pure oxygen with some CO₂ and water
+vapour. It is dried and returned to the generator, and a bleed keeps impurities down. Units for ozone
+plants recover at least 60 % of the oxygen in this way (Linde, OZORA).</li>
+<li><b>Heat recovery and water reclaim.</b> The warm drain heats the ozone water on its way to the
+nozzle in a counterflow PFA exchanger. With no acid in the process, the drain holds only ozone, CO₂
+and the small organic acids from the resist; after ozone removal and a check of TOC and conductivity
+it goes back to the ultrapure-water plant, as high-volume fabs already do with ozone water (Solid
+State Phenomena 346, 2023).</li>
+<li><b>Supply and operating point.</b> The water is chilled to 10 °C before the contactor, CO₂ in the
+generator gas brings it to pH 4.5, and the line to the nozzle is 1 m of 4 mm tube with the heater
+next to the nozzle, following the Tohoku and Nomura patents (preferably no more than 6 s and 5 m from
+dissolution to use). The operating point was chosen by the model from 1800 settings (Figure 14).</li>
+</ul>
+</div>
+<div class="scroll"><!--MACHINE_PID--></div>
+<p class="caption text"><b>Figure 13.</b> Piping and instruments of the closed-loop machine. The blue labels name
+the loops. AIT-505 (ozone and CO₂ in the cover gas) and AIT-606 (ozone in the drain) give the end point of the
+strip; AIT-607 decides between reclaim and drain.</p>
+
+<h3>Operating point and use per wafer</h3>
+<p class="text">The strip of 1 µm of resist on a 300 mm wafer until the slowest point is clear, plus a rinse of
+30 s. For single-wafer SPM only the chemicals are given (ACM Research). The assumptions are listed at the end of
+this section.</p>
+<div class="scroll"><table class="data" id="machine-point" aria-label="Operating point of the machine"></table></div>
+<div class="scroll"><table class="data" id="machine-footprint" aria-label="Use per wafer"></table></div>
+<h3>Where the gain comes from</h3>
+<div class="scroll"><table class="data" id="machine-steps" aria-label="Gain step by step"></table></div>
+<div class="text">
+<p>
+Most of the gain comes from the supply and the operating point: cold water with CO₂ at about 100 mg/L
+that reaches the wafer within a second, and a thinner film from the faster spin. The cover with the
+off-gas shortens the strip by a further 8 %; it is also what makes the small exhaust and the oxygen loop
+possible. The generator runs at 1 NL/min, not 3: that takes 9 % longer but makes 64 % less ozone.
+Two ideas were tried in the model and dropped. Megasonics make the slowest point slower here: they
+speed the uptake near the centre, which leaves less ozone for the edge. Dussault et al. also saw a
+lower rate with more megasonic power, though in a different set-up. A second ring of nozzles at 50 mm
+shortens the strip by 16 % but needs 22 % more water.
+</p>
+</div>
+<div class="fig"><!--MACHINE_SPACE--></div>
+<p class="caption text"><b>Figure 14.</b> Every setting the model tried for the machine: contactor at 10 or 20 °C, pH
+4.5 or 5.6, generator gas 1 to 3 NL/min, flow 0.5 to 2 L/min, 25 to 50 °C and 300 to 1600 rpm. Settings are ruled
+out when the water at the nozzle is more than twice saturated, the film at the edge is thinner than 20 µm, the
+cover gas loses more than 30 % of its ozone, or inertia is not small. The red dot is the point chosen: within
+15 % of the fastest, with the least ozone.</p>
+
+<h3>The process module</h3>
+<div class="text">
+<p>
+The module (Figures 15 and 16) keeps the open rig's spin chamber small and closes it over the wafer. A
+quartz cover, 340 mm across and 12 mm thick, rests in a PVDF carrier ring 3 mm above the wafer while the
+resist is stripped, and three cylinders on a common plate lift it by 60 mm to change the wafer. A
+coaxial dispenser through the centre of the cover brings the ozone water in its PFA core and the cover
+gas in the annulus around it, so both start together at the centre and move outward together. At the
+rim, the spray from the wafer edge runs under a drip lip onto the outer wall and down into the gutter,
+while the gas turns up past the lip into the plenum and out through two ports. The water and the gas
+leave separately, so the drain carries no gas and the gas line no water. The chuck sits on a
+direct-drive hollow-shaft motor with an encoder, with no belt; the shaft carries the vacuum through a
+rotary union, and a labyrinth purged with nitrogen keeps the motor dry.
+</p>
+</div>
+<div class="scroll"><!--CAD:module_cutaway--></div>
+<p class="caption text"><b>Figure 15.</b> The process module of the closed-loop machine, cut along the spin axis; the
+enclosure is left out. Numbers as in the parts list below.</p>
+<div class="scroll"><!--CAD:module_section--></div>
+<p class="caption text"><b>Figure 16.</b> Section B-B through the process module, with detail C of the rim at 5:1:
+the water (solid arrows) goes under the drip lip into the gutter, the cover gas (dashed) goes up into the
+plenum.</p>
+<h3>Parts list of the module</h3>
+<div class="scroll"><table class="data l" aria-label="Parts list of the process module">
+<tr><th>Item</th><th>Part</th><th>Material or type</th><th>Bought or made</th></tr>
+<tr><td>1</td><td>Deck plate</td><td>aluminium, PVDF-covered</td><td>made</td></tr>
+<tr><td>2</td><td>Enclosure, purged (not drawn in Figure 15)</td><td>PVDF panels</td><td>made</td></tr>
+<tr><td>3</td><td>Direct-drive hollow-shaft motor with encoder, rotary union for vacuum and purge</td><td>torque motor</td><td>bought</td></tr>
+<tr><td>4</td><td>Vacuum chuck on the hollow shaft</td><td>PVDF on 316L</td><td>made</td></tr>
+<tr><td>5</td><td>Wafer, 300 mm</td><td></td><td></td></tr>
+<tr><td>6</td><td>Labyrinth, nitrogen-purged</td><td>PVDF collar, 316L skirt</td><td>made</td></tr>
+<tr><td>7</td><td>Rim collector: gutter, drip lip, gas plenum, two gas ports, two drains</td><td>PVDF, turned and welded</td><td>made</td></tr>
+<tr><td>8</td><td>Cover, 340 mm by 12 mm, 3 mm above the wafer</td><td>fused quartz</td><td>bought</td></tr>
+<tr><td>9</td><td>Carrier ring, three lift rods, lift plate</td><td>PVDF; 316L rods</td><td>made</td></tr>
+<tr><td>10</td><td>Lift cylinders (3), stroke 60 mm</td><td>pneumatic</td><td>bought</td></tr>
+<tr><td>11</td><td>Coaxial dispenser: water core, gas annulus</td><td>PFA tube 1/4 in inside a PFA sleeve</td><td>made</td></tr>
+<tr><td>12</td><td>UV source above the quartz (option)</td><td>UVC LED tiles or 222 nm lamps on a heat sink</td><td>bought</td></tr>
+<tr><td>13</td><td>Heat-recovery exchanger, counterflow</td><td>PFA tube in tube</td><td>bought</td></tr>
+</table></div>
+<p class="text small">CAD file in the repository: cad/module.step; cad/module_cad.py rebuilds it and draws Figure 15,
+cad/module_section.py draws Figure 16.</p>
+
+<h3>Further details</h3>
+<ul class="text">
+<li><b>End point.</b> When the resist is gone the ozone in the drain rises and the CO₂ in the cover gas
+falls. At the operating point the model gives <span id="ep-drain"></span> in the drain, so AIT-606 sees a clear step
+and the strip stops on time instead of after a fixed safety margin. SCREEN reads an end point from the
+ozone and CO₂ in the exhaust of an ozone-gas strip (US 11,342,162); here the same idea is applied to
+ozone water.</li>
+<li><b>UV without mercury (option).</b> Light below about 190 nm is absorbed in a fraction of a
+millimetre of water (172 nm within about 0.04 mm; Heit and Braun 1997), so it acts on the water rather
+than on the resist beneath. At 222 nm and above a film of 0.03 to 0.1 mm is practically transparent
+(Quickenden and Irvin 1980), so the light reaches the resist. KrCl lamps (222 nm) or UVC LEDs above
+the quartz avoid mercury, which the EU is phasing out. Whether UV helps the strip is open; stage 4 of
+the test plan can test it in the rig.</li>
+<li><b>Particles (option).</b> Ozone water does not lift particles. With the cover lowered until it
+touches the liquid, the gap fills, and a transducer on the cover can couple megasonics into hydrogen
+water for particle removal in the same chamber.</li>
+<li><b>Control.</b> The model runs on the controller: it predicts the drain and cover-gas readings for
+the measured ozone at the nozzle, and a mismatch flags a fault (a clogged nozzle, a weak generator, a
+leaking cover) before wafers are lost.</li>
+</ul>
+
+<h3>Risks, and how the rig tests them</h3>
+<ul class="text">
+<li><b>Bubbles.</b> The water at the nozzle is 1.7 times saturated (the limit was set at 2). Stage 1
+measures how much ozone is lost between the nozzle and the drain, with the bubble trap watched.</li>
+<li><b>Film break-up.</b> A film of 27 µm at the edge may break into rivulets on a water-repelling
+resist. Stage 2 with the film sensor finds the real limit; a lower speed or a little more flow are the
+fall-backs.</li>
+<li><b>Condensation on the cover.</b> The film is warmer than the cover gas, so water can condense on
+the quartz and drip. The carrier ring is heated to the film temperature and the cover gas is warmed to
+it.</li>
+<li><b>Ozone in the gap.</b> About 5 % ozone by volume sits in the gap. The enclosure is purged,
+ambient monitors trip the interlock, and the lift does not open until the gap has been purged.</li>
+<li><b>The model.</b> The decay law at 100 mg/L is the main open question (Figure 7b), and the
+smooth-film transfer is a lower bound. Both are measured with the rig before a machine is built.</li>
+</ul>
+
+<h3>What is new in the machine</h3>
+<p class="text">
+Each part has been done before: ozone gas over a thin water film (Bergman and Hess, US 6,267,125), a
+plate with a centre nozzle close above the wafer (SCREEN, US 10,141,206), reuse of dissolver off-gas (Liou, US 7,501,055;
+MKS, US 9,597,613), oxygen recovery for ozone plants (Linde), hot ozone water with a short line (Tohoku
+University and Nomura Micro Science), an end point from ozone and CO₂ in the exhaust of an ozone-gas
+strip (SCREEN, US 11,342,162), and UV through a liquid film (SUSS MicroTec Photomask Equipment,
+US 11,358,172). In the sources we checked we did not find them combined in one tool: the contactor
+off-gas fed under a quartz cover as the gas phase of the film, an oxygen loop on a wafer tool, an end
+point from the step in drain ozone that a film model predicts, and an operating point chosen by a model
+under limits for bubbles, film thickness and cover gas. That combination, and the numbers behind it, is
+what this design adds. This is not a patent search; one would be needed before any claim.
+</p>
+<h3>Assumptions</h3>
+<div class="scroll"><table class="data l" id="machine-assumptions" aria-label="Assumptions of the machine"></table></div>
+
+<h2 id="checking">Checks</h2>
 <p class="text">The Python version of this model (in the repository) runs the same checks as tests.</p>
 <div class="scroll"><table class="data" id="checks" aria-label="Checks"></table></div>
 
-<h2>Limitations</h2>
+<h2 id="limitations">Limitations</h2>
 <ul class="text">
 <li>The film is a steady, smooth, laminar film; inertia near the centre and waves are left out,
 and the zone under the nozzle (r &lt; 10 mm) is not modelled.</li>
@@ -519,39 +855,75 @@ and no surface reaction limit is applied by default.</li>
 <li>The contactor efficiency is set by hand; bubble formation in supersaturated water is flagged
 but not modelled.</li>
 <li>UV-assisted ozone and peroxide chemistry is not included.</li>
+<li>The decay law at the 80 to 100 mg/L used in tools gives much shorter half-lives at pH 7 than tool makers
+quote (Figure 7b).</li>
+<li>The closed-loop machine is a design. Its numbers come from the model and from the assumptions listed with
+it; nothing of it has been built or tested. The second ring of nozzles is in the Python package only.</li>
 </ul>
 
-<h2>References</h2>
+<h2 id="references">References</h2>
 <ol class="text small">
 <li>Abe, H., Iwamoto, H., Toshima, T., Iino, T. and Gale, G. W. (2003). Novel photoresist stripping using ozone/vaporized water mixture. IEEE Trans. Semicond. Manuf. 16, 401-408.</li>
+<li>Aoune, A. and Ramshaw, C. (1999). Process intensification: heat and mass transfer characteristics of liquid films on rotating discs. Int. J. Heat Mass Transfer 42, 2543-2556.</li>
+<li>Applied Materials. US Patent 11,114,350 B2 (priority 2019, granted 2021): photomask resist removed by a plasma of water vapour, then of O₃ or O₂.</li>
 <li>Bader, H. and Hoigné, J. (1981). Determination of ozone in water by the indigo method. Water Res. 15, 449-456.</li>
+<li>Bang, B., Youn, J. and Kwon, K. (Semes). Dissolved ozone removal unit, apparatus for treating substrate, method of removing dissolved ozone, and method of cleaning substrate. US Patent 10,453,672 B2 (priority 2015, granted 2019).</li>
 <li>Bergman, E. J. and Hess, M. P. Apparatus and method for processing the surface of a workpiece with ozone. US Patent 6,267,125 B1 (priority 1997).</li>
 <li>Bhatelia, T. J., Utikar, R. P., Pareek, V. K. and Tade, M. O. (2009). Characterizing liquid film thickness in spinning disc reactors. 7th Int. Conf. on CFD in the Minerals and Process Industries, Melbourne. Cites Lepehin and Riabchuk (1975) and Espig and Hoyle (1965).</li>
 <li>Bühler, R. E., Staehelin, J. and Hoigné, J. (1984). Ozone decomposition in water studied by pulse radiolysis. 1. HO₂/O₂⁻ and HO₃/O₃⁻ as intermediates. J. Phys. Chem. 88, 2560-2564.</li>
 <li>Burkholder, J. B. et al. (2019). Chemical kinetics and photochemical data for use in atmospheric studies, Evaluation No. 19. JPL Publication 19-5.</li>
+<li>Burns, J. R. and Jachuck, R. J. J. (2005). Determination of liquid-solid mass transfer coefficients for a spinning disc reactor using a limiting current technique. Int. J. Heat Mass Transfer 48, 2540-2547.</li>
 <li>Buxton, G. V., Greenstock, C. L., Helman, W. P. and Ross, A. B. (1988). Critical review of rate constants for reactions of hydrated electrons, hydrogen atoms and hydroxyl radicals in aqueous solution. J. Phys. Chem. Ref. Data 17, 513-886.</li>
+<li>Chen, F., Lei, H., Zhang, X., Wang, W. et al. (ACM Research and Shanghai Huali Microelectronics). High performance eco-friendly SPM cleaning technology using an integrated bench single wafer cleaning system (2019 or later). <a href="https://www.acmr.com/wp-content/uploads/260_High-Performance-Eco-Friendly-SPM-Cleaning-Technology-using-Integrated-Bench-Single-Wafer-Cleaning-System-20.10.04.pdf" target="_blank" rel="noopener">acmr.com</a></li>
 <li>Chen, J.-W. (2002). The study of photoresist removal mechanism by ozone. MSc thesis, National Chiao Tung University (in Chinese).</li>
 <li>De Smedt, F., De Gendt, S., Claes, M., Heyns, M. M., Vankerckhoven, H. and Vinckier, C. (2002). The increasing importance of the use of ozone in the microelectronics industry. Ozone Sci. Eng. 24, 379-390.</li>
-<li>Dussault, D., Fittkau, J. and Gottschalk, C. Megasonic enhanced photoresist strip with DiO₃. ProSys Inc. and ASTeX GmbH, technical paper (after 2012).</li>
+<li>Dussault, D., Fittkau, J. and Gottschalk, C. (2014). Megasonic enhanced photoresist strip with DiO₃. Solid State Phenomena 219, 187-190.</li>
+<li>Dussault, D., Weinhart, M., Zenger, T. and Eichinger, I. (2018). Megasonic enhanced photo resist removal using unique solvent free phase-fluids on an advanced single wafer resist processing system. AiMES 2018, Cancún.</li>
 <li>Emslie, A. G., Bonner, F. T. and Peck, L. G. (1958). Flow of a viscous liquid on a rotating disk. J. Appl. Phys. 29, 858-862.</li>
 <li>Ershov, B. G. and Morozov, P. A. (2009). The kinetics of ozone decomposition in water, the influence of pH and temperature. Russ. J. Phys. Chem. A 83, 1295-1299.</li>
+<li>European Union. Regulation (EU) 2024/1849 amending Regulation (EU) 2017/852 on mercury; Fraunhofer IOSB-AST, Mercury ban 2027 (information sheet on mercury UV lamps).</li>
 <li>Gottschalk, C. and Schweckendiek, J. (2004). Using dissolved ozone in semiconductor cleaning applications. MICRO, March 2004.</li>
 <li>Gurol, M. D. and Singer, P. C. (1982). Kinetics of ozone decomposition: a dynamic approach. Environ. Sci. Technol. 16, 377-383.</li>
 <li>Haynes, W. M. (ed.) (2016). CRC Handbook of Chemistry and Physics, 97th ed. CRC Press.</li>
+<li>Heit, G. and Braun, A. M. (1997). VUV-photolysis of aqueous systems: spatial differentiation between volumes of primary and secondary reactions. Water Sci. Technol. 35, 25-30.</li>
 <li>ISA (2009). ANSI/ISA-5.1-2009, Instrumentation symbols and identification. International Society of Automation.</li>
 <li>Johnson, P. N. and Davis, R. A. (1996). Diffusivity of ozone in water. J. Chem. Eng. Data 41, 1485-1487.</li>
+<li>Kawaguchi, M. N., Zhu, J., Fischer, C., Man, X., Bandarapu, B. and Kon, S. (2017). Thermally activated gas-phase chemical reactions in a single-wafer wet clean process. 232nd ECS Meeting, National Harbor.</li>
 <li>Kell, G. S. (1975). Density, thermal expansivity, and compressibility of liquid water from 0 to 150 °C. J. Chem. Eng. Data 20, 97-105.</li>
 <li>Kestin, J., Sokolov, M. and Wakeham, W. A. (1978). Viscosity of liquid water in the range −8 °C to 150 °C. J. Phys. Chem. Ref. Data 7, 941-948.</li>
 <li>Lesko, T. M. (2004). Chemical effects of acoustic cavitation. PhD thesis, California Institute of Technology, chapter 5, table 1.</li>
 <li>Levanov, A. V., Isaikina, O. Ya., Tyutyunnik, A. N., Antipenko, E. E. and Lunin, V. V. (2016). Molar absorption coefficient of ozone in aqueous solutions. J. Anal. Chem. 71, 549-553.</li>
 <li>Light, T. S., Licht, S., Bevilacqua, A. C. and Morash, K. R. (2005). The fundamental conductivity and resistivity of water. Electrochem. Solid-State Lett. 8, E16-E19.</li>
+<li>Linde. OZORA oxygen recovery unit, white paper.</li>
+<li>Liou, H.-T. Ozone on-line injection, reuse, and destruction system. US Patent 7,501,055 B2 (priority 2004).</li>
+<li>Liu, Y., Zhou, L., Zhang, L. and Hu, J. (2026). Ozone micro-nanobubbles: properties, effects, and applications. Water 18, 1189.</li>
+<li>Lo, J.-Y., Chen, Y.-H., Chuang, J.-P., Chiu, C.-J., Weng, P.-C. and Chen, K.-H. (WIN Semiconductors) (2021). A novel environment-protecting technique for photoresist strip, metal lift-off, and etching byproduct removal. CS MANTECH 2021.</li>
+<li>McCoy, O. (2022). Five things we learned about the UPW-energy relationship at UPM 2022. UltraFacility.</li>
+<li>Meeuwse, M., van der Schaaf, J. and Schouten, J. C. (2010). Liquid-solid mass transfer in a rotor-stator spinning disc reactor. ISCRE 21, Philadelphia.</li>
+<li>MKS Instruments (2022). Ozone Conversion, data sheet, rev. 10/22.</li>
+<li>Morioka, T. (SCREEN Holdings). Substrate processing apparatus and gap washing method. US Patent 10,141,206 B2 (priority 2016, granted 2018).</li>
 <li>NIOSH Pocket Guide to Chemical Hazards: Ozone. <a href="https://www.cdc.gov/niosh/npg/npgd0476.html" target="_blank" rel="noopener">cdc.gov/niosh/npg/npgd0476.html</a></li>
+<li>Oxidation Technologies. Ozone production from corona discharge. <a href="https://www.oxidationtech.com/blog/?p=5428" target="_blank" rel="noopener">oxidationtech.com</a></li>
 <li>Proc. SPIE 6283, 62830B (2006). Sulfate-free photomask cleaning technology.</li>
+<li>Quickenden, T. I. and Irvin, J. A. (1980). The ultraviolet absorption spectrum of liquid water. J. Chem. Phys. 72, 4416-4428.</li>
 <li>Sander, R. (2023). Compilation of Henry's law constants (version 5.0.0) for water as solvent. Atmos. Chem. Phys. 23, 10901-12440.</li>
+<li>SCREEN Holdings. Resist removing method and resist removing apparatus. US Patent 11,342,162 B2 (priority 2017, granted 2022).</li>
+<li>SCREEN Holdings. US Patent 11,958,087 B2 (priority 2021, granted 2024); Suzuki, K. and Inaba, M. US Patent 12,397,326 B2 (priority 2021, granted 2025): substrate treatment with sulfuric acid and ozone gas.</li>
+<li>Seiwert, J. H., Brammer, U. A., Blacha, M. and Schnaiter, G. J. (MKS Instruments). Pressure-less ozonated DI-water (DIO₃) recirculation reclaim system. US Patent 9,597,613 B2 (priority 2012, granted 2017).</li>
 <li>SEMI S2. Environmental, health, and safety guideline for semiconductor manufacturing equipment. SEMI.</li>
 <li>Shimizu, Y. (NEC). Method and apparatus for removing photoresist on semiconductor wafer. US Patent 6,559,064 B1 (priority 1999).</li>
+<li>Shirai, Y., Sakai, T. and Jizaimaru, T. (Tohoku University and Nomura Micro Science). Method for producing ozone water. US Patent 11,295,947 B2 (granted 2022); Method of producing heated ozone water, heated ozone water, and semiconductor wafer-cleaning liquid. US Patent 11,817,309 B2 (granted 2023; priority of both 2018).</li>
+<li>Solid State Phenomena 346, 296-301 (2023). Reduction of process chemicals and energy use in single-wafer process applications.</li>
 <li>Staehelin, J. and Hoigné, J. (1982). Decomposition of ozone in water: rate of initiation by hydroxide ions and hydrogen peroxide. Environ. Sci. Technol. 16, 676-681.</li>
+<li>Stafford, Uzo, Piccoli, Petit and Matar (2024). Thin film flow over a spinning disc: experiments and direct numerical simulations. arXiv:2412.12730.</li>
 <li>Stumm, W. and Morgan, J. J. (1996). Aquatic Chemistry, 3rd ed. Wiley.</li>
+<li>Sumco, Echo Giken and Chlorine Engineers. US Patent 7,678,200 (priority 2002): ozone water for cleaning; half-life of ozone in pure water 10 to 30 min.</li>
+<li>SUSS MicroTec Photomask Equipment (Dattilo, Dietze and Singh). US Patent 11,358,172 B2 (priority 2015; published as US 2017/0087585 A1, granted 2022): substrate treatment with an aqueous medium exposed to UV light.</li>
+<li>Takahashi, M., Ishikawa, H., Asano, T. and Horibe, H. (2012). Effect of microbubbles on ozonized water for photoresist removal. J. Phys. Chem. C 116, 12578-12583.</li>
+<li>Yamamoto, M., Taki, T., Sunada, T., Shikama, T., Nagaoka, S., Umemoto, H. and Horibe, H. (2018). Removal of polymers for KrF and ArF photoresist using hydrogen radicals containing a small amount of oxidizing radicals. J. Photopolym. Sci. Technol. 31, 419-424.</li>
+<li>Zhang, X., Wang, W., Chen, F. et al. (ACM Research (Shanghai)). Method and apparatus for removing particles or photoresist on substrates. US Patent 12,334,367 B2 (priority 2020, granted 2025).</li>
+<li>Zhao, K. (2020). Dynamics of thin liquid films over a spinning disk. PhD thesis, Imperial College London.</li>
+<li>Zhou, F., Zhang, X., Liu, C. and Yang, S. (2020). Stripping process development using SAPS megasonic technology. ICEPT 2020.</li>
 </ol>
 
 <hr>
@@ -567,6 +939,8 @@ but not modelled.</li>
 
 const CHECKS = /*CHECKS*/;
 const MECH = /*MECH*/;
+const VALID = /*VALID*/;
+const MACHINE = /*MACHINE*/;
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -1057,6 +1431,67 @@ function showChecks() {
   $('checks').innerHTML = html;
 }
 
+// ---------------------------------------------------------------- validation inputs and the closed-loop machine (static data)
+function showInputs() {
+  let html = '<tr><th>Input</th><th>Value used</th><th>Source</th><th>Checked against</th><th>Result</th></tr>';
+  for (const r of VALID.inputs) html += `<tr><td>${r.item}</td><td>${r.value}</td><td>${r.source}</td><td>${r.checked}</td><td>${r.result}</td></tr>`;
+  $('inputs-table').innerHTML = html;
+}
+function showMachine() {
+  const m = MACHINE, st = m.machine.settings, mf = m.machine.footprint, rf = m.rig.footprint;
+  const change = (a, b) => { if (!(b > 0)) return ''; const c = Math.round((a / b - 1) * 100); return (c > 0 ? '+' : c < 0 ? '−' : '') + Math.abs(c) + ' %'; };
+  const point = [
+    ['Generator gas', `${fmt(st.gas_g_per_Nm3)} g/Nm³ at ${fmt(st.gas_flow_Nlpm)} NL/min, with CO₂`],
+    ['Contactor', `${fmt(st.T_contactor_C)} °C at 1 atm; CO₂ to pH ${fmt(st.pH, 2)}`],
+    ['Ozone at the nozzle', `${fmt(mf.c_nozzle_mg_L, 3)} mg/L, ${fmt(mf.supersaturation, 2)} times saturated at 1 atm`],
+    ['Process', `${fmt(st.T_C)} °C, ${fmt(st.rpm)} rpm, ${fmt(st.flow_lpm)} L/min`],
+    ['Cover gas', `${fmt(st.cover_gas_ozone_vol_pct, 2)} % ozone by volume, in a 3 mm gap`],
+    ['Film at the edge of the wafer', `${fmt(st.h_edge_um, 2)} µm`],
+    ['Mean strip rate; non-uniformity', `${fmt(mf.strip_mean_nm_min, 3)} nm/min; ${fmt(mf.nonuniformity * 100, 2)} %`],
+  ];
+  $('machine-point').innerHTML = '<tr><th class="l">Operating point</th><th class="l">Value</th></tr>' +
+    point.map((x) => `<tr><td>${x[0]}</td><td class="l">${x[1]}</td></tr>`).join('');
+  const e = (f, k) => f.energy_kWh[k];
+  const rows = [
+    ['Time to clear (min)', rf.time_to_clear_min, mf.time_to_clear_min, ''],
+    ['Water (L)', rf.water_L, mf.water_L, ''],
+    ['Ozone made (g)', rf.ozone_g, mf.ozone_g, ''],
+    ['Oxygen bought (NL)', rf.oxygen_NL, mf.oxygen_NL, ''],
+    ['Electricity (kWh)', rf.energy_total_kWh, mf.energy_total_kWh, ''],
+    ['  of which ozone generator', e(rf, 'generator'), e(mf, 'generator'), ''],
+    ['  heating', e(rf, 'heating'), e(mf, 'heating'), ''],
+    ['  chiller', e(rf, 'chiller'), e(mf, 'chiller'), ''],
+    ['  ultrapure water', e(rf, 'ultrapure water'), e(mf, 'ultrapure water'), ''],
+    ['Exhaust air (m³)', rf.exhaust_m3, mf.exhaust_m3, ''],
+  ];
+  let html = '<tr><th class="l">Per wafer</th><th>Test rig, open</th><th>Closed-loop machine</th><th>Change</th><th class="l">Single-wafer SPM</th></tr>';
+  for (const [label, a, b] of rows) {
+    const ind = label.startsWith('  ');
+    html += `<tr><td${ind ? ' style="padding-left:1.4em"' : ''}>${label.trim()}</td><td>${fmt(a, 3)}</td><td>${fmt(b, 3)}</td><td>${change(b, a)}</td><td class="l"></td></tr>`;
+  }
+  html += `<tr><td>Share of the ozone made that reaches the resist</td><td>${fmt(rf.ozone_used_fraction * 100, 2)} %</td><td>${fmt(mf.ozone_used_fraction * 100, 2)} %</td><td></td><td class="l"></td></tr>`;
+  html += `<tr><td>Acid and peroxide (L)</td><td>none</td><td>none</td><td></td><td class="l">${fmt(m.spm.H2O2_L, 2)} H₂O₂ and ${fmt(m.spm.H2SO4_L, 2)} H₂SO₄, at 120 °C</td></tr>`;
+  $('machine-footprint').innerHTML = html;
+  let sh = '<tr><th class="l">Change, one at a time</th><th>Time to clear (min)</th><th>Water (L)</th><th>Ozone (g)</th><th>Oxygen (NL)</th><th>Electricity (kWh)</th><th>Exhaust (m³)</th><th>Ozone to the resist</th></tr>';
+  for (const r of m.steps) {
+    sh += `<tr><td>${r.step}</td><td>${fmt(r.time_to_clear_min, 3)}</td><td>${fmt(r.water_L, 3)}</td><td>${fmt(r.ozone_g, 3)}</td>` +
+      `<td>${fmt(r.oxygen_NL, 2)}</td><td>${fmt(r.energy_kWh, 2)}</td><td>${fmt(r.exhaust_m3, 2)}</td><td>${fmt(r.ozone_used_fraction * 100, 2)} %</td></tr>`;
+  }
+  $('machine-steps').innerHTML = sh;
+  const names = { generator_Wh_per_g: 'Ozone generator (Wh per g)', upw_Wh_per_L: 'Ultrapure water (Wh per L)', upw_inlet_C: 'Water supplied at (°C)',
+    heat_recovery: 'Heat recovered from the drain', oxygen_recovery: 'Oxygen recovered', chiller_COP: 'Chiller, heat moved per unit of power',
+    rinse_L: 'Rinse per wafer (L)', rig_exhaust_m3h: 'Exhaust of the open rig (m³/h)', machine_exhaust_m3h: 'Exhaust of the closed module (m³/h)',
+    spm_per_wafer_L: 'Single-wafer SPM per wafer (L of H₂O₂ and H₂SO₄)' };
+  let ah = '<tr><th>Assumption</th><th>Value</th><th>Basis</th></tr>';
+  for (const [k, v] of Object.entries(m.assumptions)) {
+    const val = Array.isArray(v.value) ? v.value.join(' and ') : (v.value < 1 && v.value > 0 && /recover/.test(k) ? Math.round(v.value * 100) + ' %' : v.value);
+    ah += `<tr><td>${names[k] || k}</td><td>${val}</td><td>${v.note}</td></tr>`;
+  }
+  $('machine-assumptions').innerHTML = ah;
+  const ep = m.endpoint;
+  $('ep-drain').textContent = `${fmt(ep.drain_with_resist_mg_L, 3)} mg/L of ozone while resist remains and ${fmt(ep.drain_bare_mg_L, 3)} mg/L once it is gone`;
+}
+
 // ---------------------------------------------------------------- run
 let job = 0;
 function compute() {
@@ -1117,6 +1552,8 @@ function init() {
     compute();
   });
   showChecks();
+  showInputs();
+  showMachine();
   compute();
 }
 init();

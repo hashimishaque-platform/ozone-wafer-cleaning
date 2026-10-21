@@ -91,7 +91,7 @@ def cylinder(x, y, w, h, label):
     text(x + w / 2, y + h / 2 + 4, label, 12)
 
 
-add(f'<svg id="fig7" class="plot wide" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" '
+add(f'<svg id="fig8" class="plot wide" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" '
     f'aria-label="Piping and instruments of the test rig" font-family="{FONT}">')
 add('<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" '
     'markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000000"/></marker></defs>')

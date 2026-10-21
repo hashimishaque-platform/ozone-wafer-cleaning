@@ -2,7 +2,10 @@
 """Build the single-file page from template.html, model.js, rig.svg, checks.json and mechanism.json.
 
     python3 make_data.py                   -> checks.json and mechanism.json (from the Python package)
-    python3 rig.py                         -> rig.svg (Figure 7, the test rig)
+    python3 rig.py                         -> rig.svg (Figure 8, the test rig)
+    python3 validation.py                  -> validation.json, validation.svg (Figure 7)
+    python3 machine.py; python3 machine_pid.py   -> machine.json, machine_space.svg, machine_pid.svg
+    python3 cad/rig_cad.py; cad/drawings.py; cad/module_cad.py; cad/module_section.py  -> cad/*.step, cad/*.svg
     python3 build.py                       -> index.html, a complete page for GitHub Pages
     python3 build.py --artifact OUT URL    -> page body only, with the home link pointing to URL
 """
@@ -41,6 +44,7 @@ PERSON = {
 WEBSITE = {'@type': 'WebSite', '@id': SITE + '/#website', 'url': SITE + '/', 'name': 'Hashim Ishaque'}
 MIT = 'https://opensource.org/licenses/MIT'
 EXTRA = ()
+NARROW = {'spin_cutaway'}
 
 
 def head(meta, extra=()):
@@ -98,13 +102,28 @@ def module(name):
 
 def build(home, full):
     page = (here / 'template.html').read_text(encoding='utf-8')
-    assert page.count('<!--RIG-->') == 1, 'Figure 7 placeholder missing'
-    page = page.replace('<!--RIG-->', (here / 'rig.svg').read_text(encoding='utf-8').strip())
+    svg = lambda name: (here / name).read_text(encoding='utf-8').strip()
+    for mark, name in (('<!--RIG-->', 'rig.svg'), ('<!--VALIDATION-->', 'validation.svg'),
+                       ('<!--MACHINE_PID-->', 'machine_pid.svg'), ('<!--MACHINE_SPACE-->', 'machine_space.svg')):
+        assert page.count(mark) == 1, f'placeholder {mark} missing'
+        page = page.replace(mark, svg(name))
+    for name in re.findall(r'<!--CAD:([a-z_]+)-->', page):
+        drawing = svg(f'cad/{name}.svg')
+        if name in NARROW:                    # small drawings keep their size and do not scroll sideways
+            drawing = drawing.replace('class="plot wide"', 'class="plot"', 1)
+        page = page.replace(f'<!--CAD:{name}-->', drawing)
+    left = re.findall(r'<!--[A-Z_:a-z]+-->', page)
+    assert not left, f'drawing placeholders left: {left}'
     page = page.replace('/*MODEL*/', module('model.js'))
     checks = json.loads((here / 'checks.json').read_text(encoding='utf-8'))
     mech = json.loads((here / 'mechanism.json').read_text(encoding='utf-8'))
     page = page.replace('/*CHECKS*/', json.dumps(checks, ensure_ascii=False))
     page = page.replace('/*MECH*/', json.dumps(mech))
+    valid = json.loads((here / 'validation.json').read_text(encoding='utf-8'))
+    page = page.replace('/*VALID*/', json.dumps({'inputs': valid['inputs']}, ensure_ascii=False))
+    machine = json.loads((here / 'machine.json').read_text(encoding='utf-8'))
+    machine.pop('search', None)
+    page = page.replace('/*MACHINE*/', json.dumps(machine, ensure_ascii=False))
     if not home.startswith('http'):
         page = page.replace('href="/*HOME*/" target="_blank" rel="noopener"', f'href="{home}"')
     page = page.replace('/*HOME*/', home)
