@@ -1,0 +1,263 @@
+<title>Ozone Strip Process Module</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a full-height 3D stage on the left, an instrument panel on the right; stacked on phones. */
+:root {
+  --bg: #e8edef;
+  --stage: #cfd8dc;
+  --panel: #f6f8f8;
+  --raised: #ffffff;
+  --ink: #13212a;
+  --muted: #586973;
+  --line: #ccd6da;
+  --accent: #1f6aa5;
+  --accent-ink: #ffffff;
+  --water: #2c84c6;
+  --gas: #8558cf;
+  --resist: #c27626;
+  --warn: #b0560f;
+  --ok: #2b7a52;
+  --chip: #e3eaed;
+  --shadow: 0 1px 2px rgba(19, 33, 42, .08);
+  --f-ui: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-head: 'IBM Plex Sans Condensed', 'Arial Narrow', 'IBM Plex Sans', system-ui, sans-serif;
+  --f-data: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1215; --stage: #10191e; --panel: #131c21; --raised: #182329; --ink: #e2e9ed; --muted: #92a3ac;
+    --line: #26343c; --accent: #5ca9e5; --accent-ink: #0c1215; --water: #59b3ea; --gas: #b18bf0; --resist: #e39b4b;
+    --warn: #f0a257; --ok: #5cc08b; --chip: #1c272e; --shadow: 0 1px 2px rgba(0, 0, 0, .4); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1215; --stage: #10191e; --panel: #131c21; --raised: #182329; --ink: #e2e9ed; --muted: #92a3ac;
+  --line: #26343c; --accent: #5ca9e5; --accent-ink: #0c1215; --water: #59b3ea; --gas: #b18bf0; --resist: #e39b4b;
+  --warn: #f0a257; --ok: #5cc08b; --chip: #1c272e; --shadow: 0 1px 2px rgba(0, 0, 0, .4); color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--f-ui); }
+.app {
+  height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 384px; grid-template-rows: auto minmax(0, 1fr);
+  gap: 0 16px; padding-block: 12px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+header.bar { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding-bottom: 10px; }
+.titles { min-width: 0; }
+h1 { margin: 0; font: 600 22px/1.15 var(--f-head); letter-spacing: .2px; text-wrap: balance; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.transport { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+button, select { font: 500 13px/1 var(--f-ui); color: var(--ink); }
+.btn { background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; cursor: pointer; box-shadow: var(--shadow); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); min-width: 84px; }
+.btn:focus-visible, select:focus-visible, input:focus-visible, summary:focus-visible, .seg:focus-visible, .part:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+select { background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 7px 8px; }
+.stage { position: relative; min-height: 0; border-radius: 10px; overflow: hidden; background: var(--stage); border: 1px solid var(--line); }
+.viewport { position: absolute; inset: 0; }
+#view { display: block; width: 100%; height: 100%; touch-action: none; }
+.overlay { position: absolute; pointer-events: none; }
+.ov-tl { left: 12px; top: 12px; display: flex; flex-direction: column; gap: 6px; max-width: calc(100% - 24px); }
+.stepchip { display: inline-flex; align-items: baseline; gap: 10px; background: var(--raised); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; box-shadow: var(--shadow); width: max-content; max-width: 100%; }
+.stepchip b { font: 600 14px/1.2 var(--f-head); letter-spacing: .3px; }
+.stepchip span { font: 500 12.5px/1.2 var(--f-data); color: var(--muted); }
+.status { background: color-mix(in srgb, var(--raised) 88%, transparent); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; max-width: 420px; }
+.ov-tr { right: 12px; top: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; pointer-events: auto; }
+.views, .toggles { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+.views button, .toggles label { background: var(--raised); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; font-size: 12px; cursor: pointer; box-shadow: var(--shadow); }
+.views button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.toggles label { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; }
+.toggles input { accent-color: var(--accent); margin: 0; }
+.ov-bl { left: 12px; bottom: 58px; display: flex; flex-wrap: wrap; gap: 6px 12px; background: color-mix(in srgb, var(--raised) 86%, transparent); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 12px; max-width: calc(100% - 24px); }
+.key { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.sw { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.ramp { width: 64px; height: 8px; border-radius: 2px; display: inline-block; background: linear-gradient(90deg, #d6ecf8, #1b5fb8); }
+.timeline { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; height: 34px; border-radius: 7px; overflow: hidden; border: 1px solid var(--line); background: var(--raised); box-shadow: var(--shadow); }
+.seg { position: relative; flex: 1 1 0; min-width: 0; border: 0; border-right: 1px solid var(--line); background: transparent; padding: 0 6px; text-align: left; cursor: pointer; overflow: hidden; }
+.seg:last-child { border-right: 0; }
+.seg .fill { position: absolute; inset: 0 auto 0 0; width: 0; background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.seg .lbl { position: relative; font: 500 11.5px/34px var(--f-ui); white-space: nowrap; color: var(--muted); }
+.seg.now .lbl { color: var(--ink); font-weight: 600; }
+.seg.tight .lbl { visibility: hidden; }
+.tags { position: absolute; inset: 0; pointer-events: none; }
+.tag { position: absolute; transform: translate(-50%, -50%); width: 20px; height: 20px; border-radius: 50%; background: var(--raised); border: 1.5px solid var(--ink); font: 600 11px/17px var(--f-data); text-align: center; color: var(--ink); }
+.tip { position: absolute; z-index: 5; pointer-events: none; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; box-shadow: var(--shadow); max-width: 260px; font-size: 12.5px; }
+.tip b { display: block; font: 600 13.5px/1.25 var(--f-head); }
+.tip i { display: block; font-style: normal; color: var(--muted); margin: 2px 0 4px; }
+.busy { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); background: var(--ink); color: var(--bg); border-radius: 999px; padding: 6px 12px; font-size: 12.5px; }
+.panel { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-right: 2px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.card h2 { margin: 0 0 8px; font: 600 12px/1.2 var(--f-head); letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+.rows { display: grid; grid-template-columns: 10.5em minmax(0, 1fr); gap: 5px 12px; margin: 0; }
+.rows dt { color: var(--muted); font-size: 12.5px; }
+.rows dd { margin: 0; text-align: right; font: 500 12.5px/1.45 var(--f-data); font-variant-numeric: tabular-nums; }
+.rows dd.big { font-size: 15px; font-weight: 500; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+.tile { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.tile span { color: var(--muted); font-size: 11.5px; line-height: 1.3; }
+.tile b { font: 500 13px/1.35 var(--f-data); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile.big b { font-size: 15px; }
+.warns { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.warn { border-left: 3px solid var(--warn); background: color-mix(in srgb, var(--warn) 10%, transparent); padding: 6px 8px; border-radius: 4px; font-size: 12.5px; }
+.okline { border-left: 3px solid var(--ok); background: color-mix(in srgb, var(--ok) 10%, transparent); padding: 6px 8px; border-radius: 4px; font-size: 12.5px; }
+.chart { display: block; width: 100%; height: 118px; }
+.chart-title { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; margin: 10px 0 4px; }
+.chart-title:first-of-type { margin-top: 0; }
+.chart-title span { color: var(--muted); font-family: var(--f-data); font-size: 11.5px; }
+.bal { display: flex; height: 16px; border-radius: 3px; overflow: hidden; margin: 6px 0 8px; }
+.bal div { min-width: 2px; }
+.ctl { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 10px; margin-bottom: 9px; }
+.ctl label { font-size: 12.5px; }
+.ctl output { font: 500 12.5px var(--f-data); font-variant-numeric: tabular-nums; }
+.ctl input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); margin: 2px 0 0; }
+.ctl select { grid-column: 1 / -1; width: 100%; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.part { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; align-items: baseline; padding: 4px 6px; border-radius: 6px; cursor: pointer; }
+.part:hover, .part.hot { background: var(--chip); }
+.part .n { font: 600 12px var(--f-data); color: var(--muted); }
+.part .t { font-size: 12.5px; }
+.part .t small { display: block; color: var(--muted); font-size: 11.5px; }
+details summary { cursor: pointer; font: 600 12px/1.2 var(--f-head); letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); }
+details p, details li { font-size: 12.5px; }
+details ul { padding-left: 18px; margin: 6px 0; }
+.nogl { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+@media (max-width: 900px) {
+  html, body { height: auto; }
+  .app { display: block; height: auto; }
+  .stage { height: 66vh; min-height: 380px; }
+  .panel { margin-top: 14px; overflow: visible; }
+  .ov-bl { bottom: 56px; }
+  .status { max-width: 260px; }
+  .seg .lbl { font-size: 10.5px; }
+}
+@media (max-width: 780px) {
+  .stage { height: auto; min-height: 0; display: flex; flex-direction: column; gap: 8px; padding: 8px; }
+  .stage > .overlay, .stage > .timeline { position: static; max-width: none; box-shadow: none; }
+  .ov-tr { order: 1; align-items: stretch; }
+  .views { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .views button { padding: 7px 2px; box-shadow: none; }
+  .toggles { justify-content: flex-start; }
+  .toggles label { box-shadow: none; }
+  .ov-tl { order: 2; }
+  .stepchip { box-shadow: none; }
+  .status { max-width: none; }
+  .viewport { order: 3; position: relative; height: 46vh; min-height: 300px; margin: 0 -8px; }
+  .ov-bl { order: 4; }
+  .timeline { order: 5; flex: 0 0 34px; }
+  .seg { padding: 0 4px; }
+}
+@media (prefers-reduced-motion: reduce) { .btn, .views button { transition: none; } }
+</style>
+
+<div class="app">
+  <header class="bar">
+    <div class="titles">
+      <h1>Ozone Strip Process Module</h1>
+      <p class="sub">Closed-loop ozone-water resist strip, 300 mm wafer: the cell where the wafer is stripped, with the strip model running live.</p>
+    </div>
+    <div class="transport">
+      <button class="btn" id="restart" type="button">Start cycle</button>
+      <button class="btn primary" id="play" type="button" aria-pressed="true">Pause</button>
+      <label for="speed" class="sub" style="margin:0">Speed</label>
+      <select id="speed" aria-label="Playback speed">
+        <option value="1">1× real time</option>
+        <option value="5">5×</option>
+        <option value="10" selected>10×</option>
+        <option value="30">30×</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="viewport" id="viewport">
+      <canvas id="view" aria-label="3D model of the process module"></canvas>
+      <div class="tags" id="tags" hidden></div>
+      <div class="tip" id="tip" hidden></div>
+      <div class="busy" id="busy" hidden>Simulating the strip…</div>
+    </div>
+    <div class="overlay ov-tl">
+      <div class="stepchip"><b id="stepName">Strip</b><span id="stepClock">0:00</span></div>
+      <div class="status" id="status">Loading the model…</div>
+    </div>
+    <div class="ov-tr overlay">
+      <div class="views" role="group" aria-label="Camera views">
+        <button type="button" data-view="overview" aria-pressed="true">Overview</button>
+        <button type="button" data-view="section" aria-pressed="false">Section</button>
+        <button type="button" data-view="rim" aria-pressed="false">Rim close-up</button>
+        <button type="button" data-view="top" aria-pressed="false">Top</button>
+      </div>
+      <div class="toggles">
+        <label><input type="checkbox" id="tCut" checked> Cut away front</label>
+        <label><input type="checkbox" id="tTags"> Part numbers</label>
+        <label><input type="checkbox" id="tEncl" checked> Enclosure</label>
+        <label><input type="checkbox" id="tUV"> UV option</label>
+      </div>
+    </div>
+    <div class="overlay ov-bl" aria-label="Colour key">
+      <span class="key"><span class="sw" style="background:var(--resist)"></span>Resist</span>
+      <span class="key"><span class="ramp"></span>Ozone in the film, 0 to nozzle</span>
+      <span class="key"><span class="sw" style="background:var(--water)"></span>Water</span>
+      <span class="key"><span class="sw" style="background:var(--gas)"></span>Ozone gas</span>
+      <span class="key"><span class="sw" style="background:#a9b4bb"></span>Oxygen or nitrogen</span>
+    </div>
+    <div class="timeline" id="timeline" role="group" aria-label="Wafer cycle steps"></div>
+  </main>
+
+  <aside class="panel" aria-label="Readouts and settings">
+    <section class="card">
+      <h2>Live readouts</h2>
+      <div class="tiles" id="readouts"></div>
+      <div class="warns" id="warns"></div>
+    </section>
+    <section class="card">
+      <h2>Across the wafer and over time</h2>
+      <div class="chart-title">Resist left <span id="ct1">nm against radius, mm</span></div>
+      <canvas class="chart" id="chResist" aria-label="Resist thickness left across the wafer radius"></canvas>
+      <div class="chart-title">Strip rate <span id="ct2">nm/min against radius, mm</span></div>
+      <canvas class="chart" id="chRate" aria-label="Strip rate across the wafer radius"></canvas>
+      <div class="chart-title">Drain ozone <span id="ct3">mg/L against strip time</span></div>
+      <canvas class="chart" id="chDrain" aria-label="Dissolved ozone in the drain during the strip"></canvas>
+    </section>
+    <section class="card">
+      <h2>Where the ozone goes, per wafer</h2>
+      <div class="bal" id="bal" aria-hidden="true"></div>
+      <dl class="rows" id="balrows"></dl>
+    </section>
+    <section class="card">
+      <h2>Settings</h2>
+      <div class="presets">
+        <button class="btn" type="button" id="pDesign">Machine design point</button>
+        <button class="btn" type="button" id="pOpen">Open process, no lid</button>
+      </div>
+      <div id="ctls"></div>
+    </section>
+    <section class="card">
+      <h2>Parts</h2>
+      <ul class="parts" id="parts"></ul>
+    </section>
+    <section class="card">
+      <details>
+        <summary>How this is computed</summary>
+        <ul>
+          <li>The film on the wafer is solved with the project's ozone-water model: Henry's law, ozone decay against pH and temperature, the spinning-film thickness, and ozone carried outward and diffusing across the film to the resist, which takes up every molecule that arrives.</li>
+          <li>The dissolver is four ideal counterflow stages (Kremser equation), so it can never dissolve more ozone than the generator makes. At the design point this gives 0.9 of equilibrium.</li>
+          <li>The strip is stepped in time. Where the resist is gone, the wafer stops taking up ozone, so more of it reaches the resist further out. The steady model's time to clear, set by the slowest point, is shown beside it.</li>
+          <li>Resist yield: 1 g of ozone per gram of resist, resist 1200 kg/m³, carbon 70 % of the resist by mass (assumed). The drain value is the dissolved ozone in the water leaving the wafer edge.</li>
+          <li>Drawn from the CAD model. Not to scale on screen: the film is drawn 50 times thicker, the rotation 30 times slower, and the water and gas tracers are slowed so they can be followed.</li>
+        </ul>
+      </details>
+    </section>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script id="core">
+/*CORE*/
+</script>
+<script>
+/*APP*/
+</script>
