@@ -6,6 +6,8 @@ package in step.
 - [ ] The decay at 50 to 150 mg/L. The rate law gives much shorter half-lives there than tool
       makers quote (Figure 7b); stage 1 of the test plan measures them, and k₂ is refitted if
       needed. This is the largest open question.
+- [x] A 3D model of the process module in the browser, with the strip stepped in time
+      (`simulation/`).
 - [ ] The second ring of nozzles and the cover gas of the closed-loop machine in the browser
       version, so the machine can be tried on the page like the rig.
 - [ ] A rotor-stator variant of the machine: a cover that spins a few millimetres above the wafer,

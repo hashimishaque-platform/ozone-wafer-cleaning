@@ -10,6 +10,9 @@ uses the same equations.
 
 **Open the program:** https://hashimishaque.com/ozone-wafer-cleaning/
 
+**Also here:** a [3D simulation of the process module](simulation/) that runs in the browser, and a
+[handbook](docs/handbook.md) that explains the project, the equations and every number step by step.
+
 ![Strip rate across a 300 mm wafer, the fate of the dissolved ozone, and the settings](screenshot.png)
 
 ## About the data
@@ -116,6 +119,21 @@ comparison, single-wafer SPM uses about 0.45 L of H₂O₂ and 2.4 L of H₂SO�
 
 ![Section B-B through the process module of the machine, with detail C of the rim](cad/module_section.svg)
 
+## 3D simulation of the process module
+
+The cell where the wafer is stripped, drawn from the CAD model and run in the browser: one wafer
+cycle from loading to unloading, the film and the gas in the gap, and the strip computed live
+with the film model, stepped in time. How to run it, what it computes and what it leaves out are
+in [`simulation/README.md`](simulation/README.md).
+
+![The process module with the front cut away, and the live readouts](simulation/overview.png)
+
+```bash
+# open simulation/index.html in a browser, or
+python3 -m http.server 8000      # then http://localhost:8000/simulation/
+node simulation/test.js          # checks of the simulation core
+```
+
 ## Python
 
 Needs Python 3.9 or newer with NumPy and SciPy (Matplotlib for the example, pytest for the tests).
@@ -220,6 +238,8 @@ your own measurements.
 | `machine_pid.py`, `machine_pid.svg` | Draws Figure 13, the piping and instruments of the machine |
 | `cad/` | The CAD model (CadQuery): `rig_cad.py` (the test rig; `rig.step`, `spin_module.step`, Figures 9 to 11), `drawings.py` (Figure 12), `module_cad.py` (the process module of the machine; `module.step`, Figure 15), `module_section.py` (Figure 16), and the drawings as SVG |
 | `build.py` | Puts the page together: `python3 build.py` writes `index.html` |
+| `simulation/` | The 3D simulation of the process module: the page (`index.html`), its sources, its checks and how to run it (`README.md`) |
+| `docs/handbook.md` | The handbook: why, how, the governing equations and how each number is calculated |
 | `crosscheck.js` | Compares `model.js` with the Python package |
 | `screenshot.png`, `social.png` | Screenshot for this README, and the preview image shown when the page is shared |
 
