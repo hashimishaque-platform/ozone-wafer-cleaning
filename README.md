@@ -1,106 +1,55 @@
 # Ozone wafer cleaning
 
-A process model of ozonated water (DIO3) for photoresist removal on a spinning wafer, checked
-against published measurements, with a test rig to measure it and the design of a closed-loop
-machine that uses it. The model follows the ozone from the generator gas into the water, through
-the supply line and across the liquid film into the resist, and gives the strip rate across the
-wafer, the uniformity, the time to clear and where the ozone goes. It comes as a Python package
-(`dio3`) with tests, and as a single-page browser program with no server and no libraries that
-uses the same equations.
+Can ozone dissolved in water strip photoresist fast enough to replace the sulfuric acid and
+peroxide mix that fabs use today, and how much ozone, water and energy would that take?
 
-**Open the program:** https://hashimishaque.com/ozone-wafer-cleaning/
+I wanted numbers instead of opinions, so I built a model of the whole path: ozone leaves the
+generator as gas, dissolves in water, decays in the supply line, spreads over a spinning wafer as
+a thin film and diffuses through that film into the resist. Out of it come the strip rate across
+the wafer, the uniformity, the time to clear, and where every bit of the ozone ends up.
 
-**Also here:** a [3D simulation of the process module](simulation/) that runs in the browser, and a
-[handbook](docs/handbook.md) that explains the project, the equations and every number step by step.
+Then I used the model for two designs: a test rig that could measure all of this, and a
+closed-loop machine that wastes much less of it.
+
+**Try it in the browser:** https://hashimishaque.com/ozone-wafer-cleaning/
 
 ![Strip rate across a 300 mm wafer, the fate of the dissolved ozone, and the settings](screenshot.png)
 
-## About the data
+## Read this first
 
-This is a theoretical model built from published equations and data, each cited below. The
-checks compare it with exact solutions and with the values it was built from; the validation
-compares it with published measurements that were not used to build it. How much resist a given
-amount of ozone removes depends on the resist, so that one number is calibrated against published
-strip rates and can be calibrated to your own measurements. No unpublished data, and no data from
-any research centre or company process, were used. The test rig and the machine are designs;
-neither has been built.
+Nothing here has been built or measured by me. It is a theoretical model, put together from
+published equations and data, and every source is listed at the bottom. The rig and the machine
+are designs on paper.
 
-## What it covers
+Two things keep it honest:
 
-**Chemistry**
-- Ozone solubility from Henry's law: 1.0 × 10⁻⁴ mol m⁻³ Pa⁻¹ at 25 °C with d ln H / d(1/T) = 2800 K
-  (Burkholder et al. 2019, listed by Sander 2023).
-- Self-decomposition: −d[O₃]/dt = k₁[O₃] + k₂[O₃]², with the slow first-order decay in acid from
-  De Smedt et al. (2002) and the hydroxide-driven decay near neutral pH from Ershov and Morozov
-  (2009), with their activation energies.
-- The Staehelin-Hoigné-Bühler radical mechanism (rate constants compiled by Lesko 2004, two from
-  Buxton et al. 1988), to show why pH, carbonate and hydrogen peroxide change the life of ozone.
-- The pH of ultrapure water holding CO₂, and the resistivity that goes with it.
+- The **checks** compare the model with exact solutions and with the values it was built from.
+- The **validation** compares it with published measurements that were *not* used to build it.
 
-**Engineering**
-- Generator gas and contactor (any fraction of equilibrium, any pressure), decay in the supply
-  line, and supersaturation when the water is warmer at the nozzle than in the contactor.
-- The film on the spinning wafer, h = (3νQ / 2πω²r²)^(1/3) (Emslie, Bonner and Peck 1958).
-- Ozone transport across the film, marched outward from the nozzle in 48 stream tubes, with decay
-  in the water, uptake at the resist and exchange with the gas above (fresh air, or a chamber
-  filled with process gas). The ozone balance closes to rounding error.
-- A mass-transfer factor for megasonic agitation.
-- A second ring of nozzles that adds fresh ozone water at a set radius (Python package only).
+One number is fitted: how much resist a gram of ozone removes. That depends on the resist, so I
+calibrated it against published strip rates, and you can calibrate it to your own. I used no
+unpublished data and nothing from any company or research centre.
 
-**Process**
-- Strip-rate profile, mean, range and non-uniformity; time to clear the slowest point.
-- Ozone used per wafer and the share that reaches the resist; ozone released into the chamber
-  and its concentration in the exhaust, next to the OSHA and NIOSH limits for workplace air.
-- The process window over temperature and spin speed, and the temperature at which the strip
-  rate peaks when ozone is dissolved cold and heated on the way.
+## What is in the repo
 
-**Validation** (`validation.py`; Figure 7 and two tables on the page)
-- Solubility against nine measurements of Henry's constant since 1950 (Sander 2023): the value
-  used is 0.91 times the median measurement, and eight of the nine lie within 20 %.
-- Half-life against the values tool makers quote (MKS data sheet; ACM, US 12,334,367; Sumco,
-  US 7,678,200). The rate law agrees at 5 to 10 mg/L, but at 90 mg/L and pH 7 it gives under a
-  minute against about 15 min; with CO₂ to pH 4.5 it gives 13 min. This is the largest open
-  question, and stage 1 of the test plan measures it.
-- Strip rate: the yield fitted to two of the three published sources predicts the third within a
-  factor of 1.6.
-- Heated wafer: the NEC patent reports 2 and 3 times the rate; the model with the whole film at
-  60 and 80 °C gives 1.8 and 2.2 times.
-- Film: direct simulation and experiments (Stafford et al. 2024) confirm the mean thickness and
-  show waves at these settings, so the smooth-film transfer is a lower bound.
-- Every input checked against its source. This corrected the Dussault calibration point (a
-  negative resist with megasonics) and found two rate constants of the radical mechanism above the
-  values of Buxton et al. (1988); with their values the half-life at pH 7 falls from 8.4 to 6.6 min.
-- Recent work: 24 papers, theses and patents from 2016 to 2026, and what each is used for.
+| Part | Where | In one line |
+|---|---|---|
+| The model | `dio3/` (Python), `model.js` (browser) | Same equations twice; the two agree to about 10⁻¹⁵ |
+| The page | `index.html` | The model with sliders, all figures and tables, no server needed |
+| Validation | `validation.py` | The model against published measurements |
+| Test rig | `rig.py`, `cad/` | P&ID, CAD model, parts list and a test plan |
+| Closed-loop machine | `machine.py`, `machine_pid.py`, `cad/` | Operating point, P&ID, process module, use per wafer |
+| 3D simulation | [`simulation/`](simulation/) | The process module in 3D with the strip running live |
+| Handbook | [`docs/handbook.md`](docs/handbook.md) | The long explanation: why, how, and every number worked out |
 
-**Test rig**
-- The piping and instruments of a bench that measures every number the model uses or predicts,
-  with its parts, materials and safety interlocks.
-- Sizing for the current settings: the ozone made, dissolved and sent to the destruct; the ozone
-  in the exhaust and in the drain, with and without resist; the UV absorbance at the nozzle; the
-  resistivity that goes with the pH; the decay time; when to stop a partial strip.
-- A test plan in four stages, and a two-level design of 16 runs plus 4 centre points for the strip
-  tests, with the model's prediction for each run.
-- The mechanical design: a frame of aluminium profile, 1600 × 800 × 2000 mm in three bays (gas,
-  water, process), as a parametric CAD model with STEP files; an isometric view, a general
-  arrangement, a cut-away of the spin module and Section A-A, with a parts list of 27 items.
-- Why each part is built the way it is, against the alternative, and what is new in the rig.
+**Built with:** Python (NumPy, SciPy; Matplotlib and pytest are optional), plain JavaScript for
+the browser model, [CadQuery](https://github.com/CadQuery/cadquery) for the CAD models and
+drawings, and [three.js](https://threejs.org/) for the 3D simulation.
 
-![Piping and instruments of the test rig](rig.svg)
+## The short version of the results
 
-![The test rig from the front left, from the CAD model](cad/rig_iso.svg)
-
-**A closed-loop machine**
-- Four loops close the losses of the open rig: the off-gas of the contactor is fed under a quartz
-  cover 3 mm above the wafer, so the film is covered by ozone-rich gas instead of room air; the
-  oxygen behind the destruct unit is dried and returned to the generator; the warm drain heats
-  the ozone water on its way to the nozzle; and the drain goes back to the ultrapure-water plant
-  after ozone removal and a TOC check. The water is chilled to 10 °C before the contactor, CO₂
-  brings it to pH 4.5, and the line to the nozzle is short.
-- The model chooses the operating point from 1800 settings under limits for bubbles, film
-  thickness and cover gas: 30 °C, 1600 rpm, 2 L/min, generator gas of 300 g/Nm³ at 1 NL/min.
-- The piping and instruments, a CAD model of the process module with a STEP file, a cut-away and
-  Section B-B with a detail of the rim, a parts list, the risks and how the rig tests them, the
-  prior art, and what is new.
+The open process is ozone water on a spinning wafer under room air, as on the test rig. The
+closed-loop machine is my design. Both columns are for 1 µm of resist on a 300 mm wafer.
 
 | Per wafer | Test rig, open | Closed-loop machine |
 |---|---|---|
@@ -112,8 +61,108 @@ neither has been built.
 | Exhaust air (m³) | 13.5 | 0.38 |
 | Share of the ozone made that reaches the resist | 3 % | 18 % |
 
-The numbers come from the model and the assumptions listed on the page (`machine.py`). For
-comparison, single-wafer SPM uses about 0.45 L of H₂O₂ and 2.4 L of H₂SO₄ per wafer (ACM Research).
+These come from the model and the assumptions in `machine.py`. For scale: single-wafer SPM uses
+about 0.45 L of H₂O₂ and 2.4 L of H₂SO₄ per wafer (ACM Research).
+
+The surprise for me was the first column. In an open process almost all of the ozone is lost
+before it does anything: it never dissolves, it decays in the line, or it leaves the film for the
+room air. Only about 3 % reaches the resist. The machine is my attempt to close those leaks one
+by one.
+
+## The model
+
+**Chemistry**
+- Ozone solubility from Henry's law: 1.0 × 10⁻⁴ mol m⁻³ Pa⁻¹ at 25 °C with d ln H / d(1/T) = 2800 K
+  (Burkholder et al. 2019, listed by Sander 2023).
+- Self-decomposition: −d[O₃]/dt = k₁[O₃] + k₂[O₃]². The slow first-order decay in acid is from
+  De Smedt et al. (2002), the hydroxide-driven decay near neutral pH from Ershov and Morozov
+  (2009), both with their activation energies.
+- The Staehelin-Hoigné-Bühler radical mechanism (rate constants compiled by Lesko 2004, two from
+  Buxton et al. 1988). I added it to see why pH, carbonate and hydrogen peroxide change the life
+  of ozone so much.
+- The pH of ultrapure water holding CO₂, and the resistivity that goes with it.
+
+**Supply and film**
+- Generator gas and contactor (any fraction of equilibrium, any pressure), decay in the supply
+  line, and supersaturation when the water is warmer at the nozzle than in the contactor.
+- The film on the spinning wafer, h = (3νQ / 2πω²r²)^(1/3) (Emslie, Bonner and Peck 1958).
+- Ozone transport across the film, marched outward from the nozzle in 48 stream tubes, with decay
+  in the water, uptake at the resist and exchange with the gas above (fresh air, or a chamber
+  filled with process gas). The ozone balance closes to rounding error.
+- A mass-transfer factor for megasonic agitation.
+- A second ring of nozzles that adds fresh ozone water at a set radius (Python package only).
+
+**What you get out**
+- Strip-rate profile, mean, range and non-uniformity, and the time to clear the slowest point.
+- Ozone used per wafer and the share that reaches the resist; ozone released into the chamber
+  and its concentration in the exhaust, next to the OSHA and NIOSH limits for workplace air.
+- The process window over temperature and spin speed, and the temperature at which the strip
+  rate peaks when ozone is dissolved cold and heated on the way.
+
+## Does it agree with measurements?
+
+Partly, and the places where it does not are the interesting ones (`validation.py`; Figure 7 and
+two tables on the page).
+
+- **Solubility** holds up. Against nine measurements of Henry's constant since 1950 (Sander
+  2023), the value I use is 0.91 times the median, and eight of the nine lie within 20 %.
+- **Half-life is the largest open question.** The rate law agrees with what tool makers quote at
+  5 to 10 mg/L (MKS data sheet; ACM, US 12,334,367; Sumco, US 7,678,200). At 90 mg/L and pH 7 it
+  gives under a minute, against about 15 min quoted. With CO₂ to pH 4.5 it gives 13 min. I do not
+  know yet which is right, so stage 1 of the test plan measures exactly this.
+- **Strip rate:** the yield fitted to two of the three published sources predicts the third
+  within a factor of 1.6.
+- **Heated wafer:** the NEC patent reports 2 and 3 times the rate. The model with the whole film
+  at 60 and 80 °C gives 1.8 and 2.2 times.
+- **Film:** direct simulation and experiments (Stafford et al. 2024) confirm the mean thickness.
+  They also show waves at these settings, so my smooth-film transfer is a lower bound.
+
+Going back to every source also caught mistakes of my own. The Dussault calibration point was
+wrong (it is a negative resist, with megasonics), and two rate constants of the radical mechanism
+were above the values of Buxton et al. (1988). With their values the half-life at pH 7 falls from
+8.4 to 6.6 min. The page also lists 24 recent papers, theses and patents (2016 to 2026) and what
+each one is used for.
+
+## The test rig
+
+A bench that measures every number the model uses or predicts.
+
+- Piping and instruments, with parts, materials and safety interlocks.
+- Sizing for the current settings: ozone made, dissolved and sent to the destruct unit; ozone in
+  the exhaust and in the drain, with and without resist; UV absorbance at the nozzle; the
+  resistivity that goes with the pH; the decay time; when to stop a partial strip.
+- A test plan in four stages. The strip tests are a two-level design of 16 runs plus 4 centre
+  points, with the model's prediction written next to each run.
+- The mechanical design: an aluminium-profile frame, 1600 × 800 × 2000 mm, in three bays (gas,
+  water, process). It is a parametric CAD model with STEP files, an isometric view, a general
+  arrangement, a cut-away of the spin module and Section A-A, with a parts list of 27 items.
+- For each part, why it is built this way and not the obvious other way.
+
+![Piping and instruments of the test rig](rig.svg)
+
+![The test rig from the front left, from the CAD model](cad/rig_iso.svg)
+
+## The closed-loop machine
+
+Four loops, each closing one loss of the open rig:
+
+1. **Ozone.** The off-gas of the contactor is fed under a quartz cover 3 mm above the wafer, so
+   the film sits under ozone-rich gas instead of room air.
+2. **Oxygen.** The oxygen behind the destruct unit is dried and returned to the generator.
+3. **Heat.** The warm drain heats the ozone water on its way to the nozzle.
+4. **Water.** The drain goes back to the ultrapure-water plant after ozone removal and a TOC
+   check.
+
+On top of that the water is chilled to 10 °C before the contactor, CO₂ brings it to pH 4.5, and
+the line to the nozzle is kept short.
+
+I did not pick the operating point by hand. The model searches 1800 settings under limits for
+bubbles, film thickness and cover gas, and lands on 30 °C, 1600 rpm, 2 L/min and generator gas
+of 300 g/Nm³ at 1 NL/min.
+
+The page has the rest: a CAD model of the process module with a STEP file, a cut-away, Section
+B-B with a detail of the rim, a parts list, the risks and how the rig would test them, the prior
+art, and what I think is new.
 
 ![Piping and instruments of the closed-loop machine](machine_pid.svg)
 
@@ -121,10 +170,10 @@ comparison, single-wafer SPM uses about 0.45 L of H₂O₂ and 2.4 L of H₂SO�
 
 ## 3D simulation of the process module
 
-The cell where the wafer is stripped, drawn from the CAD model and run in the browser: one wafer
-cycle from loading to unloading, the film and the gas in the gap, and the strip computed live
-with the film model, stepped in time. How to run it, what it computes and what it leaves out are
-in [`simulation/README.md`](simulation/README.md).
+Drawings only go so far, so I also built the cell where the wafer is stripped as a 3D model that
+runs in the browser. It plays one wafer cycle from loading to unloading, shows the film and the
+gas in the gap, and computes the strip live, stepped in time. It is not a flow simulation (CFD);
+the details, and how to run it, are in [`simulation/README.md`](simulation/README.md).
 
 ![The process module with the front cut away, and the live readouts](simulation/overview.png)
 
@@ -134,9 +183,10 @@ python3 -m http.server 8000      # then http://localhost:8000/simulation/
 node simulation/test.js          # checks of the simulation core
 ```
 
-## Python
+## Running the Python package
 
-Needs Python 3.9 or newer with NumPy and SciPy (Matplotlib for the example, pytest for the tests).
+You need Python 3.9 or newer with NumPy and SciPy. Matplotlib is only for the example, pytest
+only for the tests.
 
 ```
 python3 -m dio3                                         # the default room-temperature process
@@ -161,7 +211,7 @@ print(resistivity_co2(4.9), 'MOhm cm')      # resistivity meter reading for pH 4
 print(co2_pressure_for_ph(4.9), 'Pa')       # CO2 partial pressure that gives that pH
 ```
 
-The page and its figures:
+To rebuild the page and its figures:
 
 ```
 python3 make_data.py          # checks.json, mechanism.json
@@ -172,8 +222,8 @@ python3 machine.py            # machine.json, machine_space.svg (Figure 14); tak
 python3 build.py              # index.html
 ```
 
-The CAD model needs CadQuery (`pip install cadquery`). The STEP files open in FreeCAD and in
-other CAD programs.
+The CAD models are written in CadQuery (`pip install cadquery`), so the rig and the module are
+code, not hand-drawn files. The STEP files they write open in FreeCAD and other CAD programs.
 
 ```
 python3 cad/rig_cad.py        # cad/rig.step, cad/spin_module.step; Figures 9 to 11
@@ -184,7 +234,7 @@ python3 cad/module_section.py # Figure 16, Section B-B through the process modul
 
 ## Checks
 
-`python3 -m pytest -q` runs these, and the page shows them with their numbers:
+`python3 -m pytest -q` runs these. The page shows the same table with live numbers.
 
 | Check | Expected | This model |
 |---|---|---|
@@ -219,8 +269,8 @@ report are assumed (`dio3/calibration.py`):
 | NEC patent US 6,559,064 | about 300 nm/min with 100 ppm on a rotating wafer | 1.05 to 1.62 |
 | Dussault, Fittkau and Gottschalk (2014) | 279 nm/min for a negative resist at 80 ppm, 20 °C, 110 rpm and 1.4 L/min with megasonics, the water fed through a radial manifold; the megasonic gain of over 65 % taken out of it was measured on a positive resist | 0.83 |
 
-The default is 1.0 g/g. `calibration.fit_yield()` and the Resist box on the page calibrate it to
-your own measurements.
+I use 1.0 g/g as the default. If you have your own strip rates, `calibration.fit_yield()` and
+the Resist box on the page fit the yield to them.
 
 ## Files
 
@@ -245,6 +295,8 @@ your own measurements.
 
 ## Limitations
 
+What the model does not do, so nobody has to find out the hard way:
+
 - The film is a steady, smooth, laminar film; inertia near the centre and waves are left out, and
   the zone under the nozzle (r < 10 mm) is not modelled.
 - Water and wafer are at one temperature; a heated wafer under cooler water is not modelled.
@@ -260,7 +312,7 @@ your own measurements.
   listed with it; nothing of it has been built or tested. The second ring of nozzles is in the
   Python package only.
 
-See `ROADMAP.md` for what comes next.
+What I want to add next is in `ROADMAP.md`.
 
 ## References
 
@@ -328,5 +380,7 @@ See `ROADMAP.md` for what comes next.
 
 ## License
 
-The code is MIT licensed, see `LICENSE`. The literature values are taken from the sources above;
-please cite them if you use them.
+The code is MIT licensed, see `LICENSE`. The literature values belong to the sources above, so
+please cite those if you use them.
+
+Questions, corrections and measured data are very welcome: open an issue.
